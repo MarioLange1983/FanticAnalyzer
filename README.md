@@ -1,8 +1,16 @@
 # Fantic Analyzer
 
-Fantic Analyzer is a tool developed out of necessity to provide access to the **e-Shock Communication Module** integrated into many Fantic motorcycles. Currently, there is no official alternative or public software available to owners to interface with this module or view the technical data it handles.
+Fantic Analyzer is a tool developed out of necessity to provide access to the **e-shock Communication Module** integrated into many Fantic motorcycles. Currently, there is no official alternative or public software available to owners to interface with this module or view the technical data it handles.
 
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
+
+<p align="center">
+<img width="300" alt="modul_eshock_front" src="https://github.com/user-attachments/assets/9b17dda2-7a38-4c75-9d65-3730251e3c97" />
+
+<br>
+
+<img width="300" alt="platine_eshock_modul_pins" src="https://github.com/user-attachments/assets/60110f2c-ba44-4b5c-9543-97492c6f61b1" />
+</p>
 
 ## ⚠️ Notice & Disclaimer ⚠️
 
@@ -23,7 +31,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 ## Supported Models (Untested / Likely Compatible)
 
-Based on shared hardware platforms using the e-Shock module, the following models are theoretically supported but may require further verification:
+Based on shared hardware platforms using the e-shock module, the following models are theoretically supported but may require further verification:
 
 **2024 Models:**
 *   Fantic Caballero 500 Scrambler / Deluxe / Rally / Explorer / Six Days (Euro 5)
@@ -43,7 +51,7 @@ Based on shared hardware platforms using the e-Shock module, the following model
 
 ## Bluetooth Low Energy (BLE) Characteristics
 
-The e-Shock module identifies itself with the prefix `FanticCON-`. Communication is handled via a proprietary GATT service and several characteristics.
+The e-shock module identifies itself with the prefix `FanticCON-`. Communication is handled via a proprietary GATT service and several characteristics.
 
 *   **Service UUID**: `0000e550-0000-1000-8000-00805f9b34fb`
 *   **Write Characteristics** (Client -> Module):
@@ -90,7 +98,7 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 1.  **Request Seed**: Send `27 01`.
 2.  **Receive Seed**: Module responds with `67 01 [High Byte] [Low Byte]`.
-3.  **Calculate Key**: The key is derived from the seed using a proprietary S-Box lookup table.
+3.  **Calculate Key**: The key is 4byte
 4.  **Send Key**: Send `27 03 [High Byte] [Low Byte]`.
 5.  **Access Granted**: Module responds with `67 03` (Success).
 
