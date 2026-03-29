@@ -56,11 +56,11 @@ The e-shock module identifies itself with the prefix `FanticCON-`. Communication
 *   **Service UUID**: `0000e550-0000-1000-8000-00805f9b34fb`
 *   **Write Characteristics** (Client -> Module):
     *   `0000e5c0-0000-1000-8000-00805f9b34fb` (Primary Command Channel)
-    *   `0000e5c2-0000-1000-8000-00805f9b34fb` (Auxiliary Command Channel)
+    *   `0000e5c2-0000-1000-8000-00805f9b34fb` (Firmware Upload Channel)
 *   **Indicate Characteristics** (Module -> Client):
     *   `0000e5c1-0000-1000-8000-00805f9b34fb` (Primary Response Channel)
-    *   `0000e5c3-0000-1000-8000-00805f9b34fb`
-    *   `0000e5c4-0000-1000-8000-00805f9b34fb`
+    *   `0000e5c3-0000-1000-8000-00805f9b34fb` (Data Stream Channel)
+    *   `0000e5c4-0000-1000-8000-00805f9b34fb` (Diagnostic Stream Channel)
 
 **MTU Configuration**: The module supports and requires an MTU of **512 bytes** for reliable data transfer of larger payloads (like VIN or module info).
 
@@ -98,7 +98,7 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 1.  **Request Seed**: Send `27 01`.
 2.  **Receive Seed**: Module responds with `67 01 [High Byte] [Low Byte]`.
-3.  **Calculate Key**: The key is 4byte
+3.  **Calculate Key**: The key is 2-byte. Note: There are only 65536 different keys based on 4 byte seed.
 4.  **Send Key**: Send `27 03 [High Byte] [Low Byte]`.
 5.  **Access Granted**: Module responds with `67 03` (Success).
 
