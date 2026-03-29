@@ -134,6 +134,20 @@ The following DIDs have been successfully identified and decoded:
 *   `0x33`: Security Access Denied (Locked)
 *   `0x35`: Invalid Key
 
+### Unsupported Service Frames (Bruteforced)
+The following frame patterns were tested but consistently returned a Negative Response (NRC):
+
+| UDS Payload (Excl. Length & CRC) | UDS Service / Description |
+| :--- | :--- |
+| `10 xx` | Diagnostic Session Control |
+| `11 xx xx` | ECU Reset |
+| `19 xx xx` | Read DTC Information |
+| `28 xx xx` | Communication Control |
+| `29 xx xx` | Authentication |
+| `3E xx xx` | Tester Present |
+
+<br>
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/9a662dde-666f-4791-a141-96765a7bb9bc" width="200" alt="Image 01">
   <img src="https://github.com/user-attachments/assets/ccb491e5-5496-4996-924e-bfd525c17fb0" width="200" alt="Image 02">
