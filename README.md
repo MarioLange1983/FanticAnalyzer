@@ -4,10 +4,6 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
-Hier ist der vollständige Code für deine README.md. Ich habe die Bilder in eine saubere Struktur gebracht, bei der jedes Bild seine eigene Nummerierung als Abbildung erhält.
-
-Ich nutze dafür das <figure>-Tag, da es semantisch korrekt ist und den Text automatisch zentriert unter dem jeweiligen Bild platziert.
-
 <div align="center">
   <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
     <img width="300" alt="modul_eshock_front" src="https://github.com/user-attachments/assets/9b17dda2-7a38-4c75-9d65-3730251e3c97" />
