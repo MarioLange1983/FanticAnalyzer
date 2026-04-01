@@ -1,14 +1,34 @@
-# Fantic Analyzer
+# Fantic Analyzer 
 
 Fantic Analyzer is a tool developed out of necessity to provide access to the **e-shock Communication Module** integrated into many Fantic motorcycles. Currently, there is no official alternative or public software available to owners to interface with this module or view the technical data it handles.
 
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
-<p align="center">
-<img width="300" alt="modul_eshock_front" src="https://github.com/user-attachments/assets/9b17dda2-7a38-4c75-9d65-3730251e3c97" />
-<br>
-<img width="300" alt="platine_eshock_modul_pins" src="https://github.com/user-attachments/assets/60110f2c-ba44-4b5c-9543-97492c6f61b1" />
-</p>
+Hier ist der vollständige Code für deine README.md. Ich habe die Bilder in eine saubere Struktur gebracht, bei der jedes Bild seine eigene Nummerierung als Abbildung erhält.
+
+Ich nutze dafür das <figure>-Tag, da es semantisch korrekt ist und den Text automatisch zentriert unter dem jeweiligen Bild platziert.
+
+<div align="center">
+  <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
+    <img width="300" alt="modul_eshock_front" src="https://github.com/user-attachments/assets/9b17dda2-7a38-4c75-9d65-3730251e3c97" />
+    <br>
+    <small><i>Abbildung 1: Modul E-Shock Frontansicht</i></small>
+  </div>
+  <br>
+  <br>
+  <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
+    <img width="300" alt="platine_eshock_modul_pins" src="https://github.com/user-attachments/assets/60110f2c-ba44-4b5c-9543-97492c6f61b1" />
+    <br>
+    <small><i>Abbildung 2: Platine E-Shock Modul Pin-Belegung</i></small>
+  </div>
+  <br>
+  <br>
+  <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
+    <img width="300" alt="modul_eshock_with_canbus_emulator" src="https://github.com/user-attachments/assets/0ab1ba35-f782-4e34-a8f3-e408211e11c2" />
+    <br>
+    <small><i>Abbildung 3: E-Shock Modul mit CAN-Bus Emulator</i></small>
+  </div>
+</div>
 
 ## ⚠️ Notice & Disclaimer
 
@@ -20,9 +40,18 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **No Warranty:** This application is provided "as-is" without any guarantees of accuracy or functionality.
 *   **User Responsibility:** Use this tool strictly at your own risk. The developer is not responsible for electronic errors, module lockouts, or physical damages to your vehicle resulting from the use of this pre-alpha tool. Do not rely on this information for critical maintenance or safety-related decisions.
 
+## ⚖️ Legal Compliance & Open Research (EU/Germany)
+
+This project is conducted in accordance with European and German legislation regarding Reverse Engineering and interoperability:
+
+1.  **Right to Reverse Engineering (§ 3 GeschGehG):** Under the German Trade Secret Act (Geschäftsgeheimnisgesetz), reverse engineering is explicitly permitted if a product is acquired through lawful means (e.g., purchase of the vehicle) and the analysis is conducted by observation, study, disassembly, or testing.
+2.  **Interoperability (§ 69e UrhG):** The German Copyright Act (Urheberrechtsgesetz) allows the analysis of software code without the author's consent if it is indispensable to obtain information necessary to achieve the interoperability of an independently created computer program with other programs.
+3.  **Ownership Rights:** As the lawful owner of the vehicle and the integrated module, accessing diagnostic data for maintenance and personal research is a legitimate interest, especially when the manufacturer fails to provide adequate tools for a paid gateway/module.
+4.  **Non-Commercial Intent:** This project is for private, educational, and research purposes only. It does not aim to infringe on any intellectual property for commercial gain.
+
 ## Technical Scope & Compliance
 
-*   **Tested Environment:** Developed and tested on **Android 16** using a **Pixel 9a**.
+*   **Tested Environment:** Developed and tested on **Android 15/16** using a **Pixel 9 series device**.
 *   **Target Vehicle:** Primarily tuned for and tested on the **2024 Fantic Caballero Deluxe**.
 *   **Hardware Platform:** The module is based on an **Espressif ESP32** (Single-core) running **ESP-IDF v5.1**.
 *   **Experimental Security:** While the ECU Seed/Key (Security Access) algorithm is implemented, it remains in a testing phase.
@@ -157,15 +186,17 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 ### Unsupported Service Frames (Bruteforced)
 The following frame patterns were tested but consistently returned a Negative Response (NRC):
 
-| UDS Payload (Excl. Length & CRC) | UDS Service / Description | Iterations
-| :--- | :--- | :--- |
-| `10 xx` | Diagnostic Session Control | 256
-| `11 xx xx` | ECU Reset | 65536
-| `19 xx xx` | Read DTC Information | 65536
-| `28 xx xx` | Communication Control | 65536
-| `29 xx xx` | Authentication | 65536
-| `3E xx xx` | Tester Present | 65536
-
+| UDS Payload (Excl. Length & CRC) | UDS Service / Description |
+| :--- | :--- |
+| `10 xx` | Diagnostic Session Control |
+| `11 xx xx` | ECU Reset |
+| `19 xx xx` | Read DTC Information |
+| `28 xx xx` | Communication Control |
+| `29 xx xx` | Authentication |
+| `3E xx xx` | Tester Present |
+| `14 01 xx xx` | Clear Diagnostic Info |
+| `14 FF xx xx` | Clear Diagnostic Info |
+<br>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/9a662dde-666f-4791-a141-96765a7bb9bc" width="200" alt="Image 01">
   <img src="https://github.com/user-attachments/assets/ccb491e5-5496-4996-924e-bfd525c17fb0" width="200" alt="Image 02">
