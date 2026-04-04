@@ -1,4 +1,4 @@
-# Fantic Analyzer 
+# Fantic Analyzer
 
 Fantic Analyzer is a tool developed out of necessity to provide access to the **e-shock Communication Module** integrated into many Fantic motorcycles. Currently, there is no official alternative or public software available to owners to interface with this module or view the technical data it handles.
 
@@ -8,21 +8,21 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
   <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
     <img width="300" alt="modul_eshock_front" src="https://github.com/user-attachments/assets/9b17dda2-7a38-4c75-9d65-3730251e3c97" />
     <br>
-    <small><i>Abbildung 1: Modul E-Shock Frontansicht</i></small>
+    <small><i>Figure 1: E-Shock Module Front View</i></small>
   </div>
   <br>
   <br>
   <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
     <img width="300" alt="platine_eshock_modul_pins" src="https://github.com/user-attachments/assets/60110f2c-ba44-4b5c-9543-97492c6f61b1" />
     <br>
-    <small><i>Abbildung 2: Platine E-Shock Modul Pin-Belegung</i></small>
+    <small><i>Figure 2: E-Shock Module PCB Pinout</i></small>
   </div>
   <br>
   <br>
   <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
     <img width="300" alt="modul_eshock_with_canbus_emulator" src="https://github.com/user-attachments/assets/0ab1ba35-f782-4e34-a8f3-e408211e11c2" />
     <br>
-    <small><i>Abbildung 3: E-Shock Modul mit CAN-Bus Emulator</i></small>
+    <small><i>Figure 3: E-Shock Module with CAN-Bus Emulator</i></small>
   </div>
 </div>
 
@@ -73,6 +73,24 @@ Based on shared hardware platforms using the e-shock module, the following model
 
 # Technical Documentation
 
+## ECU Emulator (Research Environment)
+
+To facilitate protocol analysis without constant vehicle access, a dedicated **ECU Emulator** was developed. This hardware simulates the motorcycle's electronic control unit and its interaction with the e-shock module via the CAN bus.
+
+*   **Hardware:** Espressif **ESP32-C3** connected via a **SN65HVD230** CAN transceiver.
+*   **Protocol Support:** Implements **ISO-TP (ISO 15765-2)** for multi-frame UDS responses.
+*   **Simulated Traffic:**
+    *   **Telemetry (ID 0x310):** Simulates engine RPM, kickstand status etc..
+    *   **UDS Responses (ID 0x7A8):** Provides mock data for VIN (`0xF190`), Model ID (`0xF0FD`), and SW/HW versions.
+
+```cpp
+// Example: Simulated Telemetry Frame (ID 0x310)
+uint8_t data310[8];
+data310[2] = (uint8_t)(rpm & 0xFF);         // RPM Low Byte
+data310[3] = (uint8_t)((rpm >> 8) & 0xFF);  // RPM High Byte
+data310[4] = (!KickStandDown) ? (1 << 7) : 0; // Kickstand bit (Bit 7)
+sendFrame(0x310, 8, data310);
+```
 ## Hardware & Internals (UART Analysis)
 
 Internal logs via UART reveal the following system specifications:
@@ -151,17 +169,18 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 ## Known Diagnostic Identifiers (DIDs)
 
-| DID (Hex) | Description | Data Format / Interpretation |
-| :--- | :--- | :--- |
-| `0002` | **VIN** | 17-byte ASCII String |
-| `0003` | **Runtime** | 2-byte Integer (Ticks/Seconds) |
-| `0009` | **Kickstand** | 1-byte (`0x01` = Up, `0x00` = Down) |
-| `000C` | **Engine RPM** | 2-byte Integer |
-| `000D` | **Engine Temp** | 1-byte Integer (°C) |
-| `000F` | **Battery Voltage** | 1-byte (`Value / 16.0f` = Volts) |
-| `E501` | **Module Info** | Composite ASCII fields (Serial, App Name, Version) |
-| `E502` | **DID Directory** | List of available identifiers |
-| `E506` | **HW Version** | Hardware name and revision |
+| DID (Hex) | Description         | Data Format / Interpretation                       | Verified |
+| :--- | :--- | :--- | :--- |
+| `0002` | **VIN**             | 17-byte ASCII String                               | ✅ |
+| `0003` | **???**         | 2-byte Integer                    | |
+| `0007` | **Gear Position**   | 1-byte (`0x00` = N, `0x01` = 1, ...)               | ✅ |
+| `0009` | **Kickstand**       | 1-byte (`0x01` = Up, `0x00` = Down)                | ✅ |
+| `000C` | **Engine RPM**      | 2-byte Integer                                     | ✅ |
+| `000D` | **Engine Temp**     | 1-byte Integer (°C)                                | |
+| `000F` | **Battery Voltage** | 1-byte (`Value / 16.0f` = Volts)                   | |
+| `E501` | **Module Info**     | Composite ASCII fields (Serial, App Name, Version) | |
+| `E502` | **DID Directory**   | List of available identifiers                      | |
+| `E506` | **HW Version**      | Hardware name and revision                         | |
 
 ## Supported Service IDs (SIDs)
 
@@ -192,7 +211,7 @@ The following frame patterns were tested but consistently returned a Negative Re
 | `3E xx xx` | Tester Present |
 | `14 01 xx xx` | Clear Diagnostic Info |
 | `14 FF xx xx` | Clear Diagnostic Info |
-<br>
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/9a662dde-666f-4791-a141-96765a7bb9bc" width="200" alt="Image 01">
   <img src="https://github.com/user-attachments/assets/ccb491e5-5496-4996-924e-bfd525c17fb0" width="200" alt="Image 02">
