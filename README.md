@@ -116,7 +116,7 @@ Internal logs via UART reveal the following system specifications:
 ### Module Specifications & Identification
 
 *   **Product Number:** 30513
-*   **EAN:**9502649716263
+*   **EAN:** 9502649716263
 *   **Manufacturer Part Number:** V1391005
 *   **Manufacturer:** Fantic Motor S.P.A
 <br>
