@@ -113,6 +113,14 @@ Internal logs via UART reveal the following system specifications:
 *   **Hardware Identifier:** `CUM` (Revision `RevC`)
 *   **CAN Bus Integration:** The module monitors the vehicle CAN bus. A **Wakeup CAN ID of `0x310`** is used to trigger the shutdown/startup process.
 
+### Module Specifications & Identification
+
+*   **Product Number:** 30513
+*   **EAN:**9502649716263
+*   **Manufacturer Part Number:** V1391005
+*   **Manufacturer:** Fantic Motor S.P.A
+<br>
+
 ## Bluetooth Low Energy (BLE) Characteristics
 
 The e-shock module identifies itself with the prefix `FanticCON-` followed by its serial number (e.g., `FanticCON-154204`).
