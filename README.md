@@ -4,27 +4,11 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
-<div align="center">
-  <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
-    <img width="300" alt="modul_eshock_front" src="https://github.com/user-attachments/assets/9b17dda2-7a38-4c75-9d65-3730251e3c97" />
-    <br>
-    <small><i>Figure 1: E-Shock Module Front View</i></small>
-  </div>
-  <br>
-  <br>
-  <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
-    <img width="300" alt="platine_eshock_modul_pins" src="https://github.com/user-attachments/assets/60110f2c-ba44-4b5c-9543-97492c6f61b1" />
-    <br>
-    <small><i>Figure 2: E-Shock Module PCB Pinout</i></small>
-  </div>
-  <br>
-  <br>
-  <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
-    <img width="300" alt="modul_eshock_with_canbus_emulator" src="https://github.com/user-attachments/assets/0ab1ba35-f782-4e34-a8f3-e408211e11c2" />
-    <br>
-    <small><i>Figure 3: E-Shock Module with CAN-Bus Emulator</i></small>
-  </div>
-</div>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9a662dde-666f-4791-a141-96765a7bb9bc" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/ccb491e5-5496-4996-924e-bfd525c17fb0" width="200" alt="App Screenshot 02">
+  <img src="https://github.com/user-attachments/assets/dc4d867c-29e7-4592-a542-47ae758ebd84" width="200" alt="App Screenshot 03">
+</p>
 
 ## ⚠️ Notice & Disclaimer
 
@@ -69,6 +53,10 @@ Based on shared hardware platforms using the e-shock module, the following model
 *   Fantic XEF 125 Enduro Performance / Competition
 *   Fantic XMF 125 Motard Performance / Competition
 
+## ToDo / Roadmap
+
+* [ ] Integration of `E503` - data stream
+* [ ] Integration of `E504` - diagnostic stream
 ---
 
 # Technical Documentation
@@ -80,7 +68,7 @@ To facilitate protocol analysis without constant vehicle access, a dedicated **E
 *   **Hardware:** Espressif **ESP32-C3** connected via a **SN65HVD230** CAN transceiver.
 *   **Protocol Support:** Implements **ISO-TP (ISO 15765-2)** for multi-frame UDS responses.
 *   **Simulated Traffic:**
-    *   **Telemetry (ID 0x310):** Simulates engine RPM, kickstand status etc..
+    *   **Telemetry (ID 0x310):** Simulates engine RPM, kickstand status etc...
     *   **UDS Responses (ID 0x7A8):** Provides mock data for VIN (`0xF190`), Model ID (`0xF0FD`), and SW/HW versions.
 
 ```cpp
@@ -91,8 +79,31 @@ data310[3] = (uint8_t)((rpm >> 8) & 0xFF);  // RPM High Byte
 data310[4] = (!KickStandDown) ? (1 << 7) : 0; // Kickstand bit (Bit 7)
 sendFrame(0x310, 8, data310);
 ```
+
 ## Hardware & Internals (UART Analysis)
 
+<div align="center">
+  <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
+    <img width="300" alt="modul_eshock_front" src="https://github.com/user-attachments/assets/9b17dda2-7a38-4c75-9d65-3730251e3c97" />
+    <br>
+    <small><i>Figure 1: E-Shock Module Front View</i></small>
+  </div>
+  <br>
+  <br>
+  <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
+    <img width="300" alt="platine_eshock_modul_pins" src="https://github.com/user-attachments/assets/60110f2c-ba44-4b5c-9543-97492c6f61b1" />
+    <br>
+    <small><i>Figure 2: E-Shock Module PCB Pinout</i></small>
+  </div>
+  <br>
+  <br>
+  <div style="display: inline-block; text-align: center; margin-bottom: 20px;">
+    <img width="300" alt="modul_eshock_with_canbus_emulator" src="https://github.com/user-attachments/assets/0ab1ba35-f782-4e34-a8f3-e408211e11c2" />
+    <br>
+    <small><i>Figure 3: E-Shock Module with CAN-Bus Emulator</i></small>
+  </div>
+</div>
+<br>
 Internal logs via UART reveal the following system specifications:
 
 *   **Project Name:** `fantic`
@@ -178,9 +189,9 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `000C` | **Engine RPM**      | 2-byte Integer                                     | ✅ |
 | `000D` | **Engine Temp**     | 1-byte Integer (°C)                                | |
 | `000F` | **Battery Voltage** | 1-byte (`Value / 16.0f` = Volts)                   | |
-| `E501` | **Module Info**     | Composite ASCII fields (Serial, App Name, Version) | |
+| `E501` | **Module Info**     | Composite ASCII fields (Serial, App Name, Version) | ✅ |
 | `E502` | **DID Directory**   | List of available identifiers                      | |
-| `E506` | **HW Version**      | Hardware name and revision                         | |
+| `E506` | **HW Version**      | Hardware name and revision                         | ✅ |
 
 ## Supported Service IDs (SIDs)
 
@@ -212,8 +223,6 @@ The following frame patterns were tested but consistently returned a Negative Re
 | `14 01 xx xx` | Clear Diagnostic Info |
 | `14 FF xx xx` | Clear Diagnostic Info |
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/9a662dde-666f-4791-a141-96765a7bb9bc" width="200" alt="Image 01">
-  <img src="https://github.com/user-attachments/assets/ccb491e5-5496-4996-924e-bfd525c17fb0" width="200" alt="Image 02">
-  <img src="https://github.com/user-attachments/assets/dc4d867c-29e7-4592-a542-47ae758ebd84" width="200" alt="Image 03">
-</p>
+## 📬 Contact
+
+If you want to get in touch, please open an issue in this repository and leave your email address. I will get back to you!
