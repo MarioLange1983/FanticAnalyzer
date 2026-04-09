@@ -110,7 +110,7 @@ Internal logs via UART reveal the following system specifications:
 *   **App Name:** `e-Conn Micro Fantic` (V1.1)
 *   **SoC:** ESP32 (running at 160MHz)
 *   **Partitioning:** Dual OTA partitions with NVM storage for EOL data, calibrations, and DTCs.
-*   **Hardware Identifier:** `CUM` (Revision `RevC`)
+*   **Hardware Identifier:** `CUM` (CU MICRO, Revision `RevC`)
 *   **CAN Bus Integration:** The module monitors the vehicle CAN bus. A **Wakeup CAN ID of `0x310`** is used to trigger the shutdown/startup process.
 
 ### Module Specifications & Identification
@@ -118,7 +118,8 @@ Internal logs via UART reveal the following system specifications:
 *   **Product Number:** 30513
 *   **EAN:** 9502649716263
 *   **Manufacturer Part Number:** V1391005
-*   **Manufacturer:** Fantic Motor S.P.A
+*   **Manufacturer:** e-Shock S.r.l. (on behalf of Fantic Motor S.P.A.)
+*   **Functionality:** Enables communication with the outside world of all vehicle devices connected to the CAN-bus line via BLE and WiFi.
 <br>
 
 ## Bluetooth Low Energy (BLE) Characteristics
@@ -182,7 +183,7 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 1.  **Request Seed**: Send `27 01`.
 2.  **Receive Seed**: Module responds with `67 01 [High Byte] [Low Byte]`.
-3.  **Calculate Key**: The key is 2-byte. Note: There are only 65536 different keys based on 4 byte seed.
+3.  **Calculate Key**: The key is 2-byte. Note: There are only 65536 different keys based on a 2-byte seed.
 4.  **Send Key**: Send `27 03 [High Byte] [Low Byte]`.
 5.  **Access Granted**: Module responds with `67 03` (Success).
 
