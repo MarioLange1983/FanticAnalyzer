@@ -74,9 +74,33 @@ To facilitate protocol analysis without constant vehicle access, a dedicated **E
 ```cpp
 // Example: Simulated Telemetry Frame (ID 0x310)
 uint8_t data310[8];
-data310[2] = (uint8_t)(rpm & 0xFF);         // RPM Low Byte
-data310[3] = (uint8_t)((rpm >> 8) & 0xFF);  // RPM High Byte
-data310[4] = (!KickStandDown) ? (1 << 7) : 0; // Kickstand bit (Bit 7)
+
+// Fuel Level [?] (DID=0x0011)
+data310[0] = 0x32;
+
+// Unknown
+data310[1] = rand() % 255;
+
+// Engine RPM (DID=0x000C)
+uint16_t rpm = (uint16_t)((rand() % 6201) + 800);
+data310[2] = (uint8_t)(rpm & 0xFF);
+data310[3] = (uint8_t)((rpm >> 8) & 0xFF);
+
+// Kickstand (DID=0x0009)
+data310[4] = 0;
+if (!KickStandDown) {
+    data310[4] |= (1 << 7);
+}
+data310[4] |= (2 << 2);
+data310[4] |= (3 << 4);
+
+// Unknown (DID=0x0008)
+data310[5] = 0x0A;
+
+// Unknown (DID=0x0003)
+data310[6] = rand() % 255;
+data310[7] = rand() % 255;
+
 sendFrame(0x310, 8, data310);
 ```
 
