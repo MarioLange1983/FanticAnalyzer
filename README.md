@@ -231,8 +231,10 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | SID (Hex) | Type | Description |
 | :--- | :--- | :--- |
 | `22` | Request | Read Data By Identifier |
-| `62` | Response | Positive Response for `0x22` |
 | `27` | Request | Security Access |
+| `2E` | Request | Write Data By Identifier |
+| `31` | Request | Routine Control |
+| `62` | Response | Positive Response for `0x22` |
 | `67` | Response | Positive Response for `0x27` |
 | `7F` | Response | **Negative Response (NRC)** - Error code follows |
 
@@ -255,6 +257,10 @@ The following frame patterns were tested but consistently returned a Negative Re
 | `3E xx xx` | Tester Present |
 | `14 01 xx xx` | Clear Diagnostic Info |
 | `14 FF xx xx` | Clear Diagnostic Info |
+
+## Known Issues
+
+* If not bonded correctly to the mobile device, the e-shock module will automatically disconnect after ~20 seconds. Ensure the initial Bluetooth pairing process is fully completed via mobile bluetooth settings.
 
 ## 📬 Contact
 
