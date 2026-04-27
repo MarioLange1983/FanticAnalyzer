@@ -94,12 +94,12 @@ if (!KickStandDown) {
 data310[4] |= (2 << 2);
 data310[4] |= (3 << 4);
 
-// Unknown (DID=0x0008)
-data310[5] = 0x0A;
+// Speedometer DID=0x0008 (50*0,8 = 40km/h)
+data310[5] = 0x32;
 
-// Unknown (DID=0x0003)
-data310[6] = rand() % 255;
-data310[7] = rand() % 255;
+// System Voltage DID=0x0003 (13,25V)
+data310[6] = 0xBC;
+data310[7] = 0x34;
 
 sendFrame(0x310, 8, data310);
 ```
@@ -217,22 +217,23 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 ## Known Diagnostic Identifiers (DIDs)
 
-| DID (Hex) | Description         | Data Format / Interpretation                       | Verified |
-|:----------|:--------------------|:---------------------------------------------------|:---------|
-| `0002`    | **VIN**             | 17-byte ASCII String                               | ✅        |
-| `0003`    | **System Voltage**  | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)    | ✖        |
-| `0007`    | **Gear Position**   | 1-byte (`0x00` = N, `0x01` = 1...)                 | ✅        |
-| `0008`    | **Speed**           | 1-byte Integer km/h                                | ✖        |
-| `0027`    | **Odometer**        | 4-byte Integer (`Value / 8.0f` = km)               | ✅        |
-| `0009`    | **Kickstand**       | 1-byte (`0x01` = Up, `0x00` = Down)                | ✅        |
-| `000C`    | **Engine RPM**      | 2-byte Integer                                     | ✅        |
-| `000D`    | **Fuel Gauge**      | 1-byte Integer (%)                                 | ✖        |
-| `000E`    | **Throttle Position (TPS)** | 1-byte Integer (%)                         | ✖        |
-| `0011`    | **Engine Temp**     | 1-byte Integer (°C)                                | ✖         |
-| `000F`    | **Battery Voltage** | 1-byte (`Value / 16.0f` = Volts)                   | ✖        |
-| `E501`    | **Module Info**     | Composite ASCII fields (Serial, App Name, Version) | ✅        |
-| `E502`    | **DID Directory**   | List of available identifiers                      | ✖        |
-| `E506`    | **HW Version**      | Hardware name and revision                         | ✅        |
+| DID (Hex) | Description                 | Data Format / Interpretation                       | Verified |
+|:----------|:----------------------------|:---------------------------------------------------|:---------|
+| `0002`    | **VIN**                     | 17-byte ASCII String                               | ✅        |
+| `0003`    | **System Voltage**          | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)    | ✖        |
+| `0007`    | **Gear Position**           | 1-byte (`0x00` = N, `0x01` = 1...)                 | ✅        |
+| `0008`    | **Speed**                   | 1-byte Integer km/h                                | ✖        |
+| `0027`    | **Odometer**                | 4-byte Integer (`Value / 8.0f` = km)               | ✅        |
+| `0009`    | **Kickstand**               | 1-byte (`0x01` = Up, `0x00` = Down)                | ✅        |
+| `000B`    | **Instant Consumption**     | 2-byte Integer (`Value / 100.0f` = L/100km)        | ✖        |
+| `000C`    | **Engine RPM**              | 2-byte Integer                                     | ✅        |
+| `000D`    | **Fuel Gauge**              | 1-byte Integer (%)                                 | ✖        |
+| `000E`    | **Throttle Position (TPS)** | 1-byte Integer (%)                                 | ✖        |
+| `0011`    | **Engine Temp**             | 1-byte Integer (°C)                                | ✖        |
+| `000F`    | **Battery Voltage**         | 1-byte (`Value / 16.0f` = Volts)                   | ✖        |
+| `E501`    | **Module Info**             | Composite ASCII fields (Serial, App Name, Version) | ✅        |
+| `E502`    | **DID Directory**           | List of available identifiers                      | ✖        |
+| `E506`    | **HW Version**              | Hardware name and revision                         | ✅        |
 
 ## Supported Service IDs (SIDs)
 
