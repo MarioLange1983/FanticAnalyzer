@@ -75,8 +75,8 @@ To facilitate protocol analysis without constant vehicle access, a dedicated **E
 // Example: Simulated Telemetry Frame (ID 0x310)
 uint8_t data310[8];
 
-// Fuel Level [?] (DID=0x0011)
-data310[0] = 0x32;
+//Engine Temp DID=0x011 (64-40 = 24°C)
+data310[0] = 0x40;
 
 // Unknown
 data310[1] = rand() % 255;
