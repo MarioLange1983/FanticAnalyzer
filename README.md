@@ -5,9 +5,9 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/9a662dde-666f-4791-a141-96765a7bb9bc" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/ccb491e5-5496-4996-924e-bfd525c17fb0" width="200" alt="App Screenshot 02">
-  <img src="https://github.com/user-attachments/assets/dc4d867c-29e7-4592-a542-47ae758ebd84" width="200" alt="App Screenshot 03">
+  <img src="https://github.com/user-attachments/assets/369cba3f-67ae-4ad9-953b-42f2c3e4ff80" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/3c43196c-df90-483c-aa1e-c7658c333ef5" width="200" alt="App Screenshot 02">
+  <img src="https://github.com/user-attachments/assets/2858fd42-c6db-44e7-807e-a46ba56c4ded" width="200" alt="App Screenshot 03">
 </p>
 
 ## ⚠️ Notice & Disclaimer
