@@ -10,6 +10,14 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
   <img src="https://github.com/user-attachments/assets/f957a297-b74c-48f4-8a83-47a30508609f" width="200" alt="App Screenshot 03">
 </p>
 
+## Features
+
+*   **Immersive Landscape Mode:** All tabs switch to a full-screen, distraction-free view in landscape orientation, perfect for on-the-go monitoring.
+*   **Live Data Dashboard:** View critical real-time vehicle data, including RPM, engine temperature, speed, gear position, and more.
+*   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module's hardware and firmware.
+*   **Advanced Terminal:** A built-in console shows raw log data and allows advanced users to send custom UDS commands for deep-level diagnostics.
+*   **Data Export:** Easily share diagnostic logs and vehicle data for external analysis.
+
 ## ⚠️ Notice & Disclaimer
 
 **This software is an experimental release based entirely on independent private research.**
@@ -69,13 +77,14 @@ To facilitate protocol analysis without constant vehicle access, a dedicated **E
 *   **Protocol Support:** Implements **ISO-TP (ISO 15765-2)** for multi-frame UDS responses.
 *   **Simulated Traffic:**
     *   **Telemetry (ID 0x310):** Simulates engine RPM, kickstand status etc...
-    *   **UDS Responses (ID 0x7A8):** Provides mock data for VIN (`0xF190`), Model ID (`0xF0FD`), and SW/HW versions.
+    *   **Telemetry (ID 0x356):** Simulates fuel consumption
+    * **UDS Responses (ID 0x7A8):** Provides mock data for VIN (`0xF190`), Model ID (`0xF0FD`), and SW/HW versions.
 
 ```cpp
-// Example: Simulated Telemetry Frame (ID 0x310)
+// Simulated Telemetry Frame (ID 0x310)
 uint8_t data310[8];
 
-//Engine Temp DID=0x011 (64-40 = 24°C)
+//Engine Temp DID=0x0011 (64-40 = 24°C)
 data310[0] = 0x40;
 
 // Unknown
@@ -102,6 +111,31 @@ data310[6] = 0xBC;
 data310[7] = 0x34;
 
 sendFrame(0x310, 8, data310);
+
+
+// Simulated Telemetry Frame (ID 0x356)
+uint8_t data356[8];
+
+// Fuel Consumption DID=0x000B (4.5L / 0.00105 = 4285)
+uint16_t targetConsumptionRaw;
+float desiredConsumption = 4.5f;
+targetConsumptionRaw = (uint16_t)(desiredConsumption / 0.00105f);
+data356[0] = (uint8_t)(targetConsumptionRaw >> 8);   // High-Byte (MSB)
+data356[1] = (uint8_t)(targetConsumptionRaw & 0xFF);  // Low-Byte (LSB)
+
+// Unknown
+data356[2] = rand() % 255;
+// Unknown
+data356[3] = rand() % 255;
+// Unknown
+data356[4] = rand() % 255;
+// Unknown
+data356[5] = rand() % 255;
+// Unknown
+data356[6] = rand() % 255;
+// Unknown
+data356[7] = rand() % 255;
+sendFrame(0x356, 8, data356);
 ```
 
 ## Hardware & Internals (UART Analysis)
