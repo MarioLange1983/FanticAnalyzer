@@ -103,8 +103,8 @@ if (!KickStandDown) {
 data310[4] |= (2 << 2);
 data310[4] |= (3 << 4);
 
-// Speedometer DID=0x0008 (50*0,8 = 40km/h)
-data310[5] = 0x32;
+// Throttle Position Sensor DID=0x0008 (0% - 100%)
+data310[5] = rand() % 255;
 
 // System Voltage DID=0x0003 (13,25V)
 data310[6] = 0xBC;
@@ -262,7 +262,7 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `000B`    | **Instant Consumption**     | 2-byte Integer (`Value / 100.0f` = L/100km)        | ✖        |
 | `000C`    | **Engine RPM**              | 2-byte Integer                                     | ✅        |
 | `000D`    | **Fuel Gauge**              | 1-byte Integer (%)                                 | ✖        |
-| `000E`    | **Speed**                   | 1-byte Integer (km/h)                              | ✖        |
+| `000E`    | **Speedometer**             | 1-byte Integer (km/h)                              | ✖        |
 | `0011`    | **Engine Temp**             | 1-byte Integer (°C)                                | ✖        |
 | `000F`    | **Battery Voltage**         | 1-byte (`Value / 16.0f` = Volts)                   | ✖        |
 | `E501`    | **Module Info**             | Composite ASCII fields (Serial, App Name, Version) | ✅        |
