@@ -15,8 +15,35 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Immersive Landscape Mode:** All tabs switch to a full-screen, distraction-free view in landscape orientation, perfect for on-the-go monitoring.
 *   **Live Data Dashboard:** View critical real-time vehicle data, including RPM, engine temperature, speed, gear position, and more.
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module's hardware and firmware.
-*   **Advanced Terminal:** A built-in console shows raw log data and allows advanced users to send custom UDS commands for deep-level diagnostics.
+*   **Advanced Terminal:** A built-in console shows raw log data and allows advanced users to send custom UDS commands for deep-level diagnostics. (Requires [Debug Mode](#debug-mode--advanced-terminal) to send data).
+*   **Service Interval Monitoring:** Automatically calculates the remaining distance to your next service based on vehicle-specific schedules (e.g., first service at 1000km, then regular intervals).
 *   **Data Export:** Easily share diagnostic logs and vehicle data for external analysis.
+
+## Service Interval Logic
+
+The application includes a `ServiceManager` that calculates when the next maintenance is due. This calculation is based on the `ServiceInterval` data defined for each supported model.
+
+*   **Initial Service:** Typically required at **1,000 km**.
+*   **Regular Intervals:** Subsequent services occur at fixed intervals (e.g., every **3,000 km** or **5,000 km** depending on the engine).
+*   **Calculation:**
+    *   If the vehicle has less than 1,000 km and no service has been logged, it tracks towards the 1,000 km mark.
+    *   Once the first service is passed/completed, the logic calculates the next multiple of the regular interval.
+    *   **Manual Override:** Users can enter the exact mileage of their last service in the "Service" section of the **VEHICLE** tab. This allows the app to precisely calculate the *remaining* kilometers until the next scheduled visit.
+
+## Debug Mode & Advanced Terminal
+
+For safety reasons, the ability to send raw hex data via the Terminal is locked by default.
+
+### Activation ("The Secret")
+1.  Navigate to the **TERMINAL** tab.
+2.  Tap the **App Title** ("FANTIC ANALYZER") at the top center exactly **5 times**.
+3.  A safety warning will appear. After confirmation, the raw data input field and the "SEND" button will become visible.
+
+> [!CAUTION]
+> Debug mode allows direct interaction with the vehicle's control modules. Sending incorrect or malformed UDS commands can lead to module lockouts, error codes, or physical damage. Use this feature only if you are familiar with the UDS protocol and the e-shock implementation.
+
+**Auto-Lock:** Debug mode is automatically deactivated when you leave the Terminal tab or disconnect from the vehicle.
+
 
 ## ⚠️ Notice & Disclaimer
 
