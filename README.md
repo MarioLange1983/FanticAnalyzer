@@ -5,9 +5,9 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/845764fe-9488-4461-a3aa-1973d60dbe44" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/3812526c-edd3-4462-9374-b88108db8039" width="200" alt="App Screenshot 02">
-  <img src="https://github.com/user-attachments/assets/f957a297-b74c-48f4-8a83-47a30508609f" width="200" alt="App Screenshot 03">
+  <img src="https://github.com/user-attachments/assets/ff3404fe-b3e3-4597-b451-f117a6241950" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/fc30ef7b-2666-4cd7-b6c8-cde415f1bca9" width="200" alt="App Screenshot 02">
+  <img src="https://github.com/user-attachments/assets/c62bade3-18c2-4d75-9dbe-08485f4c154e" width="200" alt="App Screenshot 03">
 </p>
 
 ## Features
@@ -18,6 +18,10 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Advanced Terminal:** A built-in console shows raw log data and allows advanced users to send custom UDS commands for deep-level diagnostics. (Requires [Debug Mode](#debug-mode--advanced-terminal) to send data).
 *   **Service Interval Monitoring:** Automatically calculates the remaining distance to your next service based on vehicle-specific schedules (e.g., first service at 1000km, then regular intervals).
 *   **Data Export:** Easily share diagnostic logs and vehicle data for external analysis.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6f35b3ce-0d0c-4c68-abd7-74bc6247291a" width="200" alt="App Screenshot 01">
+</p>
 
 ## Service Interval Logic
 
@@ -44,6 +48,10 @@ For safety reasons, the ability to send raw hex data via the Terminal is locked 
 
 **Auto-Lock:** Debug mode is automatically deactivated when you leave the Terminal tab or disconnect from the vehicle.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f9b0d523-578d-44a1-93f0-d6060698abf0" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/8c263598-2fdf-4ea3-952a-724bb9233a88" width="200" alt="App Screenshot 02">
+</p>
 
 ## ⚠️ Notice & Disclaimer
 
