@@ -10,14 +10,18 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
   <img src="https://github.com/user-attachments/assets/c62bade3-18c2-4d75-9dbe-08485f4c154e" width="200" alt="App Screenshot 03">
 </p>
 
-## Features
+## Key Features
 
-*   **Immersive Landscape Mode:** All tabs switch to a full-screen, distraction-free view in landscape orientation, perfect for on-the-go monitoring.
-*   **Live Data Dashboard:** View critical real-time vehicle data, including RPM, engine temperature, speed, gear position, and more.
-*   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module's hardware and firmware.
-*   **Advanced Terminal:** A built-in console shows raw log data and allows advanced users to send custom UDS commands for deep-level diagnostics. (Requires [Debug Mode](#debug-mode--advanced-terminal) to send data).
-*   **Service Interval Monitoring:** Automatically calculates the remaining distance to your next service based on vehicle-specific schedules (e.g., first service at 1000km, then regular intervals).
-*   **Data Export:** Easily share diagnostic logs and vehicle data for external analysis.
+*   **Dual-Language Support:** Fully localized in **English** and **German**. The app automatically adapts to your system settings.
+*   **Modern Theme:** Modern Material 3 UI designed. Supports both **Light and Dark modes**.
+*   **Motorcycle-Optimized Dashboard:**
+    *   **Standard View:** A clean, informative grid of live vehicle metrics.
+    *   **Fullscreen Mode:** A high-contrast, large-font dashboard designed specifically for high readability while riding in landscape orientation.
+*   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more.
+*   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
+*   **Service Interval Tracking:** Automatically calculates the remaining distance to your next service based on vehicle-specific schedules.
+*   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands 
+*   **Data Export:** Share diagnostic logs and vehicle data for external analysis or community support.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6f35b3ce-0d0c-4c68-abd7-74bc6247291a" width="200" alt="App Screenshot 01">
@@ -49,8 +53,8 @@ For safety reasons, the ability to send raw hex data via the Terminal is locked 
 **Auto-Lock:** Debug mode is automatically deactivated when you leave the Terminal tab or disconnect from the vehicle.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f9b0d523-578d-44a1-93f0-d6060698abf0" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/8c263598-2fdf-4ea3-952a-724bb9233a88" width="200" alt="App Screenshot 02">
+  <img src="https://github.com/user-attachments/assets/d001fc4a-40bd-4d01-9c71-818d38274561" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/b21eba7e-b065-4fe1-9ec9-b317b77d5009" width="200" alt="App Screenshot 02">
 </p>
 
 ## ⚠️ Notice & Disclaimer
