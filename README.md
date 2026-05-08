@@ -5,9 +5,9 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/ff3404fe-b3e3-4597-b451-f117a6241950" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/fc30ef7b-2666-4cd7-b6c8-cde415f1bca9" width="200" alt="App Screenshot 02">
-  <img src="https://github.com/user-attachments/assets/c62bade3-18c2-4d75-9dbe-08485f4c154e" width="200" alt="App Screenshot 03">
+  <img src="https://github.com/user-attachments/assets/4e57d96e-d9f6-4204-a5e9-435521485868" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/4c9db968-8d08-4538-afe4-fe81e2b689be" width="200" alt="App Screenshot 02">
+  <img src="https://github.com/user-attachments/assets/78146355-1752-48dc-92ee-92f4014821b1" width="200" alt="App Screenshot 03">
 </p>
 
 ## Key Features
@@ -24,7 +24,8 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Data Export:** Share diagnostic logs and vehicle data for external analysis or community support.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6f35b3ce-0d0c-4c68-abd7-74bc6247291a" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/6717c36c-ad7d-4703-8752-50dd3f9da2a4" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/f746fa9b-09cc-4c5b-ab25-6ff627b1f102" width="200" alt="App Screenshot 02">
 </p>
 
 ## Service Interval Logic
@@ -51,10 +52,11 @@ For safety reasons, the ability to send raw hex data via the Terminal is locked 
 > Debug mode allows direct interaction with the vehicle's control modules. Sending incorrect or malformed UDS commands can lead to module lockouts, error codes, or physical damage. Use this feature only if you are familiar with the UDS protocol and the e-shock implementation.
 
 **Auto-Lock:** Debug mode is automatically deactivated when you leave the Terminal tab or disconnect from the vehicle.
+<img width="1224" height="2570" alt="Screenshot_20260508_114529" src="https://github.com/user-attachments/assets/ad1fbbc3-af47-4985-a3b7-1dac6643128a" />
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/d001fc4a-40bd-4d01-9c71-818d38274561" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/b21eba7e-b065-4fe1-9ec9-b317b77d5009" width="200" alt="App Screenshot 02">
+  <img src="https://github.com/user-attachments/assets/941449a4-2b89-4f09-b5e0-5ccc3b3be34c" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/6e2d0892-6f22-4c21-bc8d-50f0d64d4da6" width="200" alt="App Screenshot 02">
 </p>
 
 ## ⚠️ Notice & Disclaimer
