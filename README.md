@@ -28,6 +28,11 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
   <img src="https://github.com/user-attachments/assets/f746fa9b-09cc-4c5b-ab25-6ff627b1f102" width="200" alt="App Screenshot 02">
 </p>
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a73fdf02-33dd-4428-b53c-8bd67e6f5fb2" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/fda5c93d-b202-4896-902c-dd3f287cf101" width="200" alt="App Screenshot 02">
+</p>
+
 ## Service Interval Logic
 
 The application includes a `ServiceManager` that calculates when the next maintenance is due. This calculation is based on the `ServiceInterval` data defined for each supported model.
