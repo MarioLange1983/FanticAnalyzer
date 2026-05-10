@@ -20,7 +20,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more.
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
 *   **Service Interval Tracking:** Automatically calculates the remaining distance to your next service based on vehicle-specific schedules.
-*   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands 
+*   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands
 *   **Data Export:** Share diagnostic logs and vehicle data for external analysis or community support.
 
 <p align="center">
@@ -57,6 +57,7 @@ For safety reasons, the ability to send raw hex data via the Terminal is locked 
 > Debug mode allows direct interaction with the vehicle's control modules. Sending incorrect or malformed UDS commands can lead to module lockouts, error codes, or physical damage. Use this feature only if you are familiar with the UDS protocol and the e-shock implementation.
 
 **Auto-Lock:** Debug mode is automatically deactivated when you leave the Terminal tab or disconnect from the vehicle.
+<img width="1224" height="2570" alt="Screenshot_20260508_114529" src="https://github.com/user-attachments/assets/ad1fbbc3-af47-4985-a3b7-1dac6643128a" />
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/941449a4-2b89-4f09-b5e0-5ccc3b3be34c" width="200" alt="App Screenshot 01">
@@ -223,7 +224,7 @@ Internal logs via UART reveal the following system specifications:
 *   **Manufacturer Part Number:** V1391005
 *   **Manufacturer:** e-Shock S.r.l. (on behalf of Fantic Motor S.P.A.)
 *   **Functionality:** Enables communication with the outside world of all vehicle devices connected to the CAN-bus line via BLE and WiFi.
-<br>
+    <br>
 
 ## Bluetooth Low Energy (BLE) Characteristics
 
@@ -296,23 +297,23 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 ## Known Diagnostic Identifiers (DIDs)
 
-| DID (Hex) | Description                 | Data Format / Interpretation                       | Verified |
-|:----------|:----------------------------|:---------------------------------------------------|:---------|
-| `0002`    | **VIN**                     | 17-byte ASCII String                               | ✅        |
-| `0003`    | **System Voltage**          | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)    | ✖        |
-| `0007`    | **Gear Position**           | 1-byte (`0x00` = N, `0x01` = 1...)                 | ✅        |
-| `0008`    | **Throttle Position (TPS)** | 1-byte Integer (`Value / 255 * 100` = %)           | ✖        |
-| `0027`    | **Odometer**                | 4-byte Integer (`Value / 8.0f` = km)               | ✅        |
-| `0009`    | **Kickstand**               | 1-byte (`0x01` = Up, `0x00` = Down)                | ✅        |
-| `000B`    | **Instant Consumption**     | 2-byte Integer (`Value / 100.0f` = L/100km)        | ✖        |
-| `000C`    | **Engine RPM**              | 2-byte Integer                                     | ✅        |
-| `000D`    | **Fuel Gauge**              | 1-byte Integer (%)                                 | ✖        |
-| `000E`    | **Speedometer**             | 1-byte Integer (km/h)                              | ✖        |
-| `0011`    | **Engine Temp**             | 1-byte Integer (°C)                                | ✖        |
-| `000F`    | **Battery Voltage**         | 1-byte (`Value / 16.0f` = Volts)                   | ✖        |
-| `E501`    | **Module Info**             | Composite ASCII fields (Serial, App Name, Version) | ✅        |
-| `E502`    | **DID Directory**           | List of available identifiers                      | ✖        |
-| `E506`    | **HW Version**              | Hardware name and revision                         | ✅        |
+| DID (Hex) | Description                               | Data Format / Interpretation                                         | Verified |
+|:----------|:------------------------------------------|:---------------------------------------------------------------------|:---------|
+| `0002`    | **VIN**                                   | 17-byte ASCII String                                                 | ✅        |
+| `0003`    | **System Voltage**                        | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)                      | ✅         |
+| `0007`    | **Gear Position**                         | 1-byte (`0x00` = N, `0x01` = 1...)                                   | ✅        |
+| `0008`    | **~~Throttle Position (TPS)~~ Throttle Grip** | 1-byte Integer (`Value / 255 * 100` = %) (0%-80%, possible sw. lock) | ✅        |
+| `0027`    | **Odometer**                              | 4-byte Integer (`Value / 8.0f` = km)                                 | ✅        |
+| `0009`    | **Kickstand**                             | 1-byte (`0x01` = Up, `0x00` = Down)                                  | ✅        |
+| `000B`    | **Instant Consumption**                   | 2-byte Integer (`Value / 100.0f` = L/100km)                          | ✖        |
+| `000C`    | **Engine RPM**                            | 2-byte Integer                                                       | ✅        |
+| `000D`    | **Fuel Gauge**                            | 1-byte Integer (%)                                                   | ✖        |
+| `000E`    | **~~Speed~~ Throttle Position (TPS)**     | 1-byte Integer (%)                                                   | ✖        |
+| `0011`    | **Engine Temp**                           | 1-byte Integer (°C)                                                  | ✖        |
+| `000F`    | **Battery Voltage**                       | 1-byte (`Value / 16.0f` = Volts)                                     | ✖        |
+| `E501`    | **Module Info**                           | Composite ASCII fields (Serial, App Name, Version)                   | ✅        |
+| `E502`    | **DID Directory**                         | List of identifiers (intended use?)                                  | ✅        |
+| `E506`    | **HW Version**                            | Hardware name and revision                                           | ✅        |
 
 ## Supported Service IDs (SIDs)
 
