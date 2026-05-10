@@ -20,8 +20,13 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more.
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
 *   **Service Interval Tracking:** Automatically calculates the remaining distance to your next service based on vehicle-specific schedules.
-*   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands
-*   **Data Export:** Share diagnostic logs and vehicle data for external analysis or community support.
+*   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands.
+*   **Comprehensive Logging & Export:**
+    *   **Live CSV Logging:** Automatically record converted vehicle metrics (RPM, Speed, Throttle %, etc.) during live polling sessions.
+    *   **LoopScan ZIP Bundling:** Automatically group and compress all diagnostic logs from a LoopScan session into a single ZIP file.
+    *   **Customizable Scan Intervals:** Set precise delays (30s to 5m) for automated diagnostic loops.
+    *   **Data Export:** Share CSV logs, ZIP bundles, and vehicle technical reports via the Android share sheet.
+*   **Multi-Motorcycle Support:** Service records and technical data are stored independently for every motorcycle based on its unique VIN.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6717c36c-ad7d-4703-8752-50dd3f9da2a4" width="200" alt="App Screenshot 01">
@@ -43,6 +48,25 @@ The application includes a `ServiceManager` that calculates when the next mainte
     *   If the vehicle has less than 1,000 km and no service has been logged, it tracks towards the 1,000 km mark.
     *   Once the first service is passed/completed, the logic calculates the next multiple of the regular interval.
     *   **Manual Override:** Users can enter the exact mileage of their last service in the "Service" section of the **VEHICLE** tab. This allows the app to precisely calculate the *remaining* kilometers until the next scheduled visit.
+
+## Data Logging & Recording
+
+The application provides three distinct ways to capture and export vehicle data:
+
+### 1. Live Data Recording (CSV)
+When **LIVE** polling is active on the Dashboard, the app automatically generates a CSV file in the background. 
+*   **Recording:** Captures snapshots of all converted metrics (e.g., Engine Temp in °C, Throttle in %) every ~2 seconds.
+*   **Separator:** Uses the `|` symbol for high readability and spreadsheet compatibility.
+*   **Export:** A red share button appears on the DASH tab once polling is stopped.
+
+### 2. Diagnostic Loop (ZIP)
+The **LOOPSCAN** feature in the Terminal tab allows for long-term monitoring.
+*   **Interval:** Users can select a delay between 30 seconds and 5 minutes before the loop starts.
+*   **Bundling:** Every individual scan result is saved as a separate log file. When the loop is stopped, all session logs are compressed into a single ZIP archive.
+*   **Export:** Accessible via the "SHARE LOG" button in the Terminal tab after the loop finishes.
+
+### 3. Technical Report
+A comprehensive decoded report of the vehicle's VIN, module specifications, and service status can be shared directly from the **VEHICLE** tab.
 
 ## Debug Mode & Advanced Terminal
 
@@ -296,23 +320,23 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 ## Known Diagnostic Identifiers (DIDs)
 
-| DID (Hex) | Description                                       | Data Format / Interpretation                                         | Verified |
-|:----------|:--------------------------------------------------|:---------------------------------------------------------------------|:---------|
-| `0002`    | **VIN**                                           | 17-byte ASCII String                                                 | ✅        |
-| `0003`    | **System Voltage**                                | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)                      | ✅         |
-| `0007`    | **Gear Position**                                 | 1-byte (`0x00` = N, `0x01` = 1...)                                   | ✅        |
-| `0008`    | **~~Throttle Position (TPS)~~ Throttle Grip**     | 1-byte Integer (`Value / 255 * 100` = %) (0%-80%, possible sw. lock) | ✅        |
-| `0027`    | **Odometer**                                      | 4-byte Integer (`Value / 8.0f` = km)                                 | ✅        |
-| `0009`    | **Kickstand**                                     | 1-byte (`0x01` = Up, `0x00` = Down)                                  | ✅        |
-| `000B`    | **Instant Consumption**                           | 2-byte Integer (`Value / 100.0f` = L/100km)                          | ✖        |
-| `000C`    | **Engine RPM**                                    | 2-byte Integer                                                       | ✅        |
-| `000D`    | **Fuel Gauge**                                    | 1-byte Integer (%)                                                   | ✖        |
-| `000E`    | **~~Speed~~ Throttle Position (TPS)**             | 1-byte Integer (%)                                                   | ✖        |
-| `0011`    | **Engine Temp**                                   | 1-byte Integer (°C)                                                  | ✖        |
-| `000F`    | **~~Battery Voltage~~** analog fuel sensor (adc)? | 1-byte ~~(`Value / 16.0f` = Volts)~~                                     | ✖        |
-| `E501`    | **Module Info**                                   | Composite ASCII fields (Serial, App Name, Version)                   | ✅        |
-| `E502`    | **DID Directory**                                 | List of identifiers (intended use?)                                  | ✅        |
-| `E506`    | **HW Version**                                    | Hardware name and revision                                           | ✅        |
+| DID (Hex) | Description                                   | Data Format / Interpretation                                         | Verified |
+|:----------|:----------------------------------------------|:---------------------------------------------------------------------|:---------|
+| `0002`    | **VIN**                                       | 17-byte ASCII String                                                 | ✅        |
+| `0003`    | **System Voltage**                            | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)                      | ✅         |
+| `0007`    | **Gear Position**                             | 1-byte (`0x00` = N, `0x01` = 1...)                                   | ✅        |
+| `0008`    | **~~Throttle Position (TPS)~~ Throttle Grip** | 1-byte Integer (`Value / 255 * 100` = %) (0%-80%, possible sw. lock) | ✅        |
+| `0027`    | **Odometer**                                  | 4-byte Integer (`Value / 8.0f` = km)                                 | ✅        |
+| `0009`    | **Kickstand**                                 | 1-byte (`0x01` = Up, `0x00` = Down)                                  | ✅        |
+| `000B`    | **Instant Consumption**                       | 2-byte Integer (`Value / 100.0f` = L/100km)                          | ✖        |
+| `000C`    | **Engine RPM**                                | 2-byte Integer                                                       | ✅        |
+| `000D`    | **Fuel Gauge (quick)**                        | 1-byte Integer (%)                                                   | ✖        |
+| `000E`    | **~~Speed~~ Throttle Position (TPS)**         | 1-byte Integer (%)                                                   | ✖        |
+| `0011`    | **Engine Temp**                               | 1-byte Integer (°C)                                                  | ✖        |
+| `000F`    | **~~Battery Voltage~~ Fuel Gauge (sluggish)** | 1-byte ~~(`Value / 16.0f` = Volts)~~                                     | ✖        |
+| `E501`    | **Module Info**                               | Composite ASCII fields (Serial, App Name, Version)                   | ✅        |
+| `E502`    | **DID Directory**                             | List of identifiers (intended use?)                                  | ✅        |
+| `E506`    | **HW Version**                                | Hardware name and revision                                           | ✅        |
 
 ## Supported Service IDs (SIDs)
 
