@@ -56,7 +56,7 @@ The application provides three distinct ways to capture and export vehicle data:
 ### 1. Live Data Recording (CSV)
 When **LIVE** polling is active on the Dashboard, the app automatically generates a CSV file in the background. 
 *   **Recording:** Captures snapshots of all converted metrics (e.g., Engine Temp in °C, Throttle in %) every ~2 seconds.
-*   **Separator:** Uses the `|` symbol for high readability and spreadsheet compatibility.
+*   **Separator:** Uses the `;` symbol for high readability and spreadsheet compatibility.
 *   **Export:** A red share button appears on the DASH tab once polling is stopped.
 
 ### 2. Diagnostic Loop (ZIP)
