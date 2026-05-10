@@ -57,7 +57,6 @@ For safety reasons, the ability to send raw hex data via the Terminal is locked 
 > Debug mode allows direct interaction with the vehicle's control modules. Sending incorrect or malformed UDS commands can lead to module lockouts, error codes, or physical damage. Use this feature only if you are familiar with the UDS protocol and the e-shock implementation.
 
 **Auto-Lock:** Debug mode is automatically deactivated when you leave the Terminal tab or disconnect from the vehicle.
-<img width="1224" height="2570" alt="Screenshot_20260508_114529" src="https://github.com/user-attachments/assets/ad1fbbc3-af47-4985-a3b7-1dac6643128a" />
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/941449a4-2b89-4f09-b5e0-5ccc3b3be34c" width="200" alt="App Screenshot 01">
