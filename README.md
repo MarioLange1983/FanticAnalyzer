@@ -28,6 +28,13 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Data Export:** Share CSV logs, ZIP bundles, and vehicle technical reports via the Android share sheet.
 *   **Multi-Motorcycle Support:** Service records and technical data are stored independently for every motorcycle based on its unique VIN.
 
+### Altitude Data in CSV Log
+- **Detailed Altitude Tracking**: The application now records and exports altitude data (height above sea level) from GPS in the live CSV log.
+
+### Dynamic Fuel Gauge Monitoring
+- **Switchable Fuel Gauge DIDs**: Users can now dynamically switch between two different Fuel Gauge Data Identifiers (DIDs) during live polling, with immediate feedback and value clamping.
+- **Optimized LivePoll for Fuel Gauge**: The polling mechanism for the fuel gauge has been optimized to only query the active DID, reducing BLE traffic and improving responsiveness.
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6717c36c-ad7d-4703-8752-50dd3f9da2a4" width="200" alt="App Screenshot 01">
   <img src="https://github.com/user-attachments/assets/f746fa9b-09cc-4c5b-ab25-6ff627b1f102" width="200" alt="App Screenshot 02">
@@ -55,11 +62,16 @@ The application provides three distinct ways to capture and export vehicle data:
 
 ### 1. Live Data Recording (CSV)
 When **LIVE** polling is active on the Dashboard, the app automatically generates a CSV file in the background. 
-*   **Recording:** Captures snapshots of all converted metrics (e.g., Engine Temp in °C, Throttle in %) every ~2 seconds.
+*   **Recording:** Captures snapshots of all converted metrics, including **altitude**, **GPS speed**, **latitude**, **longitude**, and the currently selected **fuel gauge DID** (with or without reserve) every ~2 seconds.
 *   **Separator:** Uses the `;` symbol for high readability and spreadsheet compatibility.
 *   **Export:** A red share button appears on the DASH tab once polling is stopped.
 
-### 2. Diagnostic Loop (ZIP)
+### 2. Full DID Scan (LOG)
+The **SCAN** feature in the Terminal tab performs a complete sweep of all known Diagnostic Identifiers.
+*   **Recording:** Captures raw and decoded data for all supported DIDs in a single execution.
+*   **Export:** A "SHARE LOG" button appears in the Terminal tab immediately after the scan completes.
+
+### 3. Diagnostic Loop (ZIP)
 The **LOOPSCAN** feature in the Terminal tab allows for long-term monitoring.
 *   **Interval:** Users can select a delay between 30 seconds and 5 minutes before the loop starts.
 *   **Bundling:** Every individual scan result is saved as a separate log file. When the loop is stopped, all session logs are compressed into a single ZIP archive.
@@ -172,7 +184,7 @@ if (!KickStandDown) {
 data310[4] |= (2 << 2);
 data310[4] |= (3 << 4);
 
-// Throttle Position Sensor DID=0x0008 (0% - 100%)
+// Throttle Position (TPS) DID=0x0008 (0-255 scaled to 0-100%)
 data310[5] = rand() % 255;
 
 // System Voltage DID=0x0003 (13,25V)
@@ -325,13 +337,13 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `0002`    | **VIN**                          | 17-byte ASCII String                                                 | ✅        |
 | `0003`    | **System Voltage**               | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)                      | ✅         |
 | `0007`    | **Gear Position**                | 1-byte (`0x00` = N, `0x01` = 1...)                                   | ✅        |
-| `0008`    | **Throttle Grip**                | 1-byte Integer (`Value / 255 * 100` = %) (0%-80%, possible sw. lock) | ✅        |
+| `0008`    | **Throttle Position (TPS)**      | 1-byte Integer (`Value / 255 * 100` = %)                             | ✅        |
 | `0027`    | **Odometer**                     | 4-byte Integer (`Value / 8.0f` = km)                                 | ✅        |
 | `0009`    | **Kickstand**                    | 1-byte (`0x01` = Up, `0x00` = Down)                                  | ✅        |
 | `000B`    | **Instant Consumption**          | 2-byte Integer (`Value / 100.0f` = L/100km)                          | ✖        |
 | `000C`    | **Engine RPM**                   | 2-byte Integer                                                       | ✅        |
 | `000D`    | **Fuel Gauge** (with reserve)    | 1-byte Integer (%)                                                   | ✅        |
-| `000E`    | **Throttle Position (TPS)**      | 1-byte Integer (%)                                                   | ✖        |
+| `000E`    | **Engine Load**                  | 1-byte Integer (%)                                                   | ✅        |
 | `0011`    | **Engine Temp**                  | 1-byte Integer (°C)                                                  | ✖        |
 | `000F`    | **Fuel Gauge** (without reserve) | 1-byte Integer (%)                                                   | ✅        |
 | `E501`    | **Module Info**                  | Composite ASCII fields (Serial, App Name, Version)                   | ✅        |
