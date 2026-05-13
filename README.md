@@ -12,7 +12,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 ## Key Features
 
-*   **Dual-Language Support:** Fully localized in **English** and **German**. The app automatically adapts to your system settings.
+*   **Dual-Language Support:** Fully localized in **English**, **German** and **Italian**. The app automatically adapts to your system settings.your system settings.
 *   **Modern Theme:** Modern Material 3 UI designed. Supports both **Light and Dark modes**.
 *   **Motorcycle-Optimized Dashboard:**
     *   **Standard View:** A clean, informative grid of live vehicle metrics.
