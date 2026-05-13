@@ -1,6 +1,3 @@
-<img width="1224" height="2570" alt="Screenshot_20260513_101052" src="https://github.com/user-attachments/assets/0cbef4e8-42e0-4da9-b153-8f32f4913b89" />
-<img width="1224" height="2570" alt="Screenshot_20260513_101058" src="https://github.com/user-attachments/assets/e94da6c6-7855-4781-b41f-7df0db9d21db" />
-<img width="1224" height="2570" alt="Screenshot_20260513_101102" src="https://github.com/user-attachments/assets/04fb0f17-3a58-4e87-bc7b-466b6fe03833" />
 # Fantic Analyzer
 
 Fantic Analyzer is a tool developed out of necessity to provide access to the **e-shock Communication Module** integrated into many Fantic motorcycles. Currently, there is no official alternative or public software available to owners to interface with this module or view the technical data it handles.
