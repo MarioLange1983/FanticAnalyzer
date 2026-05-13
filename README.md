@@ -1,3 +1,6 @@
+<img width="1224" height="2570" alt="Screenshot_20260513_101052" src="https://github.com/user-attachments/assets/0cbef4e8-42e0-4da9-b153-8f32f4913b89" />
+<img width="1224" height="2570" alt="Screenshot_20260513_101058" src="https://github.com/user-attachments/assets/e94da6c6-7855-4781-b41f-7df0db9d21db" />
+<img width="1224" height="2570" alt="Screenshot_20260513_101102" src="https://github.com/user-attachments/assets/04fb0f17-3a58-4e87-bc7b-466b6fe03833" />
 # Fantic Analyzer
 
 Fantic Analyzer is a tool developed out of necessity to provide access to the **e-shock Communication Module** integrated into many Fantic motorcycles. Currently, there is no official alternative or public software available to owners to interface with this module or view the technical data it handles.
@@ -5,9 +8,9 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/4e57d96e-d9f6-4204-a5e9-435521485868" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/4c9db968-8d08-4538-afe4-fe81e2b689be" width="200" alt="App Screenshot 02">
-  <img src="https://github.com/user-attachments/assets/78146355-1752-48dc-92ee-92f4014821b1" width="200" alt="App Screenshot 03">
+  <img src="https://github.com/user-attachments/assets/126c5216-4ccc-4a7a-8e1b-e5ab5475f4a9" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/49c0dd7d-18f2-45f6-ac23-2fa2408f4719" width="200" alt="App Screenshot 02">
+  <img src="https://github.com/user-attachments/assets/977fc6ed-fb57-49c3-a10a-9da012cdf067" width="200" alt="App Screenshot 03">
 </p>
 
 ## Key Features
@@ -36,13 +39,13 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 - **Optimized LivePoll for Fuel Gauge**: The polling mechanism for the fuel gauge has been optimized to only query the active DID, reducing BLE traffic and improving responsiveness.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6717c36c-ad7d-4703-8752-50dd3f9da2a4" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/f746fa9b-09cc-4c5b-ab25-6ff627b1f102" width="200" alt="App Screenshot 02">
+  <img src="https://github.com/user-attachments/assets/11cfee67-167b-4ead-a696-5be6f7d00e2b" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/89a3b507-295f-4c74-8849-932cde11b282" width="200" alt="App Screenshot 02">
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a73fdf02-33dd-4428-b53c-8bd67e6f5fb2" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/fda5c93d-b202-4896-902c-dd3f287cf101" width="200" alt="App Screenshot 02">
+  <img src="https://github.com/user-attachments/assets/8a53d9be-a1c1-4d93-894f-b59f69878d9d" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/2d1f093a-4f4d-4231-a37c-1b042dd4deeb" width="200" alt="App Screenshot 02">
 </p>
 
 ## Service Interval Logic
