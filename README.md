@@ -26,7 +26,16 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **LoopScan ZIP Bundling:** Automatically group and compress all diagnostic logs from a LoopScan session into a single ZIP file.
     *   **Customizable Scan Intervals:** Set precise delays (30s to 5m) for automated diagnostic loops.
     *   **Data Export:** Share CSV logs, ZIP bundles, and vehicle technical reports via the Android share sheet.
-*   **Multi-Motorcycle Support:** Service records and technical data are stored independently for every motorcycle based on its unique VIN.
+*   **Multi-Motorcycle Support:** Service records and technical data are stored independently for every motorcycle based on its unique VIN using a **robust JSON-based storage system**.
+*   **Vehicle Highlights (Lifetime Records):** Automatically tracks and persists your all-time records for:
+    *   Highest speed (GPS).
+    *   Maximum engine RPM.
+    *   Peak engine temperature.
+    *   Maximum lean angles (left/right).
+    *   Longest trip (distance and duration).
+*   **Intelligent UI Layouts:**
+    *   **Dynamic Grid:** Adaptive dashboard layout that scales based on device orientation and screen size.
+    *   **Context-Aware Visibility:** Specialized cards (Service, Highlights) only appear when a motorcycle is connected and identified.
 
 ### Altitude Data in CSV Log
 - **Detailed Altitude Tracking**: The application now records and exports altitude data (height above sea level) from GPS in the live CSV log.
