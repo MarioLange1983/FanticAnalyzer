@@ -270,6 +270,10 @@ Internal logs via UART reveal the following system specifications:
 *   **Functionality:** Enables communication with the outside world of all vehicle devices connected to the CAN-bus line via BLE and WiFi.
     <br>
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/fdf3caad-4b51-444d-89e7-6af2c527954d" width="400" alt="Module Video 01">
+</p>
+
 ## Bluetooth Low Energy (BLE) Characteristics
 
 The e-shock module identifies itself with the prefix `FanticCON-` followed by its serial number (e.g., `FanticCON-154204`).
