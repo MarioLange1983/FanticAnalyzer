@@ -12,7 +12,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 ## Key Features
 
-*   **Dual-Language Support:** Fully localized in **English**, **German** and **Italian**. The app automatically adapts to your system settings.your system settings.
+*   **Dual-Language Support:** Fully localized in **English**, **German** and **Italian**. The app automatically adapts to your system settings.
 *   **Modern Theme:** Modern Material 3 UI designed. Supports both **Light and Dark modes**.
 *   **Motorcycle-Optimized Dashboard:**
     *   **Standard View:** A clean, informative grid of live vehicle metrics.
@@ -270,10 +270,6 @@ Internal logs via UART reveal the following system specifications:
 *   **Functionality:** Enables communication with the outside world of all vehicle devices connected to the CAN-bus line via BLE and WiFi.
     <br>
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/fdf3caad-4b51-444d-89e7-6af2c527954d" width="400" alt="Module Video 01">
-</p>
-
 ## Bluetooth Low Energy (BLE) Characteristics
 
 The e-shock module identifies itself with the prefix `FanticCON-` followed by its serial number (e.g., `FanticCON-154204`).
@@ -345,23 +341,58 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 ## Known Diagnostic Identifiers (DIDs)
 
-| DID (Hex) | Description                      | Data Format / Interpretation                                         | Verified |
-|:----------|:---------------------------------|:---------------------------------------------------------------------|:---------|
-| `0002`    | **VIN**                          | 17-byte ASCII String                                                 | ✅        |
-| `0003`    | **System Voltage**               | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)                      | ✅         |
-| `0007`    | **Gear Position**                | 1-byte (`0x00` = N, `0x01` = 1...)                                   | ✅        |
-| `0008`    | **Throttle Position (TPS)**      | 1-byte Integer (`Value / 255 * 100` = %)                             | ✅        |
-| `0027`    | **Odometer**                     | 4-byte Integer (`Value / 8.0f` = km)                                 | ✅        |
-| `0009`    | **Kickstand**                    | 1-byte (`0x01` = Up, `0x00` = Down)                                  | ✅        |
-| `000B`    | **Instant Consumption**          | 2-byte Integer (`Value / 100.0f` = L/100km)                          | ✖        |
-| `000C`    | **Engine RPM**                   | 2-byte Integer                                                       | ✅        |
-| `000D`    | **Fuel Gauge** (with reserve)    | 1-byte Integer (%)                                                   | ✅        |
-| `000E`    | **Engine Load**                  | 1-byte Integer (%)                                                   | ✅        |
-| `0011`    | **Engine Temp**                  | 1-byte Integer (°C)                                                  | ✖        |
-| `000F`    | **Fuel Gauge** (without reserve) | 1-byte Integer (%)                                                   | ✅        |
-| `E501`    | **Module Info**                  | Composite ASCII fields (Serial, App Name, Version)                   | ✅        |
-| `E502`    | **DID Directory**                | List of identifiers (intended use?)                                  | ✅        |
-| `E506`    | **HW Version**                   | Hardware name and revision                                           | ✅        |
+| DID (Hex) | Description                      | Data Format / Interpretation                       | Verified |
+|:----------|:---------------------------------|:---------------------------------------------------|:---------|
+| `0001`    |                                  | 2-byte                                             |          |
+| `0002`    | **VIN**                          | 17-byte ASCII String                               | ✅        |
+| `0003`    | **System Voltage**               | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)    | ✅        |
+| `0004`    |                                  | 2-byte                                             |          |
+| `0005`    |                                  | 1-byte                                             |          |
+| `0006`    |                                  | 1-byte                                             |          |
+| `0007`    | **Gear Position**                | 1-byte (`0x00` = N, `0x01` = 1...)                 | ✅        |
+| `0008`    | **Throttle Position (TPS)**      | 1-byte Integer (`Value / 255 * 100` = %)           | ✖        |
+| `0009`    | **Kickstand**                    | 1-byte (`0x01` = Up, `0x00` = Down)                | ✅        |
+| `000A`    |                                  | 1-byte                                             |          |
+| `000B`    | **Instant Consumption**          | 2-byte Integer (`Value / 100.0f` = L/100km)        | ✅        |
+| `000C`    | **Engine RPM**                   | 2-byte Integer                                     | ✅        |
+| `000D`    | **Fuel Gauge** (incl. reserve)   | 1-byte Integer (%)                                 | ✖        |
+| `000E`    | **Engine Load**                  | 1-byte Integer (%)                                 | ✖        |
+| `000F`    | **Fuel Gauge** (without reserve) | 1-byte Integer (%)                                 | ✖        |
+| `0010`    |                                  | 1-byte                                             |          |
+| `0011`    | **Engine Temp**                  | 1-byte Integer (°C)                                | ✅        |
+| `0012`    |                                  | 2-byte                                             |          |
+| `0013`    |                                  | 1-byte                                             |          |
+| `0014`    |                                  | 1-byte                                             |          |
+| `0015`    |                                  | 2-byte                                             |          |
+| `0016`    |                                  | 1-byte                                             |          |
+| `0017`    |                                  | 1-byte                                             |          |
+| `0018`    |                                  | 1-byte                                             |          |
+| `0019`    |                                  | 2-byte                                             |          |
+| `001A`    |                                  | 2-byte                                             |          |
+| `001B`    |                                  | from DID-List = 0x7F                               |          |
+| `001C`    |                                  | from DID-List = 0x7F                               |          |
+| `001D`    |                                  | from DID-List = 0x7F                               |          |
+| `001E`    |                                  | from DID-List = 0x7F                               |          |
+| `001F`    |                                  | from DID-List = 0x7F                               |          |
+| `0020`    |                                  | from DID-List = 0x7F                               |          |
+| `0021`    |                                  | from DID-List = 0x7F                               |          |
+| `0022`    |                                  | from DID-List = 0x7F                               |          |
+| `0023`    |                                  | from DID-List = 0x7F                               |          |
+| `0024`    |                                  | from DID-List = 0x7F                               |          |
+| `0025`    |                                  | 1-byte                                             |          |
+| `0026`    |                                  | 2-byte                                             |          |
+| `0027`    | **Odometer**                     | 4-byte Integer (`Value / 8.0f` = km)               | ✅        |
+| `0028`    |                                  | 1-byte                                             |          |
+| `0029`    |                                  | 1-byte                                             |          |
+| `002A`    |                                  | 1-byte                                             |          |
+| `002B`    |                                  | 1-byte                                             |          |
+| `002C`    |                                  | 1-byte                                             |          |
+| `E501`    | **Module Info**                  | Composite ASCII fields (Serial, App Name, Version) | ✅        |
+| `E502`    | **DID Directory**                | List of identifiers (intended use?)                | ✅        |
+| `E503`    | **Status Configuration**         | Set strem configuration?                           | ✖        |
+| `E504`    |                                  | 1-byte                                             |          |
+| `E505`    |                                  | 1-byte                                             |          |
+| `E506`    | **HW Version**                   | Hardware name and revision                         | ✅        |
 
 ## Supported Service IDs (SIDs)
 
