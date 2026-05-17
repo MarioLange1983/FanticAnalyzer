@@ -138,18 +138,17 @@ This project is conducted in accordance with European and German legislation reg
 The application identifies the specific technical data for your motorcycle by analyzing the **Vehicle Descriptor Section (VDS)** of the VIN (characters 4 through 9). The following sub-model codes have been identified through research and analysis of Fantic technical documentation:
 
 | Sub-Model Code | Displacement Class | Model Variant | Typical Example |
-| :--- | :--- | :--- | :--- |
-| **1S** | 125/500cc | Scrambler | Caballero 125/500 Scrambler |
-| **5S** | 125/500cc | Deluxe | Caballero 125/500 Deluxe |
-| **1F** | 125cc | Flat Track | Caballero 125 Flat Track |
-| **5F** | 500cc | Flat Track | Caballero 500 Flat Track |
-| **1R** | 125cc | Rally | Caballero 125 Rally |
-| **5R** | 500cc | Rally | Caballero 500 Rally |
-| **MP** | 125cc | Performance (Motard) | Fantic XMF 125 Performance |
-| **MC** | 125cc | Competition (Motard) | Fantic XMF 125 Competition |
-| **EP** | 125cc | Performance (Enduro) | Fantic XEF 125 Performance |
-| **EC** | 125cc | Competition (Enduro) | Fantic XEF 125 Competition |
-| **17** | 125cc | Emulator | Software Research Environment |
+|:---------------| :--- | :--- | :--- |
+| **1S**         | 125/500cc | Scrambler | Caballero 125/500 Scrambler |
+| **5S**         | 125/500cc | Deluxe | Caballero 125/500 Deluxe |
+| **1F**         | 125cc | Flat Track | Caballero 125 Flat Track |
+| **1F**         | 500cc | Flat Track | Caballero 500 Flat Track |
+| **1R**         | 125cc | Rally | Caballero 125 Rally |
+| **1R**         | 500cc | Rally | Caballero 500 Rally |
+| **MP**         | 125cc | Performance (Motard) | Fantic XMF 125 Performance |
+| **MC**         | 125cc | Competition (Motard) | Fantic XMF 125 Competition |
+| **EP**         | 125cc | Performance (Enduro) | Fantic XEF 125 Performance |
+| **EC**         | 125cc | Competition (Enduro) | Fantic XEF 125 Competition |
 
 ## Supported Models (Untested / Likely Compatible)
 
