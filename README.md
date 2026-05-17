@@ -22,17 +22,13 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Service Interval Tracking:** Automatically calculates the remaining distance to your next service based on vehicle-specific schedules.
 *   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands.
 *   **Comprehensive Logging & Export:**
+    *   **GPX Trip Logging (Industry Standard):** Record trips in Garmin-compatible GPX format including GPS coordinates, altitude, RPM, and temperature.
     *   **Live CSV Logging:** Automatically record converted vehicle metrics (RPM, Speed, Throttle %, etc.) during live polling sessions.
     *   **LoopScan ZIP Bundling:** Automatically group and compress all diagnostic logs from a LoopScan session into a single ZIP file.
     *   **Customizable Scan Intervals:** Set precise delays (30s to 5m) for automated diagnostic loops.
-    *   **Data Export:** Share CSV logs, ZIP bundles, and vehicle technical reports via the Android share sheet.
-*   **Multi-Motorcycle Support:** Service records and technical data are stored independently for every motorcycle based on its unique VIN using a **robust JSON-based storage system**.
-*   **Vehicle Highlights (Lifetime Records):** Automatically tracks and persists your all-time records for:
-    *   Highest speed (GPS).
-    *   Maximum engine RPM.
-    *   Peak engine temperature.
-    *   Maximum lean angles (left/right).
-    *   Longest trip (distance and duration).
+    *   **Data Export:** Share combined CSV/GPX trip files, ZIP bundles, and vehicle technical reports via the Android share sheet.
+*   **Multi-Motorcycle Support:** Service records, **wheel/tire specs**, and technical data are stored independently for every motorcycle based on its unique VIN using a **robust JSON-based storage system**.
+*   **Vehicle Highlights (Lifetime Records):** Automatically tracks and persists your all-time records with a **reset function**.
 *   **Intelligent UI Layouts:**
     *   **Dynamic Grid:** Adaptive dashboard layout that scales based on device orientation and screen size.
     *   **Context-Aware Visibility:** Specialized cards (Service, Highlights) only appear when a motorcycle is connected and identified.
@@ -69,11 +65,12 @@ The application includes a `ServiceManager` that calculates when the next mainte
 
 The application provides three distinct ways to capture and export vehicle data:
 
-### 1. Live Data Recording (CSV)
-When **LIVE** polling is active on the Dashboard, the app automatically generates a CSV file in the background. 
-*   **Recording:** Captures snapshots of all converted metrics, including **altitude**, **GPS speed**, **latitude**, **longitude**, and the currently selected **fuel gauge DID** (with or without reserve) every ~2 seconds.
-*   **Separator:** Uses the `;` symbol for high readability and spreadsheet compatibility.
-*   **Export:** A red share button appears on the DASH tab once polling is stopped.
+### 1. Trip Recording (GPX & CSV)
+When **LIVE** polling is active on the Dashboard, the app automatically generates two files in the background:
+*   **GPX File:** An industry-standard trip log following the **Garmin Schema**. It includes coordinates, altitude, **RPM** (as cadence), **Speed**, and **Engine Temperature** (as ambient temp). Compatible with BaseCamp, Strava, etc.
+*   **CSV File:** A detailed snapshot of all converted metrics, including engine load and throttle position, every ~2 seconds.
+*   **Export:** A single red share button appears on the DASH tab once polling is stopped, bundling both files into a single export.
+*   **Persistence:** Trip files are saved in a dedicated `/trips/` folder to prevent accidental deletion during log cleanup.
 
 ### 2. Full DID Scan (LOG)
 The **SCAN** feature in the Terminal tab performs a complete sweep of all known Diagnostic Identifiers.
@@ -88,6 +85,7 @@ The **LOOPSCAN** feature in the Terminal tab allows for long-term monitoring.
 
 ### 3. Technical Report
 A comprehensive decoded report of the vehicle's VIN, module specifications, and service status can be shared directly from the **VEHICLE** tab.
+* **How to share:** Perform a **long-tap** anywhere on the Vehicle tab to open the Android share sheet for the full technical report.
 
 ## Debug Mode & Advanced Terminal
 
