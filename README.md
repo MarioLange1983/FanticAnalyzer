@@ -8,6 +8,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
   <img src="https://github.com/user-attachments/assets/126c5216-4ccc-4a7a-8e1b-e5ab5475f4a9" width="200" alt="App Screenshot 01">
   <img src="https://github.com/user-attachments/assets/49c0dd7d-18f2-45f6-ac23-2fa2408f4719" width="200" alt="App Screenshot 02">
   <img src="https://github.com/user-attachments/assets/977fc6ed-fb57-49c3-a10a-9da012cdf067" width="200" alt="App Screenshot 03">
+  <img src="https://github.com/user-attachments/assets/ac9e4476-c3c9-4a14-b142-cf6f4053d16d" width="200" alt="App Screenshot 04">
 </p>
 
 ## Key Features
@@ -56,6 +57,12 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8a53d9be-a1c1-4d93-894f-b59f69878d9d" width="200" alt="App Screenshot 01">
   <img src="https://github.com/user-attachments/assets/2d1f093a-4f4d-4231-a37c-1b042dd4deeb" width="200" alt="App Screenshot 02">
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ad4f0964-e12b-4412-954d-50ba3f5e3b3d" width="200" alt="App Screenshot 01">
+  <img src="https://github.com/user-attachments/assets/e630a024-1fef-4f5d-a46a-6897ec3092cf" width="200" alt="App Screenshot 02">
+  <img src="https://github.com/user-attachments/assets/df0b13ae-e18a-4900-962e-9f44bbcee8d6" width="200" alt="App Screenshot 03">
 </p>
 
 ## Service Interval Logic
