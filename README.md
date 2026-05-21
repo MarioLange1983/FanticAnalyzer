@@ -27,6 +27,14 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **LoopScan ZIP Bundling:** Automatically group and compress all diagnostic logs from a LoopScan session into a single ZIP file.
     *   **Customizable Scan Intervals:** Set precise delays (30s to 5m) for automated diagnostic loops.
     *   **Data Export:** Share combined CSV/GPX trip files, ZIP bundles, and vehicle technical reports via the Android share sheet.
+*   **Detailed Trip Analysis:**
+    *   **Interactive Route Visualization:** View your recorded trips on an integrated MapLibre map with Start and End markers.
+    *   **Telemetry Replay:** Automatic replay function with a professional play/pause button and a smooth dot-style progress slider.
+    *   **Comprehensive Metrics:** Real-time synchronized telemetry display during replay including Timestamp, Odometer, Speed, Gear, RPM, Lean Angle, Temperature, Fuel %, Consumption, Voltage, and Engine Load.
+    *   **In-Depth Statistics:** Dedicated stats page showing Moving Average Speed, Max Acceleration/Deceleration, Elevation Gain/Loss, and Max Altitude.
+    *   **High-Quality Analytics Charts:** Smooth, professional-grade charts for Speed, Altitude, RPM, and Acceleration featuring **Cubic Interpolation** and **Aesthetic Vertical Gradients**.
+    *   **Riding Style Rating:** Intelligent classification of your cornering behavior (e.g., "Kurvenjäger") including a Material 3 **5-star rating system**.
+*   **GitHub Update Integration:** Automatically checks for new releases on startup and notifies you of available updates with a direct link to the GitHub release page.
 *   **Multi-Motorcycle Support:** Service records, **wheel/tire specs**, and technical data are stored independently for every motorcycle based on its unique VIN using a **robust JSON-based storage system**.
 *   **Vehicle Highlights (Lifetime Records):** Automatically tracks and persists your all-time records with a **reset function**.
 *   **Intelligent UI Layouts:**
