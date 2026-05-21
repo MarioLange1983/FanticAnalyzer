@@ -141,6 +141,20 @@ This project is conducted in accordance with European and German legislation reg
 *   **Experimental Security:** While the ECU Seed/Key (Security Access) algorithm is implemented, it remains in a testing phase.
 *   **Data Accuracy:** Communication protocols are interpreted without official specifications; data values may be incorrect or misinterpreted.
 
+## 🛠️ External Libraries & Dependencies
+
+This project leverages several open-source libraries to provide its functionality:
+
+*   **Jetpack Compose:** Modern toolkit for building native Android UI.
+*   **Material 3:** Google's latest design system for consistent and modern aesthetics.
+*   **MapLibre Native (v13.1.0):** Open-source alternative to Mapbox for high-performance route visualization.
+    *   *Includes the MapLibre Annotation Plugin for marker and polyline management.*
+*   **Vico Charts (v2.5.0):** A powerful, light, and composable charting library for Android.
+*   **Google Play Services Location:** For precise GPS tracking and trip logging.
+*   **Jetpack Security Crypto:** Ensures secure encryption for sensitive local data (e.g., VIN-specific records).
+*   **Jetpack DataStore:** Robust and modern data storage for user preferences and vehicle configurations.
+*   **Kotlinx Serialization:** For efficient JSON-based data management and motorcycle-specific storage.
+
 ### Vehicle Sub-Model Identification (VDS)
 
 The application identifies the specific technical data for your motorcycle by analyzing the **Vehicle Descriptor Section (VDS)** of the VIN (characters 4 through 9). The following sub-model codes have been identified through research and analysis of Fantic technical documentation:
