@@ -8,7 +8,6 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
   <img src="https://github.com/user-attachments/assets/126c5216-4ccc-4a7a-8e1b-e5ab5475f4a9" width="200" alt="App Screenshot 01">
   <img src="https://github.com/user-attachments/assets/49c0dd7d-18f2-45f6-ac23-2fa2408f4719" width="200" alt="App Screenshot 02">
   <img src="https://github.com/user-attachments/assets/977fc6ed-fb57-49c3-a10a-9da012cdf067" width="200" alt="App Screenshot 03">
-  <img src="https://github.com/user-attachments/assets/ac9e4476-c3c9-4a14-b142-cf6f4053d16d" width="200" alt="App Screenshot 04">
 </p>
 
 ## Key Features
@@ -18,9 +17,9 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Motorcycle-Optimized Dashboard:**
     *   **Standard View:** A clean, informative grid of live vehicle metrics.
     *   **Fullscreen Mode:** A high-contrast, large-font dashboard designed specifically for high readability while riding in landscape orientation.
-*   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more.
+    *   **Intelligent Tilt Calibration:** Automatic 3D-matrix calibration when starting a trip, ensuring accurate curve lean angles regardless of phone mounting orientation.
+*   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more. Improved fuel gauge monitoring using filtered ECU data (DID 0x000D).
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
-*   **Service Interval Tracking:** Automatically calculates the remaining distance to your next service based on vehicle-specific schedules.
 *   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands.
 *   **Comprehensive Logging & Export:**
     *   **GPX Trip Logging (Industry Standard):** Record trips in Garmin-compatible GPX format including GPS coordinates, altitude, RPM, and temperature.
@@ -29,25 +28,23 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Customizable Scan Intervals:** Set precise delays (30s to 5m) for automated diagnostic loops.
     *   **Data Export:** Share combined CSV/GPX trip files, ZIP bundles, and vehicle technical reports via the Android share sheet.
 *   **Detailed Trip Analysis:**
-    *   **Interactive Route Visualization:** View your recorded trips on an integrated MapLibre map with Start and End markers.
-    *   **Telemetry Replay:** Automatic replay function with a professional play/pause button and a smooth dot-style progress slider.
-    *   **Comprehensive Metrics:** Real-time synchronized telemetry display during replay including Timestamp, Odometer, Speed, Gear, RPM, Lean Angle, Temperature, Fuel %, Consumption, Voltage, and Engine Load.
-    *   **In-Depth Statistics:** Dedicated stats page showing Moving Average Speed, Max Acceleration/Deceleration, Elevation Gain/Loss, and Max Altitude.
-    *   **High-Quality Analytics Charts:** Smooth, professional-grade charts for Speed, Altitude, RPM, and Acceleration featuring **Cubic Interpolation** and **Aesthetic Vertical Gradients**.
-    *   **Riding Style Rating:** Intelligent classification of your cornering behavior (e.g., "Kurvenjäger") including a Material 3 **5-star rating system**.
-*   **GitHub Update Integration:** Automatically checks for new releases on startup and notifies you of available updates with a direct link to the GitHub release page.
-*   **Multi-Motorcycle Support:** Service records, **wheel/tire specs**, and technical data are stored independently for every motorcycle based on its unique VIN using a **robust JSON-based storage system**.
-*   **Vehicle Highlights (Lifetime Records):** Automatically tracks and persists your all-time records with a **reset function**.
-*   **Intelligent UI Layouts:**
-    *   **Dynamic Grid:** Adaptive dashboard layout that scales based on device orientation and screen size.
-    *   **Context-Aware Visibility:** Specialized cards (Service, Highlights) only appear when a motorcycle is connected and identified.
+    *   **Interactive Route Visualization:** View recorded trips on an integrated MapLibre map with Start/End markers and fluid motorcycle marker replay.
+    *   **Telemetry Replay:** Professional play/pause function with a smooth dot-style progress slider, synchronized with the map position.
+    *   **11 Aesthetic Analytics Charts:** High-quality, cubic-smoothed charts for **Speed**, **RPM**, **Temp**, **Throttle**, **Load**, **Gear**, **Voltage**, **Consumption**, **Acceleration/Deceleration**, and **Altitude**.
+    *   **In-Depth Statistics:** Dedicated page showing **Moving Avg Speed**, **Trip Distance**, **Most Used Gear**, **Max/Avg TPS**, **Max/Avg Load**, **Max/Avg Voltage**, **Max/Avg Consumption**, and **Simplified Altitude Profile** (Max/Min/Avg).
+    *   **Riding Style Rating:** Intelligent classification of cornering behavior (e.g., "Curve Chaser") with a Material 3 **5-star rating system**. Includes intelligent filtering of ECU sensor initialization values.
+*   **Service History Management:**
+    *   **Chronological Tracking:** Persistent list of service entries, automatically sorted from oldest to newest.
+    *   **Service in XXX km:** Smart calculation of remaining distance based on vehicle-specific intervals and the latest logged service.
+    *   **Advanced Entry Workflow:** Adding a new service automatically expands history, focuses the mileage field, and enables the keyboard.
+    *   **DatePicker & Validation:** Edit service dates via a calendar dialog. Integrated logic (mileage > 0, ascending values) prevents inconsistent data.
+    *   **Per-Entry Edit Mode:** Individual "lockable" cards with a dedicated edit button to prevent accidental modifications to past records.
+*   **GitHub Update Integration:** Automatically checks for new releases on startup and notifies you with a direct link to the release page.
+*   **Multi-Motorcycle Support:** Service records, wheel/tire specs, and technical data are stored independently for every motorcycle based on its unique VIN.
+*   **Intelligent UI Layouts:** Adaptive dashboard layout that scales based on device orientation and screen size.
 
 ### Altitude Data in CSV Log
 - **Detailed Altitude Tracking**: The application now records and exports altitude data (height above sea level) from GPS in the live CSV log.
-
-### Dynamic Fuel Gauge Monitoring
-- **Switchable Fuel Gauge DIDs**: Users can now dynamically switch between two different Fuel Gauge Data Identifiers (DIDs) during live polling, with immediate feedback and value clamping.
-- **Optimized LivePoll for Fuel Gauge**: The polling mechanism for the fuel gauge has been optimized to only query the active DID, reducing BLE traffic and improving responsiveness.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/11cfee67-167b-4ead-a696-5be6f7d00e2b" width="200" alt="App Screenshot 01">
@@ -57,12 +54,6 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8a53d9be-a1c1-4d93-894f-b59f69878d9d" width="200" alt="App Screenshot 01">
   <img src="https://github.com/user-attachments/assets/2d1f093a-4f4d-4231-a37c-1b042dd4deeb" width="200" alt="App Screenshot 02">
-</p>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/ad4f0964-e12b-4412-954d-50ba3f5e3b3d" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/e630a024-1fef-4f5d-a46a-6897ec3092cf" width="200" alt="App Screenshot 02">
-  <img src="https://github.com/user-attachments/assets/df0b13ae-e18a-4900-962e-9f44bbcee8d6" width="200" alt="App Screenshot 03">
 </p>
 
 ## Service Interval Logic
@@ -166,20 +157,21 @@ This project leverages several open-source libraries to provide its functionalit
 
 The application identifies the specific technical data for your motorcycle by analyzing the **Vehicle Descriptor Section (VDS)** of the VIN (characters 4 through 9). The following sub-model codes have been identified through research and analysis of Fantic technical documentation:
 
-| Model Code | Sub-Model Code | Displacement Class | Model Variant | Typical Example |
-|:-----------|:---------------|:-------------------| :--- | :--- |
-| CA13       | **1S**         | 125cc              | Scrambler | Caballero 125 Scrambler |
-| CA50       | **1S**         | 500cc              | Scrambler | Caballero 500 Scrambler |
-| CA13       | **5S**         | 125cc              | Deluxe | Caballero 125 Deluxe |
-| CA50       | **5S**         | 500cc              | Deluxe | Caballero 500 Deluxe |
-|            | **1F**         | 125cc              | Flat Track | Caballero 125 Flat Track |
-|            | **1F**         | 500cc              | Flat Track | Caballero 500 Flat Track |
-|            | **1R**         | 125cc              | Rally | Caballero 125 Rally |
-| CA50        | **1R**         | 500cc              | Rally | Caballero 500 Rally |
-|            | **MP**         | 125cc              | Performance (Motard) | Fantic XMF 125 Performance |
-|            | **MC**         | 125cc              | Competition (Motard) | Fantic XMF 125 Competition |
-|            | **EP**         | 125cc              | Performance (Enduro) | Fantic XEF 125 Performance |
-|            | **EC**         | 125cc              | Competition (Enduro) | Fantic XEF 125 Competition |
+| **Model** | **Submodel** | **Year** | **Displacement Class** | **Model Variant**    | **Typical Example**        |
+|:----------|:-------------|----------|:-----------------------|:---------------------|:---------------------------|
+| CA14      | 0S           | 2025     | 125cc                  | Scrambler            | Caballero 125 Scrambler    |
+| CA13      | 1S           | 2024     | 125cc                  | Scrambler            | Caballero 125 Scrambler    |
+| CA50      | 1S           | 2024     | 500cc                  | Scrambler            | Caballero 500 Scrambler    |
+| CA13      | 5S           | 2024     | 125cc                  | Deluxe               | Caballero 125 Deluxe       |
+| CA50      | 5S           | 2024     | 500cc                  | Deluxe               | Caballero 500 Deluxe       |
+|           | 1F           |          | 125cc                  | Flat Track           | Caballero 125 Flat Track   |
+|           | 1F           |          | 500cc                  | Flat Track           | Caballero 500 Flat Track   |
+|           | 1R           |          | 125cc                  | Rally                | Caballero 125 Rally        |
+| CA50      | 1R           | 2024     | 500cc                  | Rally                | Caballero 500 Rally        |
+|           | MP           |          | 125cc                  | Performance (Motard) | Fantic XMF 125 Performance |
+|           | MC           |          | 125cc                  | Competition (Motard) | Fantic XMF 125 Competition |
+|           | EP           |          | 125cc                  | Performance (Enduro) | Fantic XEF 125 Performance |
+|           | EC           |          | 125cc                  | Competition (Enduro) | Fantic XEF 125 Competition |
 
 ## Supported Models (Untested / Likely Compatible)
 
@@ -327,13 +319,13 @@ The e-shock module identifies itself with the prefix `FanticCON-` followed by it
 ### Proprietary Service (E-SHOCK)
 **Service UUID**: `0000e550-0000-1000-8000-00805f9b34fb`
 
-| Characteristic UUID | Handle | Properties | Description |
-| :--- | :--- | :--- | :--- |
-| `0000e5c0-0000-1000-8000-00805f9b34fb` | 41 | `WRITE` | **Primary Command Channel** (UDS Request) |
-| `0000e5c1-0000-1000-8000-00805f9b34fb` | 43 | `INDICATE` | **Primary Response Channel** (UDS Response) |
-| `0000e5c2-0000-1000-8000-00805f9b34fb` | 46 | `WRITE` | Firmware Upload Channel |
-| `0000e5c3-0000-1000-8000-00805f9b34fb` | 48 | `INDICATE` | Data Stream Channel |
-| `0000e5c4-0000-1000-8000-00805f9b34fb` | 51 | `INDICATE` | Diagnostic Stream Channel |
+| Characteristic UUID                    | Handle | Properties | Description                                 |
+|:---------------------------------------|:-------|:-----------|:--------------------------------------------|
+| `0000e5c0-0000-1000-8000-00805f9b34fb` | 41     | `WRITE`    | **Primary Command Channel** (UDS Request)   |
+| `0000e5c1-0000-1000-8000-00805f9b34fb` | 43     | `INDICATE` | **Primary Response Channel** (UDS Response) |
+| `0000e5c2-0000-1000-8000-00805f9b34fb` | 46     | `WRITE`    | Firmware Upload Channel                     |
+| `0000e5c3-0000-1000-8000-00805f9b34fb` | 48     | `INDICATE` | Data Stream Channel                         |
+| `0000e5c4-0000-1000-8000-00805f9b34fb` | 51     | `INDICATE` | Diagnostic Stream Channel                   |
 
 ### Standard Services
 *   **Generic Access (`00001800-0000-1000-8000-00805f9b34fb`):**
@@ -391,70 +383,70 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 ## Known Diagnostic Identifiers (DIDs)
 
-| DID (Hex) | Description                      | Data Format / Interpretation                       | Verified |
-|:----------|:---------------------------------|:---------------------------------------------------|:---------|
-| `0001`    |                                  | 2-byte                                             |          |
-| `0002`    | **VIN**                          | 17-byte ASCII String                               | ✅        |
-| `0003`    | **System Voltage**               | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)    | ✅        |
-| `0004`    |                                  | 2-byte                                             |          |
-| `0005`    |                                  | 1-byte                                             |          |
-| `0006`    |                                  | 1-byte                                             |          |
-| `0007`    | **Gear Position**                | 1-byte (`0x00` = N, `0x01` = 1...)                 | ✅        |
-| `0008`    | **Throttle Position (TPS)**      | 1-byte Integer (`Value / 255 * 100` = %)           | ✖        |
-| `0009`    | **Kickstand**                    | 1-byte (`0x01` = Up, `0x00` = Down)                | ✅        |
-| `000A`    |                                  | 1-byte                                             |          |
-| `000B`    | **Instant Consumption**          | 2-byte Integer (`Value / 100.0f` = L/100km)        | ✅        |
-| `000C`    | **Engine RPM**                   | 2-byte Integer                                     | ✅        |
-| `000D`    | **Fuel Gauge** (incl. reserve)   | 1-byte Integer (%)                                 | ✖        |
-| `000E`    | **Engine Load**                  | 1-byte Integer (%)                                 | ✖        |
-| `000F`    | **Fuel Gauge** (without reserve) | 1-byte Integer (%)                                 | ✖        |
-| `0010`    |                                  | 1-byte                                             |          |
-| `0011`    | **Engine Temp**                  | 1-byte Integer (°C)                                | ✅        |
-| `0012`    |                                  | 2-byte                                             |          |
-| `0013`    |                                  | 1-byte                                             |          |
-| `0014`    |                                  | 1-byte                                             |          |
-| `0015`    |                                  | 2-byte                                             |          |
-| `0016`    |                                  | 1-byte                                             |          |
-| `0017`    |                                  | 1-byte                                             |          |
-| `0018`    |                                  | 1-byte                                             |          |
-| `0019`    |                                  | 2-byte                                             |          |
-| `001A`    |                                  | 2-byte                                             |          |
-| `001B`    |                                  | from DID-List = 0x7F                               |          |
-| `001C`    |                                  | from DID-List = 0x7F                               |          |
-| `001D`    |                                  | from DID-List = 0x7F                               |          |
-| `001E`    |                                  | from DID-List = 0x7F                               |          |
-| `001F`    |                                  | from DID-List = 0x7F                               |          |
-| `0020`    |                                  | from DID-List = 0x7F                               |          |
-| `0021`    |                                  | from DID-List = 0x7F                               |          |
-| `0022`    |                                  | from DID-List = 0x7F                               |          |
-| `0023`    |                                  | from DID-List = 0x7F                               |          |
-| `0024`    |                                  | from DID-List = 0x7F                               |          |
-| `0025`    |                                  | 1-byte                                             |          |
-| `0026`    |                                  | 2-byte                                             |          |
-| `0027`    | **Odometer**                     | 4-byte Integer (`Value / 8.0f` = km)               | ✅        |
-| `0028`    |                                  | 1-byte                                             |          |
-| `0029`    |                                  | 1-byte                                             |          |
-| `002A`    |                                  | 1-byte                                             |          |
-| `002B`    |                                  | 1-byte                                             |          |
-| `002C`    |                                  | 1-byte                                             |          |
-| `E501`    | **Module Info**                  | Composite ASCII fields (Serial, App Name, Version) | ✅        |
-| `E502`    | **DID Directory**                | List of identifiers (intended use?)                | ✅        |
-| `E503`    | **Status Configuration**         | Set strem configuration?                           | ✖        |
-| `E504`    |                                  | 1-byte                                             |          |
-| `E505`    |                                  | 1-byte                                             |          |
-| `E506`    | **HW Version**                   | Hardware name and revision                         | ✅        |
+| DID (Hex) | Description                       | Data Format / Interpretation                       | Verified |
+|:----------|:----------------------------------|:---------------------------------------------------|:---------|
+| `0001`    |                                   | 2-byte                                             |          |
+| `0002`    | **VIN**                           | 17-byte ASCII String                               | ✅        |
+| `0003`    | **System Voltage**                | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)    | ✅        |
+| `0004`    |                                   | 2-byte                                             |          |
+| `0005`    |                                   | 1-byte                                             |          |
+| `0006`    |                                   | 1-byte                                             |          |
+| `0007`    | **Gear Position**                 | 1-byte (`0x00` = N, `0x01` = 1...)                 | ✅        |
+| `0008`    | **Throttle Position (TPS)**       | 1-byte Integer (`Value / 255 * 100` = %)           | ✖        |
+| `0009`    | **Kickstand**                     | 1-byte (`0x01` = Up, `0x00` = Down)                | ✅        |
+| `000A`    |                                   | 1-byte                                             |          |
+| `000B`    | **Instant Consumption**           | 2-byte Integer (`Value / 100.0f` = L/100km)        | ✅        |
+| `000C`    | **Engine RPM**                    | 2-byte Integer                                     | ✅        |
+| `000D`    | **Fuel Gauge** (filtered sensor)  | 1-byte Integer (%)                                 | ✖        |
+| `000E`    | **Engine Load**                   | 1-byte Integer (%)                                 | ✖        |
+| `000F`    | **Fuel Gauge** (raw sensor value) | 1-byte                                             | ✖        |
+| `0010`    |                                   | 1-byte                                             |          |
+| `0011`    | **Engine Temp**                   | 1-byte Integer (°C)                                | ✅        |
+| `0012`    |                                   | 2-byte                                             |          |
+| `0013`    |                                   | 1-byte                                             |          |
+| `0014`    |                                   | 1-byte                                             |          |
+| `0015`    |                                   | 2-byte                                             |          |
+| `0016`    |                                   | 1-byte                                             |          |
+| `0017`    |                                   | 1-byte                                             |          |
+| `0018`    |                                   | 1-byte                                             |          |
+| `0019`    |                                   | 2-byte                                             |          |
+| `001A`    |                                   | 2-byte                                             |          |
+| `001B`    |                                   | from DID-List = 0x7F                               |          |
+| `001C`    |                                   | from DID-List = 0x7F                               |          |
+| `001D`    |                                   | from DID-List = 0x7F                               |          |
+| `001E`    |                                   | from DID-List = 0x7F                               |          |
+| `001F`    |                                   | from DID-List = 0x7F                               |          |
+| `0020`    |                                   | from DID-List = 0x7F                               |          |
+| `0021`    |                                   | from DID-List = 0x7F                               |          |
+| `0022`    |                                   | from DID-List = 0x7F                               |          |
+| `0023`    |                                   | from DID-List = 0x7F                               |          |
+| `0024`    |                                   | from DID-List = 0x7F                               |          |
+| `0025`    |                                   | 1-byte                                             |          |
+| `0026`    |                                   | 2-byte                                             |          |
+| `0027`    | **Odometer**                      | 4-byte Integer (`Value / 8.0f` = km)               | ✅        |
+| `0028`    |                                   | 1-byte                                             |          |
+| `0029`    |                                   | 1-byte                                             |          |
+| `002A`    |                                   | 1-byte                                             |          |
+| `002B`    |                                   | 1-byte                                             |          |
+| `002C`    |                                   | 1-byte                                             |          |
+| `E501`    | **Module Info**                   | Composite ASCII fields (Serial, App Name, Version) | ✅        |
+| `E502`    | **DID Directory**                 | List of identifiers (intended use?)                | ✅        |
+| `E503`    | **Status Configuration**          | Set strem configuration?                           | ✖        |
+| `E504`    |                                   | 1-byte                                             |          |
+| `E505`    |                                   | 1-byte                                             |          |
+| `E506`    | **HW Version**                    | Hardware name and revision                         | ✅        |
 
 ## Supported Service IDs (SIDs)
 
-| SID (Hex) | Type | Description |
-| :--- | :--- | :--- |
-| `22` | Request | Read Data By Identifier |
-| `27` | Request | Security Access |
-| `2E` | Request | Write Data By Identifier |
-| `31` | Request | Routine Control |
-| `62` | Response | Positive Response for `0x22` |
-| `67` | Response | Positive Response for `0x27` |
-| `7F` | Response | **Negative Response (NRC)** - Error code follows |
+| SID (Hex) | Type     | Description                                      |
+|:----------|:---------|:-------------------------------------------------|
+| `22`      | Request  | Read Data By Identifier                          |
+| `27`      | Request  | Security Access                                  |
+| `2E`      | Request  | Write Data By Identifier                         |
+| `31`      | Request  | Routine Control                                  |
+| `62`      | Response | Positive Response for `0x22`                     |
+| `67`      | Response | Positive Response for `0x27`                     |
+| `7F`      | Response | **Negative Response (NRC)** - Error code follows |
 
 ### Common Negative Response Codes (NRCs)
 *   `0x11`: Service Not Supported
@@ -465,16 +457,16 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 ### Unsupported Service Frames (Bruteforced)
 The following frame patterns were tested but consistently returned a Negative Response (NRC):
 
-| UDS Payload (Excl. Length & CRC) | UDS Service / Description |
-| :--- | :--- |
-| `10 xx` | Diagnostic Session Control |
-| `11 xx xx` | ECU Reset |
-| `19 xx xx` | Read DTC Information |
-| `28 xx xx` | Communication Control |
-| `29 xx xx` | Authentication |
-| `3E xx xx` | Tester Present |
-| `14 01 xx xx` | Clear Diagnostic Info |
-| `14 FF xx xx` | Clear Diagnostic Info |
+| UDS Payload (Excl. Length & CRC) | UDS Service / Description  |
+|:---------------------------------|:---------------------------|
+| `10 xx`                          | Diagnostic Session Control |
+| `11 xx xx`                       | ECU Reset                  |
+| `19 xx xx`                       | Read DTC Information       |
+| `28 xx xx`                       | Communication Control      |
+| `29 xx xx`                       | Authentication             |
+| `3E xx xx`                       | Tester Present             |
+| `14 01 xx xx`                    | Clear Diagnostic Info      |
+| `14 FF xx xx`                    | Clear Diagnostic Info      |
 
 ## Known Issues
 
