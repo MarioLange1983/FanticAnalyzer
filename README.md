@@ -29,10 +29,11 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Data Export:** Share combined CSV/GPX trip files, ZIP bundles, and vehicle technical reports via the Android share sheet.
 *   **Detailed Trip Analysis:**
     *   **Interactive Route Visualization:** View recorded trips on an integrated MapLibre map with Start/End markers and fluid motorcycle marker replay.
-    *   **Telemetry Replay:** Professional play/pause function with a smooth dot-style progress slider, synchronized with the map position.
+    *   **Telemetry Replay:** Professional play/pause function with a smooth dot-style progress slider, synchronized with the map position. Includes **dynamic speed selection** (0.25x to 2.0x) for detailed analysis of maneuvers.
     *   **11 Aesthetic Analytics Charts:** High-quality, cubic-smoothed charts for **Speed**, **RPM**, **Temp**, **Throttle**, **Load**, **Gear**, **Voltage**, **Consumption**, **Acceleration/Deceleration**, and **Altitude**.
+    *   **Synchronized Chart Analysis:** Toggle-able **Lock Mode** to synchronize scrolling and zooming across all charts simultaneously. Features an **absolute time-of-day x-axis** (HH:mm:ss) and **intelligent auto-zoom** for long trips.
     *   **In-Depth Statistics:** Dedicated page showing **Moving Avg Speed**, **Trip Distance**, **Most Used Gear**, **Max/Avg TPS**, **Max/Avg Load**, **Max/Avg Voltage**, **Max/Avg Consumption**, and **Simplified Altitude Profile** (Max/Min/Avg).
-    *   **Riding Style Rating:** Intelligent classification of cornering behavior (e.g., "Curve Chaser") with a Material 3 **5-star rating system**. Includes intelligent filtering of ECU sensor initialization values.
+    *   **Riding Style Rating:** Intelligent classification of cornering behavior (e.g., "Curve Chaser") with a Material 3 **5-star rating system**. Features a **dynamic lean angle icon** that mirrors based on real-world cornering direction.
 *   **Service History Management:**
     *   **Chronological Tracking:** Persistent list of service entries, automatically sorted from oldest to newest.
     *   **Service in XXX km:** Smart calculation of remaining distance based on vehicle-specific intervals and the latest logged service.
@@ -56,7 +57,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
   <img src="https://github.com/user-attachments/assets/2d1f093a-4f4d-4231-a37c-1b042dd4deeb" width="200" alt="App Screenshot 02">
 </p>
 
-## Service Interval Logic
+## ⛓️ Service Interval Logic
 
 The application includes a `ServiceManager` that calculates when the next maintenance is due. This calculation is based on the `ServiceInterval` data defined for each supported model.
 
@@ -67,7 +68,7 @@ The application includes a `ServiceManager` that calculates when the next mainte
     *   Once the first service is passed/completed, the logic calculates the next multiple of the regular interval.
     *   **Manual Override:** Users can enter the exact mileage of their last service in the "Service" section of the **VEHICLE** tab. This allows the app to precisely calculate the *remaining* kilometers until the next scheduled visit.
 
-## Data Logging & Recording
+## 🖊️ Data Logging & Recording
 
 The application provides three distinct ways to capture and export vehicle data:
 
@@ -93,7 +94,7 @@ The **LOOPSCAN** feature in the Terminal tab allows for long-term monitoring.
 A comprehensive decoded report of the vehicle's VIN, module specifications, and service status can be shared directly from the **VEHICLE** tab.
 * **How to share:** Perform a **long-tap** anywhere on the Vehicle tab to open the Android share sheet for the full technical report.
 
-## Debug Mode & Advanced Terminal
+## 🖌️ Debug Mode & Advanced Terminal
 
 For safety reasons, the ability to send raw hex data via the Terminal is locked by default.
 
@@ -131,7 +132,7 @@ This project is conducted in accordance with European and German legislation reg
 3.  **Ownership Rights:** As the lawful owner of the vehicle and the integrated module, accessing diagnostic data for maintenance and personal research is a legitimate interest, especially when the manufacturer fails to provide adequate tools for a paid gateway/module.
 4.  **Non-Commercial Intent:** This project is for private, educational, and research purposes only. It does not aim to infringe on any intellectual property for commercial gain.
 
-## Technical Scope & Compliance
+## 🛠️ Technical Scope & Compliance
 
 *   **Tested Environment:** Developed and tested on **Android 15/16** using a **Pixel 9 series device**.
 *   **Target Vehicle:** Primarily tuned for and tested on the **2024 Fantic Caballero Deluxe**.
@@ -145,15 +146,14 @@ This project leverages several open-source libraries to provide its functionalit
 
 *   **Jetpack Compose:** Modern toolkit for building native Android UI.
 *   **Material 3:** Google's latest design system for consistent and modern aesthetics.
-*   **MapLibre Native (v13.1.0):** Open-source alternative to Mapbox for high-performance route visualization.
-    *   *Includes the MapLibre Annotation Plugin for marker and polyline management.*
-*   **Vico Charts (v2.5.0):** A powerful, light, and composable charting library for Android.
+*   **MapLibre Native:** Open-source alternative to Mapbox for high-performance route visualization.
+*   **Vico Charts:** A powerful, light, and composable charting library for Android.
 *   **Google Play Services Location:** For precise GPS tracking and trip logging.
 *   **Jetpack Security Crypto:** Ensures secure encryption for sensitive local data (e.g., VIN-specific records).
 *   **Jetpack DataStore:** Robust and modern data storage for user preferences and vehicle configurations.
 *   **Kotlinx Serialization:** For efficient JSON-based data management and motorcycle-specific storage.
 
-### Vehicle Sub-Model Identification (VDS)
+## ⚙️ Vehicle Sub-Model Identification (VDS)
 
 The application identifies the specific technical data for your motorcycle by analyzing the **Vehicle Descriptor Section (VDS)** of the VIN (characters 4 through 9). The following sub-model codes have been identified through research and analysis of Fantic technical documentation:
 
@@ -164,14 +164,14 @@ The application identifies the specific technical data for your motorcycle by an
 | CA50      | 1S           | 2024     | 500cc                  | Scrambler            | Caballero 500 Scrambler    |
 | CA13      | 5S           | 2024     | 125cc                  | Deluxe               | Caballero 125 Deluxe       |
 | CA50      | 5S           | 2024     | 500cc                  | Deluxe               | Caballero 500 Deluxe       |
-|           | 1F           |          | 125cc                  | Flat Track           | Caballero 125 Flat Track   |
-|           | 1F           |          | 500cc                  | Flat Track           | Caballero 500 Flat Track   |
-|           | 1R           |          | 125cc                  | Rally                | Caballero 125 Rally        |
+| CA13      | 1F           | 2024     | 125cc                  | Flat Track           | Caballero 125 Flat Track   |
+| CA50      | 1F           | 2024     | 500cc                  | Flat Track           | Caballero 500 Flat Track   |
+| CA13      | 1R           | 2024     | 125cc                  | Rally                | Caballero 125 Rally        |
 | CA50      | 1R           | 2024     | 500cc                  | Rally                | Caballero 500 Rally        |
-|           | MP           |          | 125cc                  | Performance (Motard) | Fantic XMF 125 Performance |
-|           | MC           |          | 125cc                  | Competition (Motard) | Fantic XMF 125 Competition |
-|           | EP           |          | 125cc                  | Performance (Enduro) | Fantic XEF 125 Performance |
-|           | EC           |          | 125cc                  | Competition (Enduro) | Fantic XEF 125 Competition |
+| FA13      | MP           |          | 125cc                  | Performance (Motard) | Fantic XMF 125 Performance |
+| FA13      | MC           |          | 125cc                  | Competition (Motard) | Fantic XMF 125 Competition |
+| FA13      | EP           |          | 125cc                  | Performance (Enduro) | Fantic XEF 125 Performance |
+| FA13      | EC           |          | 125cc                  | Competition (Enduro) | Fantic XEF 125 Competition |
 
 ## Supported Models (Untested / Likely Compatible)
 
@@ -189,7 +189,7 @@ Based on shared hardware platforms using the e-shock module, the following model
 *   Fantic XEF 125 Enduro Performance / Competition
 *   Fantic XMF 125 Motard Performance / Competition
 
-## ToDo / Roadmap
+## 🪛 ToDo / Roadmap
 
 * [ ] Integration of `E503` - data stream
 * [ ] Integration of `E504` - diagnostic stream
