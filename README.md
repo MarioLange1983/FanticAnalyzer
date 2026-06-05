@@ -51,7 +51,9 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 <p align="center">
   <img src="https://github.com/user-attachments/assets/723c4505-dbfc-4e56-8a2a-d32e43415907" width="100">
   <img src="https://github.com/user-attachments/assets/e36a52d2-4254-4269-810f-a411c2ea1315" width="100">
-  <img src="https://github.com/user-attachments/assets/d299deea-a681-47dc-9734-4d986a1af752" width="100">
+  <video width="100" autoplay loop muted playsinline>
+    <source src="https://github.com/user-attachments/assets/d299deea-a681-47dc-9734-4d986a1af752" type="video/webm">
+  </video>
   <img src="https://github.com/user-attachments/assets/40a529c0-b57f-4b9e-bcea-167d8a06cdbd" width="100">
 </p>
 
