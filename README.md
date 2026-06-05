@@ -5,10 +5,11 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/126c5216-4ccc-4a7a-8e1b-e5ab5475f4a9" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/49c0dd7d-18f2-45f6-ac23-2fa2408f4719" width="200" alt="App Screenshot 02">
-  <img src="https://github.com/user-attachments/assets/977fc6ed-fb57-49c3-a10a-9da012cdf067" width="200" alt="App Screenshot 03">
+  <img src="https://github.com/user-attachments/assets/a9227852-036b-48fb-a70e-e297a01d599d" width="200">
+  <img src="https://github.com/user-attachments/assets/a1ecc19f-e256-4725-a5b1-79033278ed2a" width="200">
+  <img src="https://github.com/user-attachments/assets/fc0e39bc-831a-4770-a89a-d021988ca0a5" width="200">
 </p>
+
 
 ## Key Features
 
@@ -18,9 +19,20 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Standard View:** A clean, informative grid of live vehicle metrics.
     *   **Fullscreen Mode:** A high-contrast, large-font dashboard designed specifically for high readability while riding in landscape orientation.
     *   **Intelligent Tilt Calibration:** Automatic 3D-matrix calibration when starting a trip, ensuring accurate curve lean angles regardless of phone mounting orientation.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/11cfee67-167b-4ead-a696-5be6f7d00e2b" width="200">
+  <img src="https://github.com/user-attachments/assets/2d1f093a-4f4d-4231-a37c-1b042dd4deeb" width="200">
+</p>
+
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more. Improved fuel gauge monitoring using filtered ECU data (DID 0x000D).
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
 *   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/916f95ce-adb2-4512-a000-67e083bd6ca3" width="100">
+</p>
+
 *   **Comprehensive Logging & Export:**
     *   **GPX Trip Logging (Industry Standard):** Record trips in Garmin-compatible GPX format including GPS coordinates, altitude, RPM, and temperature.
     *   **Live CSV Logging:** Automatically record converted vehicle metrics (RPM, Speed, Throttle %, etc.) during live polling sessions.
@@ -34,6 +46,28 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Synchronized Chart Analysis:** Toggle-able **Lock Mode** to synchronize scrolling and zooming across all charts simultaneously. Features an **absolute time-of-day x-axis** (HH:mm:ss) and **intelligent auto-zoom** for long trips.
     *   **In-Depth Statistics:** Dedicated page showing **Moving Avg Speed**, **Trip Distance**, **Most Used Gear**, **Max/Avg TPS**, **Max/Avg Load**, **Max/Avg Voltage**, **Max/Avg Consumption**, and **Simplified Altitude Profile** (Max/Min/Avg).
     *   **Riding Style Rating:** Intelligent classification of cornering behavior (e.g., "Curve Chaser") with a Material 3 **5-star rating system**. Features a **dynamic lean angle icon** that mirrors based on real-world cornering direction.
+
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/723c4505-dbfc-4e56-8a2a-d32e43415907" width="100">
+  <img src="https://github.com/user-attachments/assets/e36a52d2-4254-4269-810f-a411c2ea1315" width="100">
+  <img src="https://github.com/user-attachments/assets/d299deea-a681-47dc-9734-4d986a1af752" width="100">
+  <img src="https://github.com/user-attachments/assets/40a529c0-b57f-4b9e-bcea-167d8a06cdbd" width="100">
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c18c7ec9-9f00-4677-a628-bddafc781c95" width="100">
+  <img src="https://github.com/user-attachments/assets/285d627f-8056-4cea-8d32-3e18fa44b6ed" width="100">
+  <img src="https://github.com/user-attachments/assets/eb217dea-66fe-4c2d-8d89-6f45ffdf5ad7" width="100">
+  <img src="https://github.com/user-attachments/assets/7783b39b-0c0c-4192-a29d-cff1293dc506" width="100">
+</p>
+  
+*   **Navigation & Routing:**
+    *   **Destination Search:** Built-in search powered by Photon API with debounced queries and map previews.
+    *   **Valhalla Routing:** Integration with Stadia Maps API for intelligent motorcycle-optimized routing.
+    *   **Interactive Turn-by-Turn:** Dynamic maneuver instructions embedded directly into the Fullscreen Dashboard.
+    *   **Smart Rerouting:** Automatically detects off-route deviations and recalculates seamlessly based on your current trajectory and the target destination.
+    *   **Native TTS:** Voice-guided navigation instructions natively processed from Valhalla's verbal maneuver cues.
 *   **Service History Management:**
     *   **Chronological Tracking:** Persistent list of service entries, automatically sorted from oldest to newest.
     *   **Service in XXX km:** Smart calculation of remaining distance based on vehicle-specific intervals and the latest logged service.
@@ -46,16 +80,6 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 ### Altitude Data in CSV Log
 - **Detailed Altitude Tracking**: The application now records and exports altitude data (height above sea level) from GPS in the live CSV log.
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/11cfee67-167b-4ead-a696-5be6f7d00e2b" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/89a3b507-295f-4c74-8849-932cde11b282" width="200" alt="App Screenshot 02">
-</p>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/8a53d9be-a1c1-4d93-894f-b59f69878d9d" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/2d1f093a-4f4d-4231-a37c-1b042dd4deeb" width="200" alt="App Screenshot 02">
-</p>
 
 ## ⛓️ Service Interval Logic
 
@@ -96,21 +120,17 @@ A comprehensive decoded report of the vehicle's VIN, module specifications, and 
 
 ## 🖌️ Debug Mode & Advanced Terminal
 
-For safety reasons, the ability to send raw hex data via the Terminal is locked by default.
-
 ### Activation ("The Secret")
-1.  Navigate to the **TERMINAL** tab.
+1.  Navigate to the **VEHICLE** tab.
 2.  Tap the **App Title** ("FANTIC ANALYZER") at the top center exactly **5 times**.
-3.  A safety warning will appear. After confirmation, the raw data input field and the "SEND" button will become visible.
+3.  A safety warning will appear. After confirmation, the Terminal tab, raw data input field and the "SEND" button will become visible.
 
 > [!CAUTION]
 > Debug mode allows direct interaction with the vehicle's control modules. Sending incorrect or malformed UDS commands can lead to module lockouts, error codes, or physical damage. Use this feature only if you are familiar with the UDS protocol and the e-shock implementation.
 
-**Auto-Lock:** Debug mode is automatically deactivated when you leave the Terminal tab or disconnect from the vehicle.
-
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/941449a4-2b89-4f09-b5e0-5ccc3b3be34c" width="200" alt="App Screenshot 01">
-  <img src="https://github.com/user-attachments/assets/6e2d0892-6f22-4c21-bc8d-50f0d64d4da6" width="200" alt="App Screenshot 02">
+  <img src="https://github.com/user-attachments/assets/7b087184-d5bf-4000-87da-aca032603b9a" width="200">
+  <img src="https://github.com/user-attachments/assets/916f95ce-adb2-4512-a000-67e083bd6ca3" width="200">
 </p>
 
 ## ⚠️ Notice & Disclaimer
@@ -146,11 +166,14 @@ This project leverages several open-source libraries to provide its functionalit
 
 *   **Jetpack Compose:** Modern toolkit for building native Android UI.
 *   **Material 3:** Google's latest design system for consistent and modern aesthetics.
-*   **MapLibre Native:** Open-source alternative to Mapbox for high-performance route visualization.
+*   **MapLibre Native:** Open-source alternative to Mapbox for high-performance route visualization and map previews.
 *   **Vico Charts:** A powerful, light, and composable charting library for Android.
-*   **Google Play Services Location:** For precise GPS tracking and trip logging.
+*   **Google Play Services Location:** For precise GPS tracking, trip logging, and navigation routing.
+*   **OkHttp3:** Robust HTTP client used for fetching destinations from Photon API and routes from Stadia Maps.
+*   **Photon / Komoot API:** Powering the search for navigation destinations.
+*   **Valhalla / Stadia Maps:** Powering the routing engine.
 *   **Jetpack Security Crypto:** Ensures secure encryption for sensitive local data (e.g., VIN-specific records).
-*   **Jetpack DataStore:** Robust and modern data storage for user preferences and vehicle configurations.
+*   **Jetpack DataStore:** Robust and modern data storage for user preferences (like Stadia API keys) and vehicle configurations.
 *   **Kotlinx Serialization:** For efficient JSON-based data management and motorcycle-specific storage.
 
 ## ⚙️ Vehicle Sub-Model Identification (VDS)
@@ -168,10 +191,10 @@ The application identifies the specific technical data for your motorcycle by an
 | CA50      | 1F           | 2024     | 500cc                  | Flat Track           | Caballero 500 Flat Track   |
 | CA13      | 1R           | 2024     | 125cc                  | Rally                | Caballero 125 Rally        |
 | CA50      | 1R           | 2024     | 500cc                  | Rally                | Caballero 500 Rally        |
-| FA13      | MP           |          | 125cc                  | Performance (Motard) | Fantic XMF 125 Performance |
-| FA13      | MC           |          | 125cc                  | Competition (Motard) | Fantic XMF 125 Competition |
-| FA13      | EP           |          | 125cc                  | Performance (Enduro) | Fantic XEF 125 Performance |
-| FA13      | EC           |          | 125cc                  | Competition (Enduro) | Fantic XEF 125 Competition |
+| FA13      | MP           | 2024     | 125cc                  | Performance (Motard) | Fantic XMF 125 Performance |
+| FA13      | MC           | 2024     | 125cc                  | Competition (Motard) | Fantic XMF 125 Competition |
+| FA13      | EP           | 2024     | 125cc                  | Performance (Enduro) | Fantic XEF 125 Performance |
+| FA13      | EC           | 2024     | 125cc                  | Competition (Enduro) | Fantic XEF 125 Competition |
 
 ## Supported Models (Untested / Likely Compatible)
 
