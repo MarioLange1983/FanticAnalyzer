@@ -5,9 +5,9 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a9227852-036b-48fb-a70e-e297a01d599d" width="200">
-  <img src="https://github.com/user-attachments/assets/a1ecc19f-e256-4725-a5b1-79033278ed2a" width="200">
-  <img src="https://github.com/user-attachments/assets/fc0e39bc-831a-4770-a89a-d021988ca0a5" width="200">
+  <img src="https://github.com/user-attachments/assets/a9227852-036b-48fb-a70e-e297a01d599d" width="150">
+  <img src="https://github.com/user-attachments/assets/a1ecc19f-e256-4725-a5b1-79033278ed2a" width="150">
+  <img src="https://github.com/user-attachments/assets/fc0e39bc-831a-4770-a89a-d021988ca0a5" width="150">
 </p>
 
 
@@ -47,13 +47,10 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **In-Depth Statistics:** Dedicated page showing **Moving Avg Speed**, **Trip Distance**, **Most Used Gear**, **Max/Avg TPS**, **Max/Avg Load**, **Max/Avg Voltage**, **Max/Avg Consumption**, and **Simplified Altitude Profile** (Max/Min/Avg).
     *   **Riding Style Rating:** Intelligent classification of cornering behavior (e.g., "Curve Chaser") with a Material 3 **5-star rating system**. Features a **dynamic lean angle icon** that mirrors based on real-world cornering direction.
 
-
 <p align="center">
   <img src="https://github.com/user-attachments/assets/723c4505-dbfc-4e56-8a2a-d32e43415907" width="100">
+  <img src="https://github.com/user-attachments/assets/72d08d99-ead9-48e2-8591-65e7375ce302" width="100">
   <img src="https://github.com/user-attachments/assets/e36a52d2-4254-4269-810f-a411c2ea1315" width="100">
-  <video width="100" autoplay loop muted playsinline>
-    <source src="https://github.com/user-attachments/assets/d299deea-a681-47dc-9734-4d986a1af752" type="video/webm">
-  </video>
   <img src="https://github.com/user-attachments/assets/40a529c0-b57f-4b9e-bcea-167d8a06cdbd" width="100">
 </p>
 
@@ -63,7 +60,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
   <img src="https://github.com/user-attachments/assets/eb217dea-66fe-4c2d-8d89-6f45ffdf5ad7" width="100">
   <img src="https://github.com/user-attachments/assets/7783b39b-0c0c-4192-a29d-cff1293dc506" width="100">
 </p>
-  
+
 *   **Navigation & Routing:**
     *   **Destination Search:** Built-in search powered by Photon API with debounced queries and map previews.
     *   **Valhalla Routing:** Integration with Stadia Maps API for intelligent motorcycle-optimized routing.
@@ -496,6 +493,17 @@ The following frame patterns were tested but consistently returned a Negative Re
 ## Known Issues
 
 * If not bonded correctly to the mobile device, the e-shock module will automatically disconnect after ~20 seconds. Ensure the initial Bluetooth pairing process is fully completed via mobile bluetooth settings.
+
+## ❓ FAQ
+
+**Q: Why do I need a Serial/License Key?**
+A: The license key is required to maintain a connection with the user base for feedback and to prevent uncontrolled distribution of this experimental tool.
+
+**Q: Why is a Stadia Maps API Key required?**
+A: The navigation and routing features are powered by Stadia Maps/Valhalla. Due to the associated cost factor for API calls, users are required to provide their own (free tier) API key.
+
+**Q: Is my motorcycle supported?**
+A: This tool is primarily tested on the 2024 Caballero Deluxe. Other models using the e-shock module (see "Supported Models") are likely compatible but untested.
 
 ## 📬 Contact
 
