@@ -37,7 +37,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/827fcc07-3c51-42ff-9c00-83976033136d" width="150">
+  <img src="https://github.com/user-attachments/assets/827fcc07-3c51-42ff-9c00-83976033136d" width="100">
 </p>
 *   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands.
 
