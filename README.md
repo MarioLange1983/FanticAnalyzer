@@ -5,11 +5,10 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a9227852-036b-48fb-a70e-e297a01d599d" width="150">
-  <img src="https://github.com/user-attachments/assets/a1ecc19f-e256-4725-a5b1-79033278ed2a" width="150">
-  <img src="https://github.com/user-attachments/assets/fc0e39bc-831a-4770-a89a-d021988ca0a5" width="150">
+  <img src="https://github.com/user-attachments/assets/fd660dd5-46fc-4d31-b91b-a14cba4d3021" width="150">
+  <img src="https://github.com/user-attachments/assets/ebd82a38-6581-417e-b1fd-91272c3386a1" width="150">
+  <img src="https://github.com/user-attachments/assets/f20d279d-2fec-485c-8918-cb177adae6df" width="150">
 </p>
-
 
 ## Key Features
 
@@ -17,32 +16,51 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Modern Theme:** Modern Material 3 UI designed. Supports both **Light and Dark modes**.
 *   **Motorcycle-Optimized Dashboard:**
     *   **Standard View:** A clean, informative grid of live vehicle metrics.
-    *   **Fullscreen Mode:** A high-contrast, large-font dashboard designed specifically for high readability while riding in landscape orientation.
+    *   **Fullscreen Mode:** A high-contrast, large-font dashboard designed specifically for high readability while riding. Supports both **Landscape** and **Portrait** orientations with automatic layout adaptation.
+    *   **Customizable UI:** Adjustable top padding (Offset) for the Portrait Dashboard to perfectly clear camera notches or phone holder obstructions.
     *   **Intelligent Tilt Calibration:** Automatic 3D-matrix calibration when starting a trip, ensuring accurate curve lean angles regardless of phone mounting orientation.
+    *   **Live Speed Limit Warning:** Real-time speed limit detection via Overpass API. Visual warning system (pulsing icon) when exceeding the limit by a configurable margin (Default: +5 km/h).
+    *   **Orientation Lock:** Manually lock the app to **Portrait**, **Landscape**, or use **Auto (Sensor)** to prevent unwanted rotations due to vibrations.
+    *   **Smart Temperature Visualization:** The engine temperature icon changes color based on state: **Blue** (Cold/Warm-up), **Red** (Normal Operation), and **Blinking Red** (Overheating warning).
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/11cfee67-167b-4ead-a696-5be6f7d00e2b" width="200">
-  <img src="https://github.com/user-attachments/assets/2d1f093a-4f4d-4231-a37c-1b042dd4deeb" width="200">
+  <img src="https://github.com/user-attachments/assets/9b2153a3-ef08-4b5b-97b5-2a7836902b61" width="150">
+  <img src="https://github.com/user-attachments/assets/63799289-9485-4e4c-8063-ac96adf55f08" width="150">
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b91e4976-04f7-4777-b63b-8be8a6ac390a" width="200">
+  <img src="https://github.com/user-attachments/assets/f2207e68-b8b0-4f75-871b-9e5b3e113af7" width="200">
 </p>
 
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more. Improved fuel gauge monitoring using filtered ECU data (DID 0x000D).
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/827fcc07-3c51-42ff-9c00-83976033136d" width="150">
+</p>
 *   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/916f95ce-adb2-4512-a000-67e083bd6ca3" width="100">
+  <img src="https://github.com/user-attachments/assets/bcc9854f-ade1-494f-bb31-6d6829cb2aca" width="100">
+  <img src="https://github.com/user-attachments/assets/7d9fd5a3-78ec-4328-8f39-29fb52b4b23c" width="100">
+  <img src="https://github.com/user-attachments/assets/c73e0b96-2121-479c-87a3-c499232787c4" width="100">
 </p>
 
 *   **Comprehensive Logging & Export:**
+    *   **Recording Options:** Granular control over data logging. Choose to auto-record on new navigations, following old trips, or during manual live dashboard sessions.
     *   **GPX Trip Logging (Industry Standard):** Record trips in Garmin-compatible GPX format including GPS coordinates, altitude, RPM, and temperature.
-    *   **Live CSV Logging:** Automatically record converted vehicle metrics (RPM, Speed, Throttle %, etc.) during live polling sessions.
+    *   **Live CSV Logging:** Automatically record converted vehicle metrics (RPM, Speed, Throttle %, etc.) during live sessions.
+    *   **Intelligent Data Management:** Dedicated settings section for bulk exports and cleanups.
+    *   **ZIP Export:** Export all recorded trips or all system logs as a single ZIP archive for easy backup or external analysis. Temporary ZIP files are automatically cleaned up after sharing.
+    *   **Refined Log Cleanup:** Safety-first deletion logic that only targets system logs and temporary archives, protecting your valuable trip data in the `/trips/` folder. The deletion button is only enabled when log files are actually present.
     *   **LoopScan ZIP Bundling:** Automatically group and compress all diagnostic logs from a LoopScan session into a single ZIP file.
     *   **Customizable Scan Intervals:** Set precise delays (30s to 5m) for automated diagnostic loops.
     *   **Data Export:** Share combined CSV/GPX trip files, ZIP bundles, and vehicle technical reports via the Android share sheet.
 *   **Detailed Trip Analysis:**
     *   **Interactive Route Visualization:** View recorded trips on an integrated MapLibre map with Start/End markers and fluid motorcycle marker replay.
-    *   **Telemetry Replay:** Professional play/pause function with a smooth dot-style progress slider, synchronized with the map position. Includes **dynamic speed selection** (0.25x to 2.0x) for detailed analysis of maneuvers.
-    *   **11 Aesthetic Analytics Charts:** High-quality, cubic-smoothed charts for **Speed**, **RPM**, **Temp**, **Throttle**, **Load**, **Gear**, **Voltage**, **Consumption**, **Acceleration/Deceleration**, and **Altitude**.
+    *   **Telemetry Replay:** Professional play/pause function with a smooth dot-style progress slider, synchronized with the map position. Includes **dynamic speed selection** (0.2x to 1.5x) and **Dynamic Camera Follow Mode**.
+    *   **12 Aesthetic Analytics Charts:** High-quality, cubic-smoothed charts for **Speed**, **RPM**, **Temp**, **Throttle**, **Load**, **Gear**, **Voltage**, **Consumption**, **Acceleration**, **Deceleration**, **Altitude**, and **Roll (Lean Angle)**.
     *   **Synchronized Chart Analysis:** Toggle-able **Lock Mode** to synchronize scrolling and zooming across all charts simultaneously. Features an **absolute time-of-day x-axis** (HH:mm:ss) and **intelligent auto-zoom** for long trips.
     *   **In-Depth Statistics:** Dedicated page showing **Moving Avg Speed**, **Trip Distance**, **Most Used Gear**, **Max/Avg TPS**, **Max/Avg Load**, **Max/Avg Voltage**, **Max/Avg Consumption**, and **Simplified Altitude Profile** (Max/Min/Avg).
     *   **Riding Style Rating:** Intelligent classification of cornering behavior (e.g., "Curve Chaser") with a Material 3 **5-star rating system**. Features a **dynamic lean angle icon** that mirrors based on real-world cornering direction.
@@ -62,11 +80,14 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 </p>
 
 *   **Navigation & Routing:**
-    *   **Destination Search:** Built-in search powered by Photon API with debounced queries and map previews.
-    *   **Valhalla Routing:** Integration with Stadia Maps API for intelligent motorcycle-optimized routing.
-    *   **Interactive Turn-by-Turn:** Dynamic maneuver instructions embedded directly into the Fullscreen Dashboard.
-    *   **Smart Rerouting:** Automatically detects off-route deviations and recalculates seamlessly based on your current trajectory and the target destination.
-    *   **Native TTS:** Voice-guided navigation instructions natively processed from Valhalla's verbal maneuver cues.
+    *   **Destination Search:** Built-in search powered by Photon API with debounced queries, map previews, and an auto-collapsing result list once a destination is selected.
+    *   **Advanced Routing Options:** Centralized settings to avoid highways, tolls, ferries, or unpaved roads. Customize motorcycle-specific costing factors like hilliness and road class preference.
+    *   **Motorcycle-Optimized Routing:** Valhalla-powered routing engine with support for **Custom Server URLs**.
+    *   **Round-Trip Generation:** Generate exciting loops with customizable distance (20-100km) and interactive map previews.
+    *   **Interactive Turn-by-Turn:** Dynamic maneuver instructions and directional icons embedded directly into the Fullscreen Dashboard (Portrait & Landscape).
+    *   **Recalculating Feedback:** Clear visual feedback (recalculating banner) when deviating from the route.
+    *   **Adjustable Rerouting:** Configure off-route sensitivity (50m to 500m) to match your riding style.
+    *   **Customizable TTS:** Adjust voice-guided navigation with **Pitch** and **Speed** settings. Native voice instructions from Valhalla maneuvers.
 *   **Service History Management:**
     *   **Chronological Tracking:** Persistent list of service entries, automatically sorted from oldest to newest.
     *   **Service in XXX km:** Smart calculation of remaining distance based on vehicle-specific intervals and the latest logged service.
@@ -76,9 +97,6 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **GitHub Update Integration:** Automatically checks for new releases on startup and notifies you with a direct link to the release page.
 *   **Multi-Motorcycle Support:** Service records, wheel/tire specs, and technical data are stored independently for every motorcycle based on its unique VIN.
 *   **Intelligent UI Layouts:** Adaptive dashboard layout that scales based on device orientation and screen size.
-
-### Altitude Data in CSV Log
-- **Detailed Altitude Tracking**: The application now records and exports altitude data (height above sea level) from GPS in the live CSV log.
 
 ## ⛓️ Service Interval Logic
 
@@ -119,10 +137,11 @@ A comprehensive decoded report of the vehicle's VIN, module specifications, and 
 
 ## 🖌️ Debug Mode & Advanced Terminal
 
-### Activation ("The Secret")
-1.  Navigate to the **VEHICLE** tab.
-2.  Tap the **App Title** ("FANTIC ANALYZER") at the top center exactly **5 times**.
-3.  A safety warning will appear. After confirmation, the Terminal tab, raw data input field and the "SEND" button will become visible.
+### Activation
+1.  Navigate to the **Settings** (Menu icon in the top right).
+2.  Expand the **Developer & Debug** section.
+3.  Enable the **Always show Debug Terminal** toggle.
+4.  A safety warning will appear. After confirmation, the Terminal tab, raw data input field and the "SEND" button will become visible.
 
 > [!CAUTION]
 > Debug mode allows direct interaction with the vehicle's control modules. Sending incorrect or malformed UDS commands can lead to module lockouts, error codes, or physical damage. Use this feature only if you are familiar with the UDS protocol and the e-shock implementation.
@@ -161,19 +180,23 @@ This project is conducted in accordance with European and German legislation reg
 
 ## 🛠️ External Libraries & Dependencies
 
-This project leverages several open-source libraries to provide its functionality:
-
 *   **Jetpack Compose:** Modern toolkit for building native Android UI.
 *   **Material 3:** Google's latest design system for consistent and modern aesthetics.
 *   **MapLibre Native:** Open-source alternative to Mapbox for high-performance route visualization and map previews.
 *   **Vico Charts:** A powerful, light, and composable charting library for Android.
 *   **Google Play Services Location:** For precise GPS tracking, trip logging, and navigation routing.
-*   **OkHttp3:** Robust HTTP client used for fetching destinations from Photon API and routes from Stadia Maps.
-*   **Photon / Komoot API:** Powering the search for navigation destinations.
-*   **Valhalla / Stadia Maps:** Powering the routing engine.
+*   **OkHttp3:** Robust HTTP client used for network requests.
+*   **Ferrostar:** Core engine used for turn-by-turn navigation logic and maneuver processing.
 *   **Jetpack Security Crypto:** Ensures secure encryption for sensitive local data (e.g., VIN-specific records).
-*   **Jetpack DataStore:** Robust and modern data storage for user preferences (like Stadia API keys) and vehicle configurations.
+*   **Jetpack DataStore:** Robust and modern data storage for user preferences and vehicle configurations.
 *   **Kotlinx Serialization:** For efficient JSON-based data management and motorcycle-specific storage.
+
+## 🌐 Integrated APIs
+
+*   **Valhalla (OSM):** Powering the motorcycle-optimized routing engine, round-trip generation, and turn-by-turn instructions.
+*   **Photon / Komoot API:** Powering the search for navigation destinations with geocoding support.
+*   **Overpass API (OpenStreetMap):** Used for real-time speed limit detection and road infrastructure data.
+*   **GitHub API:** Used for automated update checks and release management.
 
 ## ⚙️ Vehicle Sub-Model Identification (VDS)
 
@@ -414,7 +437,7 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `0005`    |                                   | 1-byte                                             |          |
 | `0006`    |                                   | 1-byte                                             |          |
 | `0007`    | **Gear Position**                 | 1-byte (`0x00` = N, `0x01` = 1...)                 | ✅        |
-| `0008`    | **Throttle Position (TPS)**       | 1-byte Integer (`Value / 255 * 100` = %)           | ✖        |
+| `0008`    | **Throttle Position (TPS)**       | 1-byte Integer (`Value / 255 * 100` = %)           | ✅        |
 | `0009`    | **Kickstand**                     | 1-byte (`0x01` = Up, `0x00` = Down)                | ✅        |
 | `000A`    |                                   | 1-byte                                             |          |
 | `000B`    | **Instant Consumption**           | 2-byte Integer (`Value / 100.0f` = L/100km)        | ✅        |
@@ -498,9 +521,6 @@ The following frame patterns were tested but consistently returned a Negative Re
 
 **Q: Why do I need a Serial/License Key?**
 A: The license key is required to maintain a connection with the user base for feedback and to prevent uncontrolled distribution of this experimental tool.
-
-**Q: Why is a Stadia Maps API Key required?**
-A: The navigation and routing features are powered by Stadia Maps/Valhalla. Due to the associated cost factor for API calls, users are required to provide their own (free tier) API key.
 
 **Q: Is my motorcycle supported?**
 A: This tool is primarily tested on the 2024 Caballero Deluxe. Other models using the e-shock module (see "Supported Models") are likely compatible but untested.
