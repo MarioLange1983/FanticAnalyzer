@@ -43,9 +43,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/bcc9854f-ade1-494f-bb31-6d6829cb2aca" width="100">
   <img src="https://github.com/user-attachments/assets/7d9fd5a3-78ec-4328-8f39-29fb52b4b23c" width="100">
-  <img src="https://github.com/user-attachments/assets/c73e0b96-2121-479c-87a3-c499232787c4" width="100">
 </p>
 
 *   **Comprehensive Logging & Export:**
@@ -155,8 +153,9 @@ A comprehensive decoded report of the vehicle's VIN, module specifications, and 
 > Debug mode allows direct interaction with the vehicle's control modules. Sending incorrect or malformed UDS commands can lead to module lockouts, error codes, or physical damage. Use this feature only if you are familiar with the UDS protocol and the e-shock implementation.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7b087184-d5bf-4000-87da-aca032603b9a" width="200">
-  <img src="https://github.com/user-attachments/assets/916f95ce-adb2-4512-a000-67e083bd6ca3" width="200">
+  <img src="https://github.com/user-attachments/assets/bcc9854f-ade1-494f-bb31-6d6829cb2aca" width="100">
+  <img src="https://github.com/user-attachments/assets/7d9fd5a3-78ec-4328-8f39-29fb52b4b23c" width="100">
+  <img src="https://github.com/user-attachments/assets/c73e0b96-2121-479c-87a3-c499232787c4" width="100">
 </p>
 
 ## ⚠️ Notice & Disclaimer
