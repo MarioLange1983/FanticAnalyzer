@@ -39,6 +39,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 <p align="center">
   <img src="https://github.com/user-attachments/assets/827fcc07-3c51-42ff-9c00-83976033136d" width="100">
 </p>
+
 *   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands.
 
 <p align="center">
@@ -88,6 +89,13 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Recalculating Feedback:** Clear visual feedback (recalculating banner) when deviating from the route.
     *   **Adjustable Rerouting:** Configure off-route sensitivity (50m to 500m) to match your riding style.
     *   **Customizable TTS:** Adjust voice-guided navigation with **Pitch** and **Speed** settings. Native voice instructions from Valhalla maneuvers.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f1ebf1f3-104d-4db9-b88d-bb8f456a1dee" width="100">
+  <img src="https://github.com/user-attachments/assets/3acdabb5-12f0-4408-8954-80b51de2221b" width="100">
+  <img src="https://github.com/user-attachments/assets/5f637a02-2d12-4745-9286-a7be6bdd999f" width="100">
+</p>
+
 *   **Service History Management:**
     *   **Chronological Tracking:** Persistent list of service entries, automatically sorted from oldest to newest.
     *   **Service in XXX km:** Smart calculation of remaining distance based on vehicle-specific intervals and the latest logged service.
