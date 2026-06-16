@@ -528,7 +528,7 @@ The following frame patterns were tested but consistently returned a Negative Re
 | `14 01 xx xx`                    | Clear Diagnostic Info      |
 | `14 FF xx xx`                    | Clear Diagnostic Info      |
 
-## 📡 Enabling Live Telemetry Streams (Fantic / E-Shock)
+## Enabling Live Telemetry Streams
 
 The ESP32 gateway streams live CAN-bus telemetry via BLE notifications using UDS routines.
 
