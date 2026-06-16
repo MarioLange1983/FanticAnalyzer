@@ -412,7 +412,7 @@ fun crc8Opensafety(data: ByteArray): Byte {
         crc = crc xor (b.toInt() and 0xFF)
         repeat(8) {
             crc = if (crc and 0x80 != 0) ((crc shl 1) and 0xFF) xor poly
-                  else (crc shl 1) and 0xFF
+            else (crc shl 1) and 0xFF
         }
     }
     return crc.toByte()
@@ -435,58 +435,66 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 ## Known Diagnostic Identifiers (DIDs)
 
-| DID (Hex) | Description                       | Data Format / Interpretation                       | Verified |
-|:----------|:----------------------------------|:---------------------------------------------------|:---------|
-| `0001`    |                                   | 2-byte                                             |          |
-| `0002`    | **VIN**                           | 17-byte ASCII String                               | ✅        |
-| `0003`    | **System Voltage**                | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)    | ✅        |
-| `0004`    |                                   | 2-byte                                             |          |
-| `0005`    |                                   | 1-byte                                             |          |
-| `0006`    |                                   | 1-byte                                             |          |
-| `0007`    | **Gear Position**                 | 1-byte (`0x00` = N, `0x01` = 1...)                 | ✅        |
-| `0008`    | **Throttle Position (TPS)**       | 1-byte Integer (`Value / 255 * 100` = %)           | ✅        |
-| `0009`    | **Kickstand**                     | 1-byte (`0x01` = Up, `0x00` = Down)                | ✅        |
-| `000A`    |                                   | 1-byte                                             |          |
-| `000B`    | **Instant Consumption**           | 2-byte Integer (`Value / 100.0f` = L/100km)        | ✅        |
-| `000C`    | **Engine RPM**                    | 2-byte Integer                                     | ✅        |
-| `000D`    | **Fuel Gauge** (filtered sensor)  | 1-byte Integer (%)                                 | ✖        |
-| `000E`    | **Engine Load**                   | 1-byte Integer (%)                                 | ✖        |
-| `000F`    | **Fuel Gauge** (raw sensor value) | 1-byte                                             | ✖        |
-| `0010`    |                                   | 1-byte                                             |          |
-| `0011`    | **Engine Temp**                   | 1-byte Integer (°C)                                | ✅        |
-| `0012`    |                                   | 2-byte                                             |          |
-| `0013`    |                                   | 1-byte                                             |          |
-| `0014`    |                                   | 1-byte                                             |          |
-| `0015`    |                                   | 2-byte                                             |          |
-| `0016`    |                                   | 1-byte                                             |          |
-| `0017`    |                                   | 1-byte                                             |          |
-| `0018`    |                                   | 1-byte                                             |          |
-| `0019`    |                                   | 2-byte                                             |          |
-| `001A`    |                                   | 2-byte                                             |          |
-| `001B`    |                                   | from DID-List = 0x7F                               |          |
-| `001C`    |                                   | from DID-List = 0x7F                               |          |
-| `001D`    |                                   | from DID-List = 0x7F                               |          |
-| `001E`    |                                   | from DID-List = 0x7F                               |          |
-| `001F`    |                                   | from DID-List = 0x7F                               |          |
-| `0020`    |                                   | from DID-List = 0x7F                               |          |
-| `0021`    |                                   | from DID-List = 0x7F                               |          |
-| `0022`    |                                   | from DID-List = 0x7F                               |          |
-| `0023`    |                                   | from DID-List = 0x7F                               |          |
-| `0024`    |                                   | from DID-List = 0x7F                               |          |
-| `0025`    |                                   | 1-byte                                             |          |
-| `0026`    |                                   | 2-byte                                             |          |
-| `0027`    | **Odometer**                      | 4-byte Integer (`Value / 8.0f` = km)               | ✅        |
-| `0028`    |                                   | 1-byte                                             |          |
-| `0029`    |                                   | 1-byte                                             |          |
-| `002A`    |                                   | 1-byte                                             |          |
-| `002B`    |                                   | 1-byte                                             |          |
-| `002C`    |                                   | 1-byte                                             |          |
-| `E501`    | **Module Info**                   | Composite ASCII fields (Serial, App Name, Version) | ✅        |
-| `E502`    | **DID Directory**                 | List of identifiers (intended use?)                | ✅        |
-| `E503`    | **Status Configuration**          | Set strem configuration?                           | ✖        |
-| `E504`    |                                   | 1-byte                                             |          |
-| `E505`    |                                   | 1-byte                                             |          |
-| `E506`    | **HW Version**                    | Hardware name and revision                         | ✅        |
+| DID (Hex) | Description                 | Data Format / Interpretation                             | Verified | Writeable (0x2E) |
+|:----------|:----------------------------|:---------------------------------------------------------|:---------|:-----------------|
+| `0001`    |                             | 2-byte                                                   |          | ❌                |
+| `0002`    | **VIN**                     | 17-byte ASCII String                                     | ✅        | ❌                |
+| `0003`    | **System Voltage**          | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)          | ✅        | ⚠️ *(RAM Cache)* |
+| `0004`    |                             | 2-byte                                                   |          | ❌                |
+| `0005`    |                             | 1-byte                                                   |          | ❌                |
+| `0006`    |                             | 1-byte                                                   |          | ❌                |
+| `0007`    | **Gear Position**           | 1-byte (`0x00` = N, `0x01` = 1...)                       | ✅        | ❌                |
+| `0008`    | **Throttle Position (TPS)** | 1-byte Integer (`Value / 255 * 100` = %)                 | ✅        | ❌                |
+| `0009`    | **Kickstand**               | 1-byte (`0x01` = Up, `0x00` = Down)                      | ✅        | ❌                |
+| `000A`    |                             | 1-byte                                                   |          | ❌                |
+| `000B`    | **Instant Consumption**     | 2-byte Integer (`Value / 100.0f` = L/100km)              | ✅        | ❌                |
+| `000C`    | **Engine RPM**              | 2-byte Integer                                           | ✅        | ❌                |
+| `000D`    | **Fuel Gauge** (filtered)   | 1-byte Integer (%)                                       | ✖        | ❌                |
+| `000E`    | **Engine Load**             | 1-byte Integer (%)                                       | ✖        | ❌                |
+| `000F`    | **Fuel Gauge** (raw)        | 1-byte                                                   | ✖        | ❌                |
+| `0010`    |                             | 1-byte                                                   |          | ❌                |
+| `0011`    | **Engine Temp**             | 1-byte Integer (°C)                                      | ✅        | ❌                |
+| `0012`    |                             | 2-byte                                                   |          | ❌                |
+| `0013`    |                             | 1-byte                                                   |          | ❌                |
+| `0014`    |                             | 1-byte                                                   |          | ❌                |
+| `0015`    |                             | 2-byte                                                   |          | ❌                |
+| `0016`    |                             | 1-byte                                                   |          | ❌                |
+| `0017`    |                             | 1-byte                                                   |          | ❌                |
+| `0018`    |                             | 1-byte                                                   |          | ❌                |
+| `0019`    |                             | 2-byte                                                   |          | ❌                |
+| `001A`    |                             | 2-byte                                                   |          | ❌                |
+| `001B`    |                             | from DID-List = 0x7F                                     |          | ❌                |
+| `001C`    |                             | from DID-List = 0x7F                                     |          | ❌                |
+| `001D`    |                             | from DID-List = 0x7F                                     |          | ❌                |
+| `001E`    |                             | from DID-List = 0x7F                                     |          | ❌                |
+| `001F`    |                             | from DID-List = 0x7F                                     |          | ❌                |
+| `0020`    |                             | from DID-List = 0x7F                                     |          | ❌                |
+| `0021`    |                             | from DID-List = 0x7F                                     |          | ❌                |
+| `0022`    |                             | from DID-List = 0x7F                                     |          | ❌                |
+| `0023`    |                             | from DID-List = 0x7F                                     |          | ❌                |
+| `0024`    |                             | from DID-List = 0x7F                                     |          | ❌                |
+| `0025`    |                             | 1-byte                                                   |          | ❌                |
+| `0026`    |                             | 2-byte                                                   |          | ❌                |
+| `0027`    | **Odometer**                | 4-byte Integer (`Value / 8.0f` = km)                     | ✅        | ❌                |
+| `0028`    |                             | 1-byte                                                   |          | ❌                |
+| `0029`    |                             | 1-byte                                                   |          | ⚠️ *(RAM Cache)* |
+| `002A`    |                             | 1-byte                                                   |          | ❌                |
+| `002B`    |                             | 1-byte                                                   |          | ❌                |
+| `002C`    |                             | 1-byte                                                   |          | ⚠️ *(RAM Cache)* |
+| `E501`    | **Module Info**             | Composite ASCII fields (Name, Version)                   | ✅        | ⚠️ *(RAM Bug)*   |
+| `E502`    | **DID Directory**           | Complete array of all registered DIDs                    | ✅        | ⚠️ *(RAM Bug)*   |
+| `E503`    | **Enable Stream Buffer**    | `0x01` triggers streams (`FD10`/`FD11`)                  | ✅        | ✅                |
+| `E504`    | **Data Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Default `0x0A` (1s) | ✅        | ✅                |
+| `E505`    | **Diag Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Default `0x32` (5s) | ✅        | ✅                |
+| `E506`    | **HW Version**              | Hardware name and revision (ASCII)                       | ✅        | ⚠️ *(RAM Bug)*   |
+| `E507`    | **Unknown Config**          | 1-byte switch (Behavior still unclear)                   | ✅        | ✅                |
+
+---
+
+### Legend for "Writeable" Column
+* **❌ (No):** Write commands (`0x2E`) are strictly rejected by the ECU/Gateway.
+* **✅ (Yes):** Actual, permanent, or functionally intended configuration switches within the system.
+* **⚠️ (RAM Cache / Bug):** The ESP32 Gateway allows writing via `0x2E`, but these values are NOT saved in Flash memory (NVS). They are lost upon reboot. This is either intentional for app testing/dashboard spoofing (`0003`, `0029`, `002C`) or the result of sloppy length validation in the firmware's C-code (`E501`, `E502`, `E506`).
 
 ## Supported Service IDs (SIDs)
 
@@ -519,6 +527,26 @@ The following frame patterns were tested but consistently returned a Negative Re
 | `3E xx xx`                       | Tester Present             |
 | `14 01 xx xx`                    | Clear Diagnostic Info      |
 | `14 FF xx xx`                    | Clear Diagnostic Info      |
+
+## 📡 Enabling Live Telemetry Streams (Fantic / E-Shock)
+
+The ESP32 gateway streams live CAN-bus telemetry via BLE notifications using UDS routines.
+
+### Prerequisites
+1. Active BLE connection.
+2. ECU Unlocked via **Security Access (0x27)**.
+
+### Activation Sequence
+Send the following UDS payloads to the `E5C0` write characteristic:
+
+1. **(Optional) Configure Timers** (Base tick = 100ms)
+    * Data Stream (`E504`): `[05, 2E, E5, 04, 05]` *(Sets 500ms/2Hz)*
+    * Diag Stream (`E505`): `[05, 2E, E5, 05, 32]` *(Sets 5s/0.2Hz)*
+2. **Enable Stream Buffer**
+    * `[05, 2E, E5, 03, 01]`
+3. **Start Routines**
+    * Data Stream (`E5C3`): `[05, 31, 01, FD, 10]`
+    * Diag Stream (`E5C4`): `[05, 31, 01, FD, 11]`
 
 ## Known Issues
 
