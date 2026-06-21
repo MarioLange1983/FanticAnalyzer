@@ -13,6 +13,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 ## Key Features
 
 *   **Dual-Language Support:** Fully localized in **English**, **German** and **Italian**. The app automatically adapts to your system settings.
+*   **Reactive Architecture:** Built on a modern **MainViewModel** structure ensuring a single source of truth for all vehicle and app states.
 *   **Modern Theme:** Modern Material 3 UI designed. Supports both **Light and Dark modes**.
 *   **Motorcycle-Optimized Dashboard:**
     *   **Standard View:** A clean, informative grid of live vehicle metrics.
@@ -144,7 +145,7 @@ A comprehensive decoded report of the vehicle's VIN, module specifications, and 
 ## 🖌️ Debug Mode & Advanced Terminal
 
 ### Activation
-1.  Navigate to the **Settings** (Menu icon in the top right).
+1.  Navigate to the **Settings**.
 2.  Expand the **Developer & Debug** section.
 3.  Enable the **Always show Debug Terminal** toggle.
 4.  A safety warning will appear. After confirmation, the Terminal tab, raw data input field and the "SEND" button will become visible.
@@ -437,7 +438,7 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 | DID (Hex) | Description                 | Data Format / Interpretation                             | Verified | Writeable (0x2E) |
 |:----------|:----------------------------|:---------------------------------------------------------|:---------|:-----------------|
-| `0001`    |                             | 2-byte                                                   |          | ❌                |
+| `0001`    | **ID?**                     | 2-byte                                                   |          | ❌                |
 | `0002`    | **VIN**                     | 17-byte ASCII String                                     | ✅        | ❌                |
 | `0003`    | **System Voltage**          | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)          | ✅        | ⚠️ *(RAM Cache)* |
 | `0004`    |                             | 2-byte                                                   |          | ❌                |
