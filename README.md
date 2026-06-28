@@ -48,7 +48,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Optimized DID Scan:** Complete sweep of all supported identifiers with intelligent timeout logic for fast results.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7d9fd5a3-78ec-4328-8f39-29fb52b4b23c" width="100">
+  <img src="https://github.com/user-attachments/assets/e87c620b-866a-444c-ac08-8b2aa6ca5126" width="100">
 </p>
 
 *   **Comprehensive Logging & Export:**
@@ -186,7 +186,7 @@ A comprehensive decoded report of the vehicle's VIN, module specifications, and 
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/bcc9854f-ade1-494f-bb31-6d6829cb2aca" width="100">
-  <img src="https://github.com/user-attachments/assets/7d9fd5a3-78ec-4328-8f39-29fb52b4b23c" width="100">
+  <img src="https://github.com/user-attachments/assets/e87c620b-866a-444c-ac08-8b2aa6ca5126" width="100">
   <img src="https://github.com/user-attachments/assets/c73e0b96-2121-479c-87a3-c499232787c4" width="100">
 </p>
 
