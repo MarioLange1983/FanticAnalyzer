@@ -35,13 +35,17 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 </p>
 
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more. Improved fuel gauge monitoring using filtered ECU data (DID 0x000D).
+*   **Configurable Refresh Rate:** Fine-tune the UDS polling frequency in the **Performance** settings. Choose between **Normal**, **Fast**, or **Aggressive (75ms)** modes to balance data resolution and connection stability.
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/827fcc07-3c51-42ff-9c00-83976033136d" width="100">
 </p>
 
-*   **Advanced Terminal:** A built-in console shows raw log data and allows sending custom UDS commands.
+*   **Advanced Terminal & Streams:** 
+    *   **Live Console:** A built-in console shows raw log data and allows sending custom UDS commands.
+    *   **Real-time Data Streams:** Support for continuous data (`E5C3`) and diagnostic (`E5C4`) streams via UDS routines. Configurable stream frequencies in Debug settings.
+    *   **Optimized DID Scan:** Complete sweep of all supported identifiers with intelligent timeout logic for fast results.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/7d9fd5a3-78ec-4328-8f39-29fb52b4b23c" width="100">
@@ -55,7 +59,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **ZIP Export:** Export all recorded trips or all system logs as a single ZIP archive for easy backup or external analysis. Temporary ZIP files are automatically cleaned up after sharing.
     *   **Refined Log Cleanup:** Safety-first deletion logic that only targets system logs and temporary archives, protecting your valuable trip data in the `/trips/` folder. The deletion button is only enabled when log files are actually present.
     *   **LoopScan ZIP Bundling:** Automatically group and compress all diagnostic logs from a LoopScan session into a single ZIP file.
-    *   **Customizable Scan Intervals:** Set precise delays (30s to 5m) for automated diagnostic loops.
+    *   **Customizable Scan Intervals:** Set precise delays (30s to 5m) for automated diagnostic loops using a modern slider interface.
     *   **Data Export:** Share combined CSV/GPX trip files, ZIP bundles, and vehicle technical reports via the Android share sheet.
 *   **Detailed Trip Analysis:**
     *   **Interactive Route Visualization:** View recorded trips on an integrated MapLibre map with Start/End markers and fluid motorcycle marker replay.
@@ -80,6 +84,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 </p>
 
 *   **Navigation & Routing:**
+    *   **Enhanced UI:** Modern destination details including **Distance** and **Estimated Travel Time** with clear icons.
     *   **Destination Search:** Built-in search powered by Photon API with debounced queries, map previews, and an auto-collapsing result list once a destination is selected.
     *   **Advanced Routing Options:** Centralized settings to avoid highways, tolls, ferries, or unpaved roads. Customize motorcycle-specific costing factors like hilliness and road class preference.
     *   **Motorcycle-Optimized Routing:** Valhalla-powered routing engine with support for **Custom Server URLs**.
@@ -104,6 +109,32 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **GitHub Update Integration:** Automatically checks for new releases on startup and notifies you with a direct link to the release page.
 *   **Multi-Motorcycle Support:** Service records, wheel/tire specs, and technical data are stored independently for every motorcycle based on its unique VIN.
 *   **Intelligent UI Layouts:** Adaptive dashboard layout that scales based on device orientation and screen size.
+
+## 📖 How-To:
+
+Fantic Analyzer provides powerful tools to capture raw data for diagnostic research.
+
+### Generating a Diagnostic Log (SCAN)
+1.  Connect to your motorcycle using the **Green LED** icon.
+2.  Navigate to the **TERMINAL** tab.
+3.  Ensure the module is ready.
+4.  Toggle the **SCAN** switch.
+5.  Wait for the console to finish (the switch will automatically turn off).
+6.  A **SHARE LOG** button (FAB) will appear in the bottom right. Click it to export the `.log` file.
+
+### Recording Real-time Streams (Data/Diag)
+1.  Enable **Debug Mode** (Settings > Developer & Debug > Always show Debug Terminal).
+2.  (Optional) Configure frequencies in the **Developer & Debug** section.
+3.  In the **TERMINAL** tab, use the **Data Stream (C3)** or **Diag Stream (C4)** toggle.
+4.  The app will automatically perform the UDS handshake (Unsubscribe -> Set Rate -> Unlock -> Start -> Notify).
+5.  Raw data will flow through the console.
+6.  Toggle the switch "Off" to stop. The **SHARE LOG** button will appear for instant export.
+
+### Continuous Monitoring (LOOPSCAN)
+1.  In the **TERMINAL** tab, click the **LOOPSCAN** switch.
+2.  Select your desired interval (e.g., 1 minute).
+3.  The app will perform a full scan repeatedly.
+4.  Stop the loop anytime. All individual logs will be compressed into a single **ZIP archive** for sharing.
 
 ## ⛓️ Service Interval Logic
 
@@ -244,8 +275,8 @@ Based on shared hardware platforms using the e-shock module, the following model
 
 ## 🪛 ToDo / Roadmap
 
-* [ ] Integration of `E503` - data stream
-* [ ] Integration of `E504` - diagnostic stream
+* [x] Integration of `E503` - data stream
+* [x] Integration of `E504` - diagnostic stream
 ---
 
 # Technical Documentation
