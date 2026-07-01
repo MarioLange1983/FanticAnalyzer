@@ -35,7 +35,8 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 </p>
 
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more. Improved fuel gauge monitoring using filtered ECU data (DID 0x000D).
-*   **Configurable Refresh Rate:** Fine-tune the UDS polling frequency in the **Performance** settings. Choose between **Normal**, **Fast**, or **Aggressive (75ms)** modes to balance data resolution and connection stability.
+*   **High-Performance Multi-DID Stream:** The app uses a hightly optimized UDS data stream to fetch multiple data points (RPM, Gear, Voltage, etc.) in a single notification. This reduces Bluetooth overhead and ensures smooth real-time dashboard updates.
+*   **Configurable Refresh Rate:** Fine-tune the UDS stream frequency in the **Performance** settings. Choose a custom interval between **100ms** and **2000ms** (Default: 300ms) to balance UI smoothness and device performance.
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
 
 <p align="center">
@@ -586,6 +587,7 @@ Send the following UDS payloads to the `E5C0` write characteristic:
 ## Known Issues
 
 * If not bonded correctly to the mobile device, the e-shock module will automatically disconnect after ~20 seconds. Ensure the initial Bluetooth pairing process is fully completed via mobile bluetooth settings.
+* **Persistent Data Stream:** If the application is "force-killed" (swiped away from the task switcher) while connected, it cannot send the stop command to the ECU. This may cause the e-shock module to continue streaming data internally until the motorcycle is turned off, potentially delaying the module's sleep mode. **Always use the Back button or the disconnect icon to close the app properly.**
 
 ## ❓ FAQ
 
