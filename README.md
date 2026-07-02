@@ -5,9 +5,9 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/fd660dd5-46fc-4d31-b91b-a14cba4d3021" width="150">
-  <img src="https://github.com/user-attachments/assets/ebd82a38-6581-417e-b1fd-91272c3386a1" width="150">
-  <img src="https://github.com/user-attachments/assets/f20d279d-2fec-485c-8918-cb177adae6df" width="150">
+  <img src="https://github.com/user-attachments/assets/567852cc-255d-48ec-a299-90a1fec2ea37" width="150">
+  <img src="https://github.com/user-attachments/assets/17f6cc9f-ac14-410c-ada4-d670e8c89d69" width="150">
+  <img src="https://github.com/user-attachments/assets/ff332398-524c-4c67-b05e-5af0d8f26bbd" width="150">
 </p>
 
 ## Key Features
@@ -40,7 +40,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/827fcc07-3c51-42ff-9c00-83976033136d" width="100">
+  <img src="https://github.com/user-attachments/assets/567852cc-255d-48ec-a299-90a1fec2ea37" width="100">
 </p>
 
 *   **Advanced Terminal & Streams:**
@@ -50,7 +50,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Optimized DID Scan:** Complete sweep of all supported identifiers. Automatically pauses background streaming for 100% accuracy.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7d9fd5a3-78ec-4328-8f39-29fb52b4b23c" width="100">
+  <img src="https://github.com/user-attachments/assets/d9042b29-1cd1-4852-beb5-10657d5a8790" width="100">
 </p>
 
 *   **Comprehensive Logging & Export:**
@@ -97,9 +97,9 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Customizable TTS:** Adjust voice-guided navigation with **Pitch** and **Speed** settings. Native voice instructions from Valhalla maneuvers.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f1ebf1f3-104d-4db9-b88d-bb8f456a1dee" width="100">
-  <img src="https://github.com/user-attachments/assets/3acdabb5-12f0-4408-8954-80b51de2221b" width="100">
-  <img src="https://github.com/user-attachments/assets/5f637a02-2d12-4745-9286-a7be6bdd999f" width="100">
+  <img src="https://github.com/user-attachments/assets/c6f449d1-ebb4-4d30-b775-18475d93ca70" width="100">
+  <img src="https://github.com/user-attachments/assets/d9042b29-1cd1-4852-beb5-10657d5a8790" width="100">
+  <img src="https://github.com/user-attachments/assets/4076615a-7f90-4cd2-9bae-d0c61c7290e9" width="100">
 </p>
 
 *   **Service History Management:**
