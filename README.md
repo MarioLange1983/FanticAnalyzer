@@ -45,8 +45,9 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 *   **Advanced Terminal & Streams:**
     *   **Live Console:** A built-in console shows raw log data and allows sending custom UDS commands.
-    *   **Real-time Data Streams:** Support for continuous data (`E5C3`) and diagnostic (`E5C4`) streams via UDS routines. Configurable stream frequencies in Debug settings.
-    *   **Optimized DID Scan:** Complete sweep of all supported identifiers with intelligent timeout logic for fast results.
+    *   **Automated Dashboard Stream:** The app automatically initializes the data stream (`E5C3`) upon connection to provide high-speed dashboard updates.
+    *   **Manual Diagnostic Stream:** Support for the diagnostic (`E5C4`) stream via UDS routines. Configurable frequency in Performance settings.
+    *   **Optimized DID Scan:** Complete sweep of all supported identifiers. Automatically pauses background streaming for 100% accuracy.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/7d9fd5a3-78ec-4328-8f39-29fb52b4b23c" width="100">
@@ -123,13 +124,14 @@ Fantic Analyzer provides powerful tools to capture raw data for diagnostic resea
 5.  Wait for the console to finish (the switch will automatically turn off).
 6.  A **SHARE LOG** button (FAB) will appear in the bottom right. Click it to export the `.log` file.
 
-### Recording Real-time Streams (Data/Diag)
+### Recording Diagnostic Streams
 1.  Enable **Debug Mode** (Settings > Developer & Debug > Always show Debug Terminal).
-2.  (Optional) Configure frequencies in the **Developer & Debug** section.
-3.  In the **TERMINAL** tab, use the **Data Stream** or **Diag Stream** toggle.
-4.  The app will automatically perform the UDS handshake (Unsubscribe -> Set Rate -> Unlock -> Start -> Notify).
-5.  Raw data will flow through the console.
-6.  Toggle the switch "Off" to stop. The **SHARE LOG** button will appear for instant export.
+2.  (Optional) Configure the Diag Stream frequency in the **Developer & Debug** section.
+3.  In the **TERMINAL** tab, use the **Diag Stream (C4)** toggle.
+4.  The app will automatically manage the background dashboard stream and perform the UDS handshake (Unsubscribe -> Set Rate -> Unlock -> Start -> Notify).
+5.  Raw diagnostic data will flow through the console.
+6.  Toggle the switch "Off" to stop. The background dashboard stream will automatically resume.
+7.  A **SHARE LOG** button (FAB) will appear for instant export.
 
 ### Continuous Monitoring (LOOPSCAN)
 1.  In the **TERMINAL** tab, click the **LOOPSCAN** switch.
