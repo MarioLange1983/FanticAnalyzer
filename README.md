@@ -276,13 +276,46 @@ Based on shared hardware platforms using the e-shock module, the following model
 *   Fantic XEF 125 Enduro Performance / Competition
 *   Fantic XMF 125 Motard Performance / Competition
 
-## 🪛 ToDo / Roadmap
-
-* [x] Integration of `E503` - data stream
-* [x] Integration of `E504` - diagnostic stream
----
-
 # Technical Documentation
+
+## Stream Architecture (C3 vs C4)
+
+The e-shock firmware implements two distinct asynchronous transmission routines with different internal logic:
+
+### Routine FD 10: Dynamic Data Stream (Channel C3)
+*   **Behavior**: Dynamic & Iterative.
+*   **Logic**: The module iterates through the DID array stored in the `E503` dictionary, fetches the corresponding live values from the CAN-bus buffer, and packs them into a continuous payload without delimiters.
+*   **Payload Structure**: `[LEN] [SID 36] [00] [00] [CNT] [DID_1_DATA] [DID_2_DATA] ... [DID_N_DATA] [CRC]`
+
+### Routine FD 11: Diagnostic Stream (Channel C4)
+*   **Behavior**: Static & Hardcoded.
+*   **Logic**: Ignores `E503` as a data source. It specifically targets a reserved internal memory region containing the Malfunction Indicator Lamp (MIL) status and active Diagnostic Trouble Codes (DTCs) received from the vehicle's CAN network.
+*   **Payload Structure**: `[LEN] [SID 36] [00] [00] [CNT] [NUM_DTCS] [DTC_BLOCK_1] ... [DTC_BLOCK_N] [CRC]`
+
+## Diagnostic Trouble Codes (DTC) Payload Format
+
+When malfunctions are detected, the C4 stream dynamically expands its length to include all active errors. Each DTC is represented by a **6-byte data block**:
+
+| Offset | Field | Example (P011B) | Description |
+|:-------|:------|:----------------|:------------|
+| 0      | Source | `0x01`          | Originating node (0x01 = Engine Control Unit). |
+| 1-3    | Code   | `01 1B 00`      | The 3-byte UDS Diagnostic Trouble Code. |
+| 4      | Status | `0x8D`          | UDS Status Byte (See ISO 14229 decoding below). |
+| 5      | Count  | `0x00`          | Occurrence counter or padding. |
+
+### UDS DTC Status Byte Decoding
+The status byte (e.g., `0x8D` -> binary `10001101`) reveals the precise lifecycle of the error:
+
+| Bit | ISO 14229 Name | Logic | Meaning for the ECU |
+|:----|:---------------|:------|:-------------------|
+| **0** | `testFailed` | 1 | Fault is **currently active**. |
+| **1** | `testFailedThisOperationCycle` | 0 | Fault has not recurred in the current power cycle. |
+| **2** | `pendingDTC` | 1 | Fault occurred but maturity criteria for "confirmed" not yet met. |
+| **3** | `confirmedDTC` | 1 | Fault is **verified and stored in non-volatile memory**. |
+| **4** | `testNotCompletedSinceLastClear` | 0 | Self-test has finished at least once since the last memory clear. |
+| **5** | `testFailedSinceLastClear` | 0 | Self-test has not failed since the last memory clear. |
+| **6** | `testNotCompletedThisOperationCycle`| 0 | Self-test has already completed in the current power cycle. |
+| **7** | `warningIndicatorRequested` | 1 | **MIL (Check Engine Light) is active!** |
 
 ## ECU Emulator (Research Environment)
 
@@ -518,9 +551,9 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `002C`    |                             | 1-byte                                                   |          | ✅                  |
 | `E501`    | **Module Info**             | Composite ASCII fields (Name, Version)                   | ✅        | ✅                  |
 | `E502`    | **DID Directory**           | Complete array of all registered DIDs                    | ✅        | ✅                  |
-| `E503`    | **Stream Configuration**    | Write target DIDs to define and unlock stream content    | ✅        | ✅                  |
-| `E504`    | **Data Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Default `0x0A` (1s) | ✅        | ✅                  |
-| `E505`    | **Diag Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Default `0x32` (5s) | ✅        | ✅                  |
+| `E503`    | **Stream Dictionary**       | Configuration array (List of 2-byte DIDs) that defines the payload for the C3 stream. | ✅        | ✅                  |
+| `E504`    | **Data Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Sets frequency for C3 (Routine `FD 10`). | ✅        | ✅                  |
+| `E505`    | **Diag Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Sets frequency for C4 (Routine `FD 11`). | ✅        | ✅                  |
 | `E506`    | **HW Version**              | Hardware name and revision (ASCII)                       | ✅        | ✅                  |
 | `E507`    | **Unknown Config**          | 1-byte switch (Behavior still unclear)                   | ❌        | ✅️                 |
 
@@ -559,30 +592,28 @@ The following frame patterns were tested but consistently returned a Negative Re
 
 ## Enabling Live Telemetry Streams
 
-The ESP32 gateway streams live CAN-bus telemetry via BLE notifications using UDS routines.
+The ESP32 gateway streams live CAN-bus telemetry via BLE notifications using UDS routines. The internal Finite State Machine (FSM) acts as a gatekeeper: `E503` must be successfully initialized with a DID array (FSM reports `CONFIG COMPLETED`) before any stream routine can be enabled.
 
 ### Prerequisites
 1. Active BLE connection.
 2. ECU Unlocked via **Security Access (0x27)**.
 
-### Data Stream Activation Sequence
-Send the following UDS payloads to the `E5C0` write characteristic:
-
-1. **(Optional) Configure Timers** (Base tick = 100ms)
-    * `[0x2E, 0xE5, 0x04, 0x05]` *(Sets 50ms)*
-2. **Configure Buffer (Enabler)**
-    * `[0x2E, 0xE5, 0x03, 0x00, 0x03, 0x00, 0x0C, 0x00, 0x02]` *(Request DIDs 0x0003, 0x000C, 0x0002)*
-3. **Start Routine**
+### Verified Start Sequence (Live Data C3)
+1. **Configure Timer** (E504)
+    * `[0x2E, 0xE5, 0x04, 0x02]` *(Sets 200ms interval)*
+2. **Define Stream Dictionary** (E503)
+    * `[0x2E, 0xE5, 0x03, 0x00, 0x03, 0x00, 0x0C, 0x00, 0x11]` *(Requests Voltage, RPM, and Temp)*
+3. **Start Routine** (FD 10)
     * `[0x31, 0x01, 0xFD, 0x10]`
 
-### Diag Stream Activation Sequence
-Send the following UDS payloads to the `E5C0` write characteristic:
+### Diagnostic Stream Activation (C4)
+Routine `FD 11` is specifically designed for DTC and Alarm monitoring. Unlike C3, it ignores the content of `E503` as a data source but still requires it to be initialized to release the FSM lock.
 
-1. **(Optional) Configure Timers** (Base tick = 100ms)
-    * `[0x2E, 0xE5, 0x05, 0x32]` *(Sets 5s)*
-2. **Enable Stream Buffer**
-    * `[0x2E, 0xE5, 0x03, 0x01]` *(Unlock value 0x01)*
-3. **Start Routine**
+1. **Configure Timer** (E505)
+    * `[0x2E, 0xE5, 0x05, 0x1E]` *(Sets 3s interval)*
+2. **Release FSM Lock** (E503)
+    * `[0x2E, 0xE5, 0x03, 0x01]` *(Dummy initialization)*
+3. **Start Routine** (FD 11)
     * `[0x31, 0x01, 0xFD, 0x11]`
 
 
