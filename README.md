@@ -61,7 +61,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Optimized DID Scan:** Complete sweep of all supported identifiers. Automatically pauses background streaming for 100% accuracy.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/d9042b29-1cd1-4852-beb5-10657d5a8790" width="100">
+  <img src="https://github.com/user-attachments/assets/6f6042af-9a05-4392-a081-9015b18ed2b2" width="100">
 </p>
 
 *   **Comprehensive Logging & Export:**
