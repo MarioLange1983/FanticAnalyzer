@@ -45,8 +45,13 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 *   **Advanced Terminal & Streams:**
     *   **Live Console:** A built-in console shows raw log data and allows sending custom UDS commands.
-    *   **Automated Dashboard Stream:** The app automatically initializes the data stream (`E5C3`) upon connection to provide high-speed dashboard updates.
-    *   **Manual Diagnostic Stream:** Support for the diagnostic (`E5C4`) stream via UDS routines. Configurable frequency in Performance settings.
+    *   **Automated Dual-Stream Architecture:** The app automatically initializes both the high-speed data stream (`E5C3`) and the background diagnostic stream (`E5C4`) upon connection.
+    *   **Intelligent MIL & Error Tracking:**
+        *   **Real-Time DTC Monitoring:** Constant background scanning for Diagnostic Trouble Codes via the C4 stream.
+        *   **Visual MIL Status:** The engine icon on the dashboard changes state based on error severity: **Solid Orange** (Confirmed/Pending Error) and **Pulsing Orange** (Active Critical MIL).
+        *   **Vehicle Status (Health Check):** A dedicated "Vehicle Status" sheet providing detailed descriptions of active codes, categorized by state (Active, Confirmed, MIL).
+        *   **Error Reporting:** Easily share a formatted technical report of all active DTCs including VIN and timestamps via the share sheet.
+        *   **Customizable Sensitivity:** Configure the MIL icon behavior in settings (Show on all errors, Confirmed only, or Off).
     *   **Optimized DID Scan:** Complete sweep of all supported identifiers. Automatically pauses background streaming for 100% accuracy.
 
 <p align="center">
@@ -124,14 +129,6 @@ Fantic Analyzer provides powerful tools to capture raw data for diagnostic resea
 5.  Wait for the console to finish (the switch will automatically turn off).
 6.  A **SHARE LOG** button (FAB) will appear in the bottom right. Click it to export the `.log` file.
 
-### Recording Diagnostic Streams
-1.  Enable **Debug Mode** (Settings > Developer & Debug > Always show Debug Terminal).
-2.  (Optional) Configure the Diag Stream frequency in the **Developer & Debug** section.
-3.  In the **TERMINAL** tab, use the **Diag Stream (C4)** toggle.
-4.  The app will automatically manage the background dashboard stream and perform the UDS handshake (Unsubscribe -> Set Rate -> Unlock -> Start -> Notify).
-5.  Raw diagnostic data will flow through the console.
-6.  Toggle the switch "Off" to stop. The background dashboard stream will automatically resume.
-7.  A **SHARE LOG** button (FAB) will appear for instant export.
 
 ### Continuous Monitoring (LOOPSCAN)
 1.  In the **TERMINAL** tab, click the **LOOPSCAN** switch.
@@ -172,7 +169,11 @@ The **LOOPSCAN** feature in the Terminal tab allows for long-term monitoring.
 *   **Bundling:** Every individual scan result is saved as a separate log file. When the loop is stopped, all session logs are compressed into a single ZIP archive.
 *   **Export:** Accessible via the "SHARE LOG" button in the Terminal tab after the loop finishes.
 
-### 3. Technical Report
+### 3. Vehicle Status Report
+A comprehensive report of the vehicle's health, including all active Diagnostic Trouble Codes (DTCs), can be shared from the **Vehicle Status** sheet.
+* **How to share:** Tap the engine icon on the Dashboard to open the Vehicle Status, then click the **Share** icon in the top right corner.
+
+### 4. Technical Report
 A comprehensive decoded report of the vehicle's VIN, module specifications, and service status can be shared directly from the **VEHICLE** tab.
 * **How to share:** Perform a **long-tap** anywhere on the Vehicle tab to open the Android share sheet for the full technical report.
 
@@ -615,7 +616,6 @@ Routine `FD 11` is specifically designed for DTC and Alarm monitoring. Unlike C3
     * `[0x2E, 0xE5, 0x03, 0x01]` *(Dummy initialization)*
 3. **Start Routine** (FD 11)
     * `[0x31, 0x01, 0xFD, 0x11]`
-
 
 ## Known Issues
 
