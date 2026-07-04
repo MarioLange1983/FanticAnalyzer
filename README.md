@@ -52,7 +52,13 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
         *   **Vehicle Status (Health Check):** A dedicated "Vehicle Status" sheet providing detailed descriptions of active codes, categorized by state (Active, Confirmed, MIL).
         *   **Error Reporting:** Easily share a formatted technical report of all active DTCs including VIN and timestamps via the share sheet.
         *   **Customizable Sensitivity:** Configure the MIL icon behavior in settings (Show on all errors, Confirmed only, or Off).
-    *   **Optimized DID Scan:** Complete sweep of all supported identifiers. Automatically pauses background streaming for 100% accuracy.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5c4fd164-8c47-420e-806e-9bbc13448db4" width="100">
+  <img src="https://github.com/user-attachments/assets/3c34c365-d412-414f-86ac-845ab15b7f0c" width="100">
+</p>
+  
+*   **Optimized DID Scan:** Complete sweep of all supported identifiers. Automatically pauses background streaming for 100% accuracy.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/d9042b29-1cd1-4852-beb5-10657d5a8790" width="100">
