@@ -12,16 +12,16 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 ## Table of Contents
 - [Key Features](#key-features)
-- [How-To](#-how-to)
-- [Service Interval Logic](#-service-interval-logic)
-- [Data Logging & Recording](#-data-logging--recording)
-- [Debug Mode & Advanced Terminal](#-debug-mode--advanced-terminal)
-- [Notice & Disclaimer](#-notice--disclaimer)
-- [Legal Compliance & Open Research (EU/Germany)](#-legal-compliance--open-research-eugermany)
-- [Technical Scope & Compliance](#-technical-scope--compliance)
-- [External Libraries & Dependencies](#-external-libraries--dependencies)
-- [Integrated APIs](#-integrated-apis)
-- [Vehicle Sub-Model Identification (VDS)](#-vehicle-sub-model-identification-vds)
+- [How-To](#how-to)
+- [Service Interval Logic](#service-interval-logic)
+- [Data Logging & Recording](#data-logging--recording)
+- [Debug Mode & Advanced Terminal](#debug-mode--advanced-terminal)
+- [Notice & Disclaimer](#notice--disclaimer)
+- [Legal Compliance & Open Research (EU/Germany)](#legal-compliance--open-research-eugermany)
+- [Technical Scope & Compliance](#technical-scope--compliance)
+- [External Libraries & Dependencies](#external-libraries--dependencies)
+- [Integrated APIs](#integrated-apis)
+- [Vehicle Sub-Model Identification (VDS)](#vehicle-sub-model-identification-vds)
 - [Supported Models (Untested / Likely Compatible)](#supported-models-untested--likely-compatible)
 - [Technical Documentation](#technical-documentation)
     - [Stream Architecture (C3 vs C4)](#stream-architecture-c3-vs-c4)
@@ -35,8 +35,8 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     - [Supported Service IDs (SIDs)](#supported-service-ids-sids)
     - [Enabling Live Telemetry Streams](#enabling-live-telemetry-streams)
 - [Known Issues](#known-issues)
-- [FAQ](#-faq)
-- [Contact](#-contact)
+- [FAQ](#faq)
+- [Contact](#contact)
 
 ## Key Features
 
@@ -590,7 +590,7 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `E504`    | **Data Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Sets frequency for C3 (Routine `FD 10`).         | ✅        | ✅                |
 | `E505`    | **Diag Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Sets frequency for C4 (Routine `FD 11`).         | ✅        | ✅                |
 | `E506`    | **HW Version**              | Hardware name and revision (ASCII)                                                    | ✅        | ✅                |
-| `E507`    | **Unknown Config**          | 1-byte switch (Behavior still unclear)                                                | ❌        | ✅️               |
+| `E507`    | **Unknown Config**          | variable-byte switch (Behavior still unclear)                                         | ❌        | ✅️               |
 
 
 ## Supported Service IDs (SIDs)
