@@ -12,16 +12,16 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 ## Table of Contents
 - [Key Features](#key-features)
-- [How-To](#how-to)
-- [Service Interval Logic](#service-interval-logic)
-- [Data Logging & Recording](#data-logging--recording)
-- [Debug Mode & Advanced Terminal](#debug-mode--advanced-terminal)
-- [Notice & Disclaimer](#notice--disclaimer)
-- [Legal Compliance & Open Research (EU/Germany)](#legal-compliance--open-research-eugermany)
-- [Technical Scope & Compliance](#technical-scope--compliance)
-- [External Libraries & Dependencies](#external-libraries--dependencies)
-- [Integrated APIs](#integrated-apis)
-- [Vehicle Sub-Model Identification (VDS)](#vehicle-sub-model-identification-vds)
+- [How-To](#-how-to)
+- [Service Interval Logic](#%EF%B8%8F-service-interval-logic)
+- [Data Logging & Recording](#%EF%B8%8F-data-logging--recording)
+- [Debug Mode & Advanced Terminal](#%EF%B8%8F-debug-mode--advanced-terminal)
+- [Notice & Disclaimer](#%EF%B8%8F-notice--disclaimer)
+- [Legal Compliance & Open Research (EU/Germany)](#%EF%B8%8F-legal-compliance--open-research-eugermany)
+- [Technical Scope & Compliance](#%EF%B8%8F-technical-scope--compliance)
+- [External Libraries & Dependencies](#%EF%B8%8F-external-libraries--dependencies)
+- [Integrated APIs](#-integrated-apis)
+- [Vehicle Sub-Model Identification (VDS)](#%EF%B8%8F-vehicle-sub-model-identification-vds)
 - [Supported Models (Untested / Likely Compatible)](#supported-models-untested--likely-compatible)
 - [Technical Documentation](#technical-documentation)
     - [Stream Architecture (C3 vs C4)](#stream-architecture-c3-vs-c4)
@@ -35,8 +35,8 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     - [Supported Service IDs (SIDs)](#supported-service-ids-sids)
     - [Enabling Live Telemetry Streams](#enabling-live-telemetry-streams)
 - [Known Issues](#known-issues)
-- [FAQ](#faq)
-- [Contact](#contact)
+- [FAQ](#-faq)
+- [Contact](#-contact)
 
 ## Key Features
 
