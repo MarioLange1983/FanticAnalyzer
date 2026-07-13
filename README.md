@@ -538,59 +538,59 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 
 ## Known Diagnostic Identifiers (DIDs)
 
-| DID (Hex) | Description                 | Data Format / Interpretation                                                          | Verified | Writeable (0x2E) | CAN-ID (from ECU)     |
-|:----------|:----------------------------|:--------------------------------------------------------------------------------------|:---------|:-----------------|:----------------------|
-| `0001`    | **ID?**                     | 2-byte                                                                                |          | ❌                |                       |
-| `0002`    | **VIN**                     | 17-byte ASCII String                                                                  | ✅        | ❌                |                       |
-| `0003`    | **System Voltage**          | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)                                       | ✅        | ✅                | 0x310 payload[6-7]    |
-| `0004`    |                             | 2-byte                                                                                |          | ❌                |                       |
-| `0005`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `0006`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `0007`    | **Gear Position**           | 1-byte (`0x00` = N, `0x01` = 1...)                                                    | ✅        | ❌                | 0x310 payload[4] >> 4 |
-| `0008`    | **Throttle Position (TPS)** | 1-byte Integer (`Value / 255 * 100` = %)                                              | ✅        | ❌                | 0x310 payload[5]      |
-| `0009`    | **Kickstand**               | 1-byte (`0x01` = Up, `0x00` = Down)                                                   | ✅        | ❌                | 0x310 payload[4] >> 7 |
-| `000A`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `000B`    | **Instant Consumption**     | 2-byte Integer (`Value / 100.0f` = L/100km)                                           | ✅        | ❌                | 0x356 payload[0-1]    |
-| `000C`    | **Engine RPM**              | 2-byte Integer                                                                        | ✅        | ❌                | 0x310 payload[2-3]    |
-| `000D`    | **Fuel Gauge** (filtered)   | 1-byte Integer (%)                                                                    | ✅        | ❌                | 0x356 payload[4-5]    |
-| `000E`    | **Engine Load**             | 1-byte Integer (%)                                                                    | ✅        | ❌                | 0x310 payload[4] >> 2 |
-| `000F`    | **Fuel Gauge** (raw)        | 1-byte                                                                                | ✅        | ❌                | 0x356 payload[4-5]    |
-| `0010`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `0011`    | **Engine Temp**             | 1-byte Integer (°C)                                                                   | ✅        | ❌                | 0x310 payload[0]      |
-| `0012`    |                             | 2-byte                                                                                |          | ❌                |                       |
-| `0013`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `0014`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `0015`    |                             | 2-byte                                                                                |          | ❌                |                       |
-| `0016`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `0017`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `0018`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `0019`    |                             | 2-byte                                                                                |          | ❌                |                       |
-| `001A`    |                             | 2-byte                                                                                |          | ❌                |                       |
-| `001B`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                       |
-| `001C`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                       |
-| `001D`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                       |
-| `001E`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                       |
-| `001F`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                       |
-| `0020`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                       |
-| `0021`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                       |
-| `0022`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                       |
-| `0023`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                       |
-| `0024`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                       |
-| `0025`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `0026`    |                             | 2-byte                                                                                |          | ❌                |                       |
-| `0027`    | **Odometer**                | 4-byte Integer (`Value / 8.0f` = km)                                                  | ✅        | ❌                | 0x356 payload[2-3]    |
-| `0028`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `0029`    |                             | 1-byte                                                                                |          | ✅                |                       |
-| `002A`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `002B`    |                             | 1-byte                                                                                |          | ❌                |                       |
-| `002C`    |                             | 1-byte                                                                                |          | ✅                |                       |
-| `E501`    | **Module Info**             | Composite ASCII fields (Name, Version)                                                | ✅        | ✅                |                       |
-| `E502`    | **DID Directory**           | Complete array of all registered DIDs                                                 | ✅        | ✅                |                       |
-| `E503`    | **Stream Dictionary**       | Configuration array (List of 2-byte DIDs) that defines the payload for the C3 stream. | ✅        | ✅                |                       |
-| `E504`    | **Data Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Sets frequency for C3 (Routine `FD 10`).         | ✅        | ✅                |                       |
-| `E505`    | **Diag Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Sets frequency for C4 (Routine `FD 11`).         | ✅        | ✅                |                       |
-| `E506`    | **HW Version**              | Hardware name and revision (ASCII)                                                    | ✅        | ✅                |                       |
-| `E507`    | **Unknown Config**          | variable-byte switch (Behavior still unclear)                                         | ❌        | ✅️               |                       |
+| DID (Hex) | Description                 | Data Format / Interpretation                                                          | Verified | Writeable (0x2E) | CAN-ID (from ECU)          |
+|:----------|:----------------------------|:--------------------------------------------------------------------------------------|:---------|:-----------------|:---------------------------|
+| `0001`    | **ID?**                     | 2-byte                                                                                |          | ❌                |                            |
+| `0002`    | **VIN**                     | 17-byte ASCII String                                                                  | ✅        | ❌                |                            |
+| `0003`    | **System Voltage**          | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)                                       | ✅        | ✅                | 0x310 payload[6-7]         |
+| `0004`    |                             | 2-byte                                                                                |          | ❌                |                            |
+| `0005`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `0006`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `0007`    | **Gear Position**           | 1-byte (`0x00` = N, `0x01` = 1...)                                                    | ✅        | ❌                | 0x310 payload[4] >> 4      |
+| `0008`    | **Throttle Position (TPS)** | 1-byte Integer (`Value / 255 * 100` = %)                                              | ✅        | ❌                | 0x310 payload[5]           |
+| `0009`    | **Kickstand**               | 1-byte (`0x01` = Up, `0x00` = Down)                                                   | ✅        | ❌                | 0x310 payload[4] >> 7      |
+| `000A`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `000B`    | **Instant Consumption**     | 2-byte Integer (`Value / 100.0f` = L/100km)                                           | ✅        | ❌                | 0x356 payload[0-1]         |
+| `000C`    | **Engine RPM**              | 2-byte Integer                                                                        | ✅        | ❌                | 0x310 payload[2-3]         |
+| `000D`    | **Fuel Gauge** (filtered)   | 1-byte Integer (%)                                                                    | ✅        | ❌                | 0x356 payload[4-5]         |
+| `000E`    | **Engine Load**             | 1-byte Integer (%)                                                                    | ✅        | ❌                | 0x310 payload[4] >> 2      |
+| `000F`    | **Fuel Gauge** (raw)        | 1-byte                                                                                | ✅        | ❌                | 0x356 payload[4-5]         |
+| `0010`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `0011`    | **Engine Temp**             | 1-byte Integer (°C)                                                                   | ✅        | ❌                | 0x310 payload[0]           |
+| `0012`    |                             | 2-byte                                                                                |          | ❌                |                            |
+| `0013`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `0014`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `0015`    |                             | 2-byte                                                                                |          | ❌                |                            |
+| `0016`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `0017`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `0018`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `0019`    |                             | 2-byte                                                                                |          | ❌                |                            |
+| `001A`    |                             | 2-byte                                                                                |          | ❌                |                            |
+| `001B`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                            |
+| `001C`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                            |
+| `001D`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                            |
+| `001E`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                            |
+| `001F`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                            |
+| `0020`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                            |
+| `0021`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                            |
+| `0022`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                            |
+| `0023`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                            |
+| `0024`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                            |
+| `0025`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `0026`    |                             | 2-byte                                                                                |          | ❌                |                            |
+| `0027`    | **Odometer**                | 4-byte Integer (`Value / 8.0f` = km)                                                  | ✅        | ❌                | 0x356 payload[2-3]         |
+| `0028`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `0029`    |                             | 1-byte                                                                                |          | ✅                |                            |
+| `002A`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `002B`    |                             | 1-byte                                                                                |          | ❌                |                            |
+| `002C`    |                             | 1-byte                                                                                |          | ✅                |                            |
+| `E501`    | **Module Info**             | Composite ASCII fields (Name, Version)                                                | ✅        | ✅                |                            |
+| `E502`    | **DID Directory**           | Complete array of all registered DIDs                                                 | ✅        | ✅                |                            |
+| `E503`    | **Stream Dictionary**       | Configuration array (List of 2-byte DIDs) that defines the payload for the C3 stream. | ✅        | ✅                |                            |
+| `E504`    | **Data Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Sets frequency for C3 (Routine `FD 10`).         | ✅        | ✅                |                            |
+| `E505`    | **Diag Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Sets frequency for C4 (Routine `FD 11`).         | ✅        | ✅                |                            |
+| `E506`    | **HW Version**              | Hardware name and revision (ASCII)                                                    | ✅        | ✅                |                            |
+| `E507`    | **Unknown Config**          | variable-byte switch (Behavior still unclear)                                         | ❌        | ✅️               |                            |
 
 ## Supported Service IDs (SIDs)
 
