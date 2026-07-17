@@ -46,17 +46,17 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Motorcycle-Optimized Dashboard:**
     *   **Standard View:** A clean, informative grid of live vehicle metrics.
     *   **Fullscreen Mode:** A high-contrast, large-font dashboard designed specifically for high readability while riding. Supports both **Landscape** and **Portrait** orientations with automatic layout adaptation.
+    <p align="center">
+      <img src="https://github.com/user-attachments/assets/9b2153a3-ef08-4b5b-97b5-2a7836902b61" width="100">
+      <img src="https://github.com/user-attachments/assets/63799289-9485-4e4c-8063-ac96adf55f08" width="100">
+    </p>
+
     *   **Unified Status Bar:** A modern, responsive indicator bar that groups **Weather Warnings**, **DTC/MIL Status**, and **Navigation shortcuts** into a single, seamless UI component.
     *   **Customizable UI:** Adjustable top padding (Offset) for the Portrait Dashboard to perfectly clear camera notches or phone holder obstructions.
     *   **Intelligent Tilt Calibration:** High-precision curve lean angle calculation regardless of phone mounting orientation. Features a **5-second auto-start timer** for hands-free setup while holding the bike upright.
     *   **Live Speed Limit Warning:** Real-time speed limit detection via Overpass API. Visual warning system (pulsing icon) when exceeding the limit by a configurable margin (Default: +5 km/h).
     *   **Orientation Lock:** Manually lock the app to **Portrait**, **Landscape**, or use **Auto (Sensor)** to prevent unwanted rotations due to vibrations.
     *   **Smart Temperature Visualization:** The engine temperature icon changes color based on state: **Blue** (Cold/Warm-up), **Red** (Normal Operation), and **Blinking Red** (Overheating warning).
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/9b2153a3-ef08-4b5b-97b5-2a7836902b61" width="100">
-  <img src="https://github.com/user-attachments/assets/63799289-9485-4e4c-8063-ac96adf55f08" width="100">
-</p>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/b91e4976-04f7-4777-b63b-8be8a6ac390a" width="200">
@@ -80,12 +80,17 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
         *   **Real-Time DTC Monitoring:** Constant background scanning for Diagnostic Trouble Codes via the C4 stream.
         *   **Visual MIL Status:** The engine icon on the dashboard changes state based on error severity: **Solid Orange** (Confirmed/Pending Error) and **Pulsing Orange** (Active Critical MIL).
         *   **Vehicle Status (Health Check):** A dedicated "Vehicle Status" sheet providing detailed descriptions of active codes, categorized by state (Active, Confirmed, MIL).
+
+        <p align="center">
+          <img src="https://github.com/user-attachments/assets/746fa90c-ff43-4886-a1f7-f54d1da9a057" width="100">
+          <img src="https://github.com/user-attachments/assets/7b0769ae-44bc-44bc-bf96-315cbbae24bd" width="100">
+        </p>
+       
     *   **Error Reporting:** Easily share a formatted technical report of all active DTCs including VIN and timestamps via the share sheet.
     *   **Customizable Sensitivity:** Configure the MIL icon behavior in settings (Show on all errors, Confirmed only, or Off).
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/746fa90c-ff43-4886-a1f7-f54d1da9a057" width="100">
-  <img src="https://github.com/user-attachments/assets/7b0769ae-44bc-44bc-bf96-315cbbae24bd" width="100">
+  <img src="https://github.com/user-attachments/assets/a54f96c3-89c7-45e6-8c55-bf610a947b04" width="100">
 </p>
 
 *   **Optimized DID Scan:** Complete sweep of all supported identifiers. Automatically pauses background streaming for 100% accuracy.
@@ -113,6 +118,10 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
         *   **Dynamic Theme Support:** The exported image automatically adapts its background (Light/Dark) to match your current app theme.
         *   **Extended RiderCard:** Include detailed technical vehicle data (Displacement, Power, Torque, etc.) directly on the card.
         *   **Customizable Content:** Toggle technical specs on or off via the **Vehicle Info** settings.
+          <p align="center">
+            <img src="https://github.com/user-attachments/assets/b1c1d223-e58d-40ce-9732-c2ff8c776c50" width="100">
+         </p>
+          
     *   **12 Aesthetic Analytics Charts:** High-quality, cubic-smoothed charts for **Speed**, **RPM**, **Temp**, **Throttle**, **Load**, **Gear**, **Voltage**, **Consumption**, **Acceleration**, **Deceleration**, **Altitude**, and **Roll (Lean Angle)**.
     *   **Synchronized Chart Analysis:** Toggle-able **Lock Mode** to synchronize scrolling and zooming across all charts simultaneously. Features an **absolute time-of-day x-axis** (HH:mm:ss) and **intelligent auto-zoom** for long trips.
     *   **In-Depth Statistics:** Dedicated page showing **Moving Avg Speed**, **Trip Distance**, **Most Used Gear**, **Max/Avg TPS**, **Max/Avg Load**, **Max/Avg Voltage**, **Max/Avg Consumption**, and **Simplified Altitude Profile** (Max/Min/Avg).
@@ -152,6 +161,11 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Per-Entry Edit Mode:** Individual "lockable" cards with a dedicated edit button to prevent accidental modifications to past records.
 *   **GitHub Update Integration:** Automatically checks for new releases on startup and notifies you with a direct link to the release page.
 *   **Multi-Motorcycle Support:** Service records, wheel/tire specs, technical data, and **recorded trips** are stored independently for every motorcycle based on its unique VIN.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6498d630-a277-4c60-af3f-33c8eae1b531" width="100">
+</p>
+  
 *   **Intelligent UI Layouts:** Adaptive dashboard layout that scales based on device orientation and screen size.
 
 ## 🛠 How-To:
