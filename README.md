@@ -120,8 +120,9 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
         *   **Customizable Content:** Toggle technical specs on or off via the **Vehicle Info** settings.
           <p align="center">
             <img src="https://github.com/user-attachments/assets/b1c1d223-e58d-40ce-9732-c2ff8c776c50" width="100">
+            <img src="https://github.com/user-attachments/assets/cca9879a-e196-4751-987a-e07b81d31c07" width="100">
          </p>
-          
+
     *   **12 Aesthetic Analytics Charts:** High-quality, cubic-smoothed charts for **Speed**, **RPM**, **Temp**, **Throttle**, **Load**, **Gear**, **Voltage**, **Consumption**, **Acceleration**, **Deceleration**, **Altitude**, and **Roll (Lean Angle)**.
     *   **Synchronized Chart Analysis:** Toggle-able **Lock Mode** to synchronize scrolling and zooming across all charts simultaneously. Features an **absolute time-of-day x-axis** (HH:mm:ss) and **intelligent auto-zoom** for long trips.
     *   **In-Depth Statistics:** Dedicated page showing **Moving Avg Speed**, **Trip Distance**, **Most Used Gear**, **Max/Avg TPS**, **Max/Avg Load**, **Max/Avg Voltage**, **Max/Avg Consumption**, and **Simplified Altitude Profile** (Max/Min/Avg).
