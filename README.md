@@ -6,8 +6,8 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/1364d435-be7c-4850-a79c-fb5ad6935460" width="150">
-  <img src="https://github.com/user-attachments/assets/661de310-0505-445b-a335-8e244de53451" width="150">
   <img src="https://github.com/user-attachments/assets/9c2e9e12-8319-4319-9dbe-892cb0445c77" width="150">
+  <img src="https://github.com/user-attachments/assets/661de310-0505-445b-a335-8e244de53451" width="150">
 </p>
 
 ## Table of Contents
