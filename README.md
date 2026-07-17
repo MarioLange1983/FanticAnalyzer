@@ -54,6 +54,11 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Unified Status Bar:** A modern, responsive indicator bar that groups **Weather Warnings**, **DTC/MIL Status**, and **Navigation shortcuts** into a single, seamless UI component.
     *   **Customizable UI:** Adjustable top padding (Offset) for the Portrait Dashboard to perfectly clear camera notches or phone holder obstructions.
     *   **Intelligent Tilt Calibration:** High-precision curve lean angle calculation regardless of phone mounting orientation. Features a **5-second auto-start timer** for hands-free setup while holding the bike upright.
+
+    <p align="center">
+      <img src="https://github.com/user-attachments/assets/565bdee6-cc11-44d4-beb6-ec4ba8bd570d" width="100">
+    </p>
+    
     *   **Live Speed Limit Warning:** Real-time speed limit detection via Overpass API. Visual warning system (pulsing icon) when exceeding the limit by a configurable margin (Default: +5 km/h).
     *   **Orientation Lock:** Manually lock the app to **Portrait**, **Landscape**, or use **Auto (Sensor)** to prevent unwanted rotations due to vibrations.
     *   **Smart Temperature Visualization:** The engine temperature icon changes color based on state: **Blue** (Cold/Warm-up), **Red** (Normal Operation), and **Blinking Red** (Overheating warning).
