@@ -46,8 +46,9 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Motorcycle-Optimized Dashboard:**
     *   **Standard View:** A clean, informative grid of live vehicle metrics.
     *   **Fullscreen Mode:** A high-contrast, large-font dashboard designed specifically for high readability while riding. Supports both **Landscape** and **Portrait** orientations with automatic layout adaptation.
+    *   **Unified Status Bar:** A modern, responsive indicator bar that groups **Weather Warnings**, **DTC/MIL Status**, and **Navigation shortcuts** into a single, seamless UI component.
     *   **Customizable UI:** Adjustable top padding (Offset) for the Portrait Dashboard to perfectly clear camera notches or phone holder obstructions.
-    *   **Intelligent Tilt Calibration:** Automatic 3D-matrix calibration when starting a trip, ensuring accurate curve lean angles regardless of phone mounting orientation.
+    *   **Intelligent Tilt Calibration:** High-precision curve lean angle calculation regardless of phone mounting orientation. Features a **5-second auto-start timer** for hands-free setup while holding the bike upright.
     *   **Live Speed Limit Warning:** Real-time speed limit detection via Overpass API. Visual warning system (pulsing icon) when exceeding the limit by a configurable margin (Default: +5 km/h).
     *   **Orientation Lock:** Manually lock the app to **Portrait**, **Landscape**, or use **Auto (Sensor)** to prevent unwanted rotations due to vibrations.
     *   **Smart Temperature Visualization:** The engine temperature icon changes color based on state: **Blue** (Cold/Warm-up), **Red** (Normal Operation), and **Blinking Red** (Overheating warning).
@@ -74,6 +75,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Advanced Terminal & Streams:**
     *   **Live Console:** A built-in console shows raw log data and allows sending custom UDS commands.
     *   **Automated Dual-Stream Architecture:** The app automatically initializes both the high-speed data stream (`E5C3`) and the background diagnostic stream (`E5C4`) upon connection.
+    *   **Process Watchdog:** Integrated cleanup service that ensures Bluetooth streams are safely stopped even if the app is force-closed via the Android Task Manager.
     *   **Intelligent MIL & Error Tracking:**
         *   **Real-Time DTC Monitoring:** Constant background scanning for Diagnostic Trouble Codes via the C4 stream.
         *   **Visual MIL Status:** The engine icon on the dashboard changes state based on error severity: **Solid Orange** (Confirmed/Pending Error) and **Pulsing Orange** (Active Critical MIL).
@@ -96,15 +98,21 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Recording Options:** Granular control over data logging. Choose to auto-record on new navigations, following old trips, or during manual live dashboard sessions.
     *   **GPX Trip Logging (Industry Standard):** Record trips in Garmin-compatible GPX format including GPS coordinates, altitude, RPM, and temperature.
     *   **Live CSV Logging:** Automatically record converted vehicle metrics (RPM, Speed, Throttle %, etc.) during live sessions.
+    *   **VIN-Specific Storage:** Every trip is automatically stored in a subfolder dedicated to the vehicle's unique VIN.    
     *   **Intelligent Data Management:** Dedicated settings section for bulk exports and cleanups.
-    *   **ZIP Export:** Export all recorded trips or all system logs as a single ZIP archive for easy backup or external analysis. Temporary ZIP files are automatically cleaned up after sharing.
+    *   **ZIP Export:** Export all recorded trips or all system logs as a single ZIP archive. The trip export **maintains the VIN folder structure**, allowing for easy management of multiple motorcycles. Temporary ZIP files are automatically cleaned up after sharing.
     *   **Refined Log Cleanup:** Safety-first deletion logic that only targets system logs and temporary archives, protecting your valuable trip data in the `/trips/` folder. The deletion button is only enabled when log files are actually present.
     *   **LoopScan ZIP Bundling:** Automatically group and compress all diagnostic logs from a LoopScan session into a single ZIP file.
     *   **Customizable Scan Intervals:** Set precise delays (30s to 5m) for automated diagnostic loops using a modern slider interface.
     *   **Data Export:** Share combined CSV/GPX trip files, ZIP bundles, and vehicle technical reports via the Android share sheet.
 *   **Detailed Trip Analysis:**
     *   **Interactive Route Visualization:** View recorded trips on an integrated MapLibre map with Start/End markers and fluid motorcycle marker replay.
+    *   **Grouped Trip Overview:** The trip list is automatically **grouped by VIN**. If a motorcycle has a assigned nickname, it is used as a header for even better organization.
     *   **Telemetry Replay:** Professional play/pause function with a smooth dot-style progress slider, synchronized with the map position. Includes **dynamic speed selection** (0.2x to 1.5x) and **Dynamic Camera Follow Mode**.
+    *   **Personalized RiderCard Export:** Share your achievements with a high-quality generated image.
+        *   **Dynamic Theme Support:** The exported image automatically adapts its background (Light/Dark) to match your current app theme.
+        *   **Extended RiderCard:** Optional section to include detailed technical vehicle data (Displacement, Power, Torque, etc.) directly on the card.
+        *   **Customizable Content:** Toggle technical specs on or off via the **Vehicle Info** settings.
     *   **12 Aesthetic Analytics Charts:** High-quality, cubic-smoothed charts for **Speed**, **RPM**, **Temp**, **Throttle**, **Load**, **Gear**, **Voltage**, **Consumption**, **Acceleration**, **Deceleration**, **Altitude**, and **Roll (Lean Angle)**.
     *   **Synchronized Chart Analysis:** Toggle-able **Lock Mode** to synchronize scrolling and zooming across all charts simultaneously. Features an **absolute time-of-day x-axis** (HH:mm:ss) and **intelligent auto-zoom** for long trips.
     *   **In-Depth Statistics:** Dedicated page showing **Moving Avg Speed**, **Trip Distance**, **Most Used Gear**, **Max/Avg TPS**, **Max/Avg Load**, **Max/Avg Voltage**, **Max/Avg Consumption**, and **Simplified Altitude Profile** (Max/Min/Avg).
@@ -131,6 +139,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Motorcycle-Optimized Routing:** Valhalla-powered routing engine with support for **Custom Server URLs**.
     *   **Round-Trip Generation:** Generate exciting loops with customizable distance (20-100km) and interactive map previews.
     *   **Interactive Turn-by-Turn:** Dynamic maneuver instructions and directional icons embedded directly into the Fullscreen Dashboard (Portrait & Landscape).
+    *   **Real-Time Weather Warnings:** Automatic background monitoring for imminent rain via **Open-Meteo API**. Includes Voice (TTS) and visual alerts on the dashboard.
     *   **Recalculating Feedback:** Clear visual feedback (recalculating banner) when deviating from the route.
     *   **Adjustable Rerouting:** Configure off-route sensitivity (50m to 500m) to match your riding style.
     *   **Customizable TTS:** Adjust voice-guided navigation with **Pitch** and **Speed** settings. Native voice instructions from Valhalla maneuvers.
@@ -148,7 +157,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **DatePicker & Validation:** Edit service dates via a calendar dialog. Integrated logic (mileage > 0, ascending values) prevents inconsistent data.
     *   **Per-Entry Edit Mode:** Individual "lockable" cards with a dedicated edit button to prevent accidental modifications to past records.
 *   **GitHub Update Integration:** Automatically checks for new releases on startup and notifies you with a direct link to the release page.
-*   **Multi-Motorcycle Support:** Service records, wheel/tire specs, and technical data are stored independently for every motorcycle based on its unique VIN.
+*   **Multi-Motorcycle Support:** Service records, wheel/tire specs, technical data, and **recorded trips** are stored independently for every motorcycle based on its unique VIN.
 *   **Intelligent UI Layouts:** Adaptive dashboard layout that scales based on device orientation and screen size.
 
 ## 🛠 How-To:
@@ -267,13 +276,16 @@ This project is conducted in accordance with European and German legislation reg
 *   **Jetpack Security Crypto:** Ensures secure encryption for sensitive local data (e.g., VIN-specific records).
 *   **Jetpack DataStore:** Robust and modern data storage for user preferences and vehicle configurations.
 *   **Kotlinx Serialization:** For efficient JSON-based data management and motorcycle-specific storage.
+*   **Coil:** Image loading library for Android backed by Kotlin Coroutines.
 
 ## 🌐 Integrated APIs
 
 *   **Valhalla (OSM):** Powering the motorcycle-optimized routing engine, round-trip generation, and turn-by-turn instructions.
+*   **OpenFreeMap:** Provides high-performance, open-source map tile hosting for route visualization.
 *   **Photon / Komoot API:** Powering the search for navigation destinations with geocoding support.
 *   **Overpass API (OpenStreetMap):** Used for real-time speed limit detection and road infrastructure data.
 *   **GitHub API:** Used for automated update checks and release management.
+*   **Open-Meteo API:** Used for high-precision, real-time rain forecasting and weather warnings.
 
 ## ⚙️ Vehicle Sub-Model Identification (VDS)
 
