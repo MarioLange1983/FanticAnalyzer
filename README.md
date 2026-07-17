@@ -98,7 +98,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Recording Options:** Granular control over data logging. Choose to auto-record on new navigations, following old trips, or during manual live dashboard sessions.
     *   **GPX Trip Logging (Industry Standard):** Record trips in Garmin-compatible GPX format including GPS coordinates, altitude, RPM, and temperature.
     *   **Live CSV Logging:** Automatically record converted vehicle metrics (RPM, Speed, Throttle %, etc.) during live sessions.
-    *   **VIN-Specific Storage:** Every trip is automatically stored in a subfolder dedicated to the vehicle's unique VIN.    
+    *   **VIN-Specific Storage:** Every trip is automatically stored in a subfolder dedicated to the vehicle's unique VIN.
     *   **Intelligent Data Management:** Dedicated settings section for bulk exports and cleanups.
     *   **ZIP Export:** Export all recorded trips or all system logs as a single ZIP archive. The trip export **maintains the VIN folder structure**, allowing for easy management of multiple motorcycles. Temporary ZIP files are automatically cleaned up after sharing.
     *   **Refined Log Cleanup:** Safety-first deletion logic that only targets system logs and temporary archives, protecting your valuable trip data in the `/trips/` folder. The deletion button is only enabled when log files are actually present.
@@ -111,7 +111,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Telemetry Replay:** Professional play/pause function with a smooth dot-style progress slider, synchronized with the map position. Includes **dynamic speed selection** (0.2x to 1.5x) and **Dynamic Camera Follow Mode**.
     *   **Personalized RiderCard Export:** Share your achievements with a high-quality generated image.
         *   **Dynamic Theme Support:** The exported image automatically adapts its background (Light/Dark) to match your current app theme.
-        *   **Extended RiderCard:** Optional section to include detailed technical vehicle data (Displacement, Power, Torque, etc.) directly on the card.
+        *   **Extended RiderCard:** Include detailed technical vehicle data (Displacement, Power, Torque, etc.) directly on the card.
         *   **Customizable Content:** Toggle technical specs on or off via the **Vehicle Info** settings.
     *   **12 Aesthetic Analytics Charts:** High-quality, cubic-smoothed charts for **Speed**, **RPM**, **Temp**, **Throttle**, **Load**, **Gear**, **Voltage**, **Consumption**, **Acceleration**, **Deceleration**, **Altitude**, and **Roll (Lean Angle)**.
     *   **Synchronized Chart Analysis:** Toggle-able **Lock Mode** to synchronize scrolling and zooming across all charts simultaneously. Features an **absolute time-of-day x-axis** (HH:mm:ss) and **intelligent auto-zoom** for long trips.
