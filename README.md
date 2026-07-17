@@ -80,12 +80,12 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
         *   **Real-Time DTC Monitoring:** Constant background scanning for Diagnostic Trouble Codes via the C4 stream.
         *   **Visual MIL Status:** The engine icon on the dashboard changes state based on error severity: **Solid Orange** (Confirmed/Pending Error) and **Pulsing Orange** (Active Critical MIL).
         *   **Vehicle Status (Health Check):** A dedicated "Vehicle Status" sheet providing detailed descriptions of active codes, categorized by state (Active, Confirmed, MIL).
-        *   **Error Reporting:** Easily share a formatted technical report of all active DTCs including VIN and timestamps via the share sheet.
-        *   **Customizable Sensitivity:** Configure the MIL icon behavior in settings (Show on all errors, Confirmed only, or Off).
+    *   **Error Reporting:** Easily share a formatted technical report of all active DTCs including VIN and timestamps via the share sheet.
+    *   **Customizable Sensitivity:** Configure the MIL icon behavior in settings (Show on all errors, Confirmed only, or Off).
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/5c4fd164-8c47-420e-806e-9bbc13448db4" width="100">
-  <img src="https://github.com/user-attachments/assets/3c34c365-d412-414f-86ac-845ab15b7f0c" width="100">
+  <img src="https://github.com/user-attachments/assets/746fa90c-ff43-4886-a1f7-f54d1da9a057" width="100">
+  <img src="https://github.com/user-attachments/assets/7b0769ae-44bc-44bc-bf96-315cbbae24bd" width="100">
 </p>
 
 *   **Optimized DID Scan:** Complete sweep of all supported identifiers. Automatically pauses background streaming for 100% accuracy.
@@ -143,12 +143,6 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Recalculating Feedback:** Clear visual feedback (recalculating banner) when deviating from the route.
     *   **Adjustable Rerouting:** Configure off-route sensitivity (50m to 500m) to match your riding style.
     *   **Customizable TTS:** Adjust voice-guided navigation with **Pitch** and **Speed** settings. Native voice instructions from Valhalla maneuvers.
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/c6f449d1-ebb4-4d30-b775-18475d93ca70" width="100">
-  <img src="https://github.com/user-attachments/assets/d9042b29-1cd1-4852-beb5-10657d5a8790" width="100">
-  <img src="https://github.com/user-attachments/assets/4076615a-7f90-4cd2-9bae-d0c61c7290e9" width="100">
-</p>
 
 *   **Service History Management:**
     *   **Chronological Tracking:** Persistent list of service entries, automatically sorted from oldest to newest.
@@ -232,9 +226,9 @@ A comprehensive decoded report of the vehicle's VIN, module specifications, and 
 > Debug mode allows direct interaction with the vehicle's control modules. Sending incorrect or malformed UDS commands can lead to module lockouts, error codes, or physical damage. Use this feature only if you are familiar with the UDS protocol and the e-shock implementation.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/bcc9854f-ade1-494f-bb31-6d6829cb2aca" width="100">
-  <img src="https://github.com/user-attachments/assets/7d9fd5a3-78ec-4328-8f39-29fb52b4b23c" width="100">
-  <img src="https://github.com/user-attachments/assets/c73e0b96-2121-479c-87a3-c499232787c4" width="100">
+  <img src="https://github.com/user-attachments/assets/d69efd4c-b288-45b5-8024-0281c1a3aec6" width="100">
+  <img src="https://github.com/user-attachments/assets/36573a7d-080f-408d-af10-7161f470f616" width="100">
+  <img src="https://github.com/user-attachments/assets/97385c0f-0eb2-40aa-b7f7-e5c067726a68" width="100">
 </p>
 
 ## ⚠️ Notice & Disclaimer
