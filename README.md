@@ -5,9 +5,9 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/567852cc-255d-48ec-a299-90a1fec2ea37" width="150">
-  <img src="https://github.com/user-attachments/assets/17f6cc9f-ac14-410c-ada4-d670e8c89d69" width="150">
-  <img src="https://github.com/user-attachments/assets/ff332398-524c-4c67-b05e-5af0d8f26bbd" width="150">
+  <img src="https://github.com/user-attachments/assets/1364d435-be7c-4850-a79c-fb5ad6935460" width="150">
+  <img src="https://github.com/user-attachments/assets/661de310-0505-445b-a335-8e244de53451" width="150">
+  <img src="https://github.com/user-attachments/assets/9c2e9e12-8319-4319-9dbe-892cb0445c77" width="150">
 </p>
 
 ## Table of Contents
@@ -69,7 +69,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/567852cc-255d-48ec-a299-90a1fec2ea37" width="100">
+  <img src="https://github.com/user-attachments/assets/1364d435-be7c-4850-a79c-fb5ad6935460" width="100">
 </p>
 
 *   **Advanced Terminal & Streams:**
