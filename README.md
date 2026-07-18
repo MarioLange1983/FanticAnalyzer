@@ -13,6 +13,9 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 ## Table of Contents
 - [Key Features](#key-features)
 - [How-To](#-how-to)
+    - [Generating a Diagnostic Log (SCAN)](#generating-a-diagnostic-log-scan)
+    - [Continuous Monitoring (LOOPSCAN)](#continuous-monitoring-loopscan)
+    - [Managing your Garage (Offline Mode)](#managing-your-garage-offline-mode)
 - [Service Interval Logic](#%EF%B8%8F-service-interval-logic)
 - [Data Logging & Recording](#%EF%B8%8F-data-logging--recording)
 - [Debug Mode & Advanced Terminal](#%EF%B8%8F-debug-mode--advanced-terminal)
@@ -45,10 +48,19 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Modern Theme:** Modern Material 3 UI designed. Supports both **Light and Dark modes**.
 *   **Motorcycle-Optimized Dashboard:**
     *   **Standard View:** A clean, informative grid of live vehicle metrics.
-    *   **Fullscreen Mode:** A high-contrast, large-font dashboard designed specifically for high readability while riding. Supports both **Landscape** and **Portrait** orientations with automatic layout adaptation.
+    *   **Fullscreen Mode:** A high-contrast, large-font dashboard designed specifically for high readability while riding. Supports both orientations with automatic layout adaptation.
+
+    
+    **<p align="center">Portrait</p>**
     <p align="center">
       <img src="https://github.com/user-attachments/assets/9b2153a3-ef08-4b5b-97b5-2a7836902b61" width="100">
       <img src="https://github.com/user-attachments/assets/63799289-9485-4e4c-8063-ac96adf55f08" width="100">
+    </p>
+
+    **<p align="center">Landscape</p>**
+    <p align="center">
+      <img src="https://github.com/user-attachments/assets/b91e4976-04f7-4777-b63b-8be8a6ac390a" width="200">
+      <img src="https://github.com/user-attachments/assets/f2207e68-b8b0-4f75-871b-9e5b3e113af7" width="200">
     </p>
 
     *   **Unified Status Bar:** A modern, responsive indicator bar that groups **Weather Warnings**, **DTC/MIL Status**, and **Navigation shortcuts** into a single, seamless UI component.
@@ -58,15 +70,10 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     <p align="center">
       <img src="https://github.com/user-attachments/assets/565bdee6-cc11-44d4-beb6-ec4ba8bd570d" width="100">
     </p>
-    
+
     *   **Live Speed Limit Warning:** Real-time speed limit detection via Overpass API. Visual warning system (pulsing icon) when exceeding the limit by a configurable margin (Default: +5 km/h).
     *   **Orientation Lock:** Manually lock the app to **Portrait**, **Landscape**, or use **Auto (Sensor)** to prevent unwanted rotations due to vibrations.
     *   **Smart Temperature Visualization:** The engine temperature icon changes color based on state: **Blue** (Cold/Warm-up), **Red** (Normal Operation), and **Blinking Red** (Overheating warning).
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/b91e4976-04f7-4777-b63b-8be8a6ac390a" width="200">
-  <img src="https://github.com/user-attachments/assets/f2207e68-b8b0-4f75-871b-9e5b3e113af7" width="200">
-</p>
 
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more. Improved fuel gauge monitoring using filtered ECU data (DID 0x000D).
 *   **High-Performance Multi-DID Stream:** The app uses a hightly optimized UDS data stream to fetch multiple data points (RPM, Gear, Voltage, etc.) in a single notification. This reduces Bluetooth overhead and ensures smooth real-time dashboard updates.
@@ -90,7 +97,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
           <img src="https://github.com/user-attachments/assets/746fa90c-ff43-4886-a1f7-f54d1da9a057" width="100">
           <img src="https://github.com/user-attachments/assets/7b0769ae-44bc-44bc-bf96-315cbbae24bd" width="100">
         </p>
-       
+
     *   **Error Reporting:** Easily share a formatted technical report of all active DTCs including VIN and timestamps via the share sheet.
     *   **Customizable Sensitivity:** Configure the MIL icon behavior in settings (Show on all errors, Confirmed only, or Off).
 
@@ -123,9 +130,9 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
         *   **Dynamic Theme Support:** The exported image automatically adapts its background (Light/Dark) to match your current app theme.
         *   **Extended RiderCard:** Include detailed technical vehicle data (Displacement, Power, Torque, etc.) directly on the card.
         *   **Customizable Content:** Toggle technical specs on or off via the **Vehicle Info** settings.
+
           <p align="center">
             <img src="https://github.com/user-attachments/assets/b1c1d223-e58d-40ce-9732-c2ff8c776c50" width="100">
-            <img src="https://github.com/user-attachments/assets/cca9879a-e196-4751-987a-e07b81d31c07" width="100">
          </p>
 
     *   **12 Aesthetic Analytics Charts:** High-quality, cubic-smoothed charts for **Speed**, **RPM**, **Temp**, **Throttle**, **Load**, **Gear**, **Voltage**, **Consumption**, **Acceleration**, **Deceleration**, **Altitude**, and **Roll (Lean Angle)**.
@@ -165,13 +172,30 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Advanced Entry Workflow:** Adding a new service automatically expands history, focuses the mileage field, and enables the keyboard.
     *   **DatePicker & Validation:** Edit service dates via a calendar dialog. Integrated logic (mileage > 0, ascending values) prevents inconsistent data.
     *   **Per-Entry Edit Mode:** Individual "lockable" cards with a dedicated edit button to prevent accidental modifications to past records.
+*   **Integrated Garage (Offline Mode):**
+    *   **Vehicle Selection:** A dedicated motorcycle icon appears in the Vehicle tab when disconnected, allowing you to browse your "Garage".
+    *   **Stored Profiles:** Access all vehicle data (VIN, specs, history) without an active connection.
+    *   **Odometer Persistence:** The app automatically saves the last known mileage to the vehicle's profile, keeping your maintenance schedule accurate even while offline.
+
+    <p align="center">
+      <img src="https://github.com/user-attachments/assets/74fb4306-855a-4b99-8da1-1017704a86c3" width="100">
+      <img src="https://github.com/user-attachments/assets/edcac663-7c3f-4f83-a2a2-508c26dcc401" width="100">
+    </p>
+ 
+    *   **Visual Identification:** Each garage entry displays the motorcycle's **Profile Photo**, nickname, and last seen mileage.
+    *   **Swipe-to-Delete:** Easily remove vehicles from your garage with a swipe gesture, including an optional cleanup of all associated trip data.
 *   **GitHub Update Integration:** Automatically checks for new releases on startup and notifies you with a direct link to the release page.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/aea6baa5-b9d9-4bab-aaf1-9ad51602d4d3" width="100">
+</p>
+    
 *   **Multi-Motorcycle Support:** Service records, wheel/tire specs, technical data, and **recorded trips** are stored independently for every motorcycle based on its unique VIN.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6498d630-a277-4c60-af3f-33c8eae1b531" width="100">
 </p>
-  
+
 *   **Intelligent UI Layouts:** Adaptive dashboard layout that scales based on device orientation and screen size.
 
 ## 🛠 How-To:
@@ -192,6 +216,12 @@ Fantic Analyzer provides powerful tools to capture raw data for diagnostic resea
 2.  Select your desired interval (e.g., 1 minute).
 3.  The app will perform a full scan repeatedly.
 4.  Stop the loop anytime. All individual logs will be compressed into a single **ZIP archive** for sharing.
+
+### Managing your Garage (Offline Mode)
+1. When disconnected from a motorcycle, go to the **VEHICLE** tab.
+2. Tap the **Motorcycle icon** in the top right action bar.
+3. Select any previously connected vehicle from the list to view its technical specs, service history, and last known mileage.
+4. To remove a vehicle from your device, **swipe left** on its card in the garage list. You will be asked if you also want to delete all recorded trips for that specific VIN.
 
 ## ⛓️ Service Interval Logic
 
