@@ -13,6 +13,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 ## Table of Contents
 - [Key Features](#key-features)
 - [How-To](#-how-to)
+    - [Using QuickStart (Widget)](#using-quickstart-widget)
     - [Generating a Diagnostic Log (SCAN)](#generating-a-diagnostic-log-scan)
     - [Continuous Monitoring (LOOPSCAN)](#continuous-monitoring-loopscan)
     - [Managing your Garage (Offline Mode)](#managing-your-garage-offline-mode)
@@ -50,7 +51,6 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Standard View:** A clean, informative grid of live vehicle metrics.
     *   **Fullscreen Mode:** A high-contrast, large-font dashboard designed specifically for high readability while riding. Supports both orientations with automatic layout adaptation.
 
-    
     **<p align="center">Portrait</p>**
     <p align="center">
       <img src="https://github.com/user-attachments/assets/9b2153a3-ef08-4b5b-97b5-2a7836902b61" width="100">
@@ -65,7 +65,9 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
     *   **Unified Status Bar:** A modern, responsive indicator bar that groups **Weather Warnings**, **DTC/MIL Status**, and **Navigation shortcuts** into a single, seamless UI component.
     *   **Customizable UI:** Adjustable top padding (Offset) for the Portrait Dashboard to perfectly clear camera notches or phone holder obstructions.
-    *   **Intelligent Tilt Calibration:** High-precision curve lean angle calculation regardless of phone mounting orientation. Features a **5-second auto-start timer** for hands-free setup while holding the bike upright.
+    *   **Advanced 2D Lean & Pitch Tracking:** High-precision calculation of both **Lean Angle (Roll)** and **Grade (Pitch)** using gravity vector projection. Completely orientation-independent—works perfectly whether the phone is mounted in **Portrait** or **Landscape**.
+    *   **Smart Calibration:** Features a configurable **5-second auto-start timer** or an **Instant Skip** option for immediate zeroing while holding the bike upright.
+    *   **Interactive 2D Spirit Level:** Visual feedback during calibration and riding that tracks both lateral and longitudinal movement.
 
     <p align="center">
       <img src="https://github.com/user-attachments/assets/565bdee6-cc11-44d4-beb6-ec4ba8bd570d" width="100">
@@ -74,6 +76,17 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Live Speed Limit Warning:** Real-time speed limit detection via Overpass API. Visual warning system (pulsing icon) when exceeding the limit by a configurable margin (Default: +5 km/h).
     *   **Orientation Lock:** Manually lock the app to **Portrait**, **Landscape**, or use **Auto (Sensor)** to prevent unwanted rotations due to vibrations.
     *   **Smart Temperature Visualization:** The engine temperature icon changes color based on state: **Blue** (Cold/Warm-up), **Red** (Normal Operation), and **Blinking Red** (Overheating warning).
+
+*   **Widget Integration:**
+    *   **Quickstart:**
+    *   **Vehicle Status:**
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/65640053-78bb-4559-a7d1-0b487a09042b" width="100">
+  <img src="https://github.com/user-attachments/assets/c7a58fa3-8fee-4900-9339-a43fc21da118" width="100">
+  <img src="https://github.com/user-attachments/assets/7318369f-6de5-4d30-90e1-97b03d72da23" width="100">
+</p>
+
 
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more. Improved fuel gauge monitoring using filtered ECU data (DID 0x000D).
 *   **High-Performance Multi-DID Stream:** The app uses a hightly optimized UDS data stream to fetch multiple data points (RPM, Gear, Voltage, etc.) in a single notification. This reduces Bluetooth overhead and ensures smooth real-time dashboard updates.
@@ -181,7 +194,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
       <img src="https://github.com/user-attachments/assets/74fb4306-855a-4b99-8da1-1017704a86c3" width="100">
       <img src="https://github.com/user-attachments/assets/edcac663-7c3f-4f83-a2a2-508c26dcc401" width="100">
     </p>
- 
+
     *   **Visual Identification:** Each garage entry displays the motorcycle's **Profile Photo**, nickname, and last seen mileage.
     *   **Swipe-to-Delete:** Easily remove vehicles from your garage with a swipe gesture, including an optional cleanup of all associated trip data.
 *   **GitHub Update Integration:** Automatically checks for new releases on startup and notifies you with a direct link to the release page.
@@ -189,7 +202,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 <p align="center">
   <img src="https://github.com/user-attachments/assets/aea6baa5-b9d9-4bab-aaf1-9ad51602d4d3" width="100">
 </p>
-    
+
 *   **Multi-Motorcycle Support:** Service records, wheel/tire specs, technical data, and **recorded trips** are stored independently for every motorcycle based on its unique VIN.
 
 <p align="center">
@@ -201,6 +214,10 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 ## 🛠 How-To:
 
 Fantic Analyzer provides powerful tools to capture raw data for diagnostic research.
+
+### Using QuickStart (Widget)
+1. Add the **QuickStart Widget** to your Android home screen.
+2. Tap the widget to launch the app: it will automatically connect, unlock the ECU, perform a background calibration, and start the recording.
 
 ### Generating a Diagnostic Log (SCAN)
 1.  Connect to your motorcycle using the **Green LED** icon.
@@ -508,6 +525,7 @@ Internal logs via UART reveal the following system specifications:
 *   **SoC:** ESP32 (running at 160MHz)
 *   **Partitioning:** Dual OTA partitions with NVM storage for EOL data, calibrations, and DTCs.
 *   **Hardware Identifier:** `CUM` (CU MICRO, Revision `RevC`)
+*   **Connection:**  URAQT 4-pin connector (Standard for many Euro 5 Fantic models).
 *   **CAN Bus Integration:** The module monitors the vehicle CAN bus. A **Wakeup CAN ID of `0x310`** is used to trigger the shutdown/startup process.
 
 ### Module Specifications & Identification
