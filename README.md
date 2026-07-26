@@ -12,6 +12,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 ## Table of Contents
 - [Key Features](#key-features)
+- [QuickStart & One-Touch Recording](#quickstart--one-touch-recording)
 - [How-To](#-how-to)
     - [Using QuickStart (Widget)](#using-quickstart-widget)
     - [Generating a Diagnostic Log (SCAN)](#generating-a-diagnostic-log-scan)
@@ -51,6 +52,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Standard View:** A clean, informative grid of live vehicle metrics.
     *   **Fullscreen Mode:** A high-contrast, large-font dashboard designed specifically for high readability while riding. Supports both orientations with automatic layout adaptation.
 
+
     **<p align="center">Portrait</p>**
     <p align="center">
       <img src="https://github.com/user-attachments/assets/9b2153a3-ef08-4b5b-97b5-2a7836902b61" width="100">
@@ -80,14 +82,6 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Widget Integration:**
     *   **Quickstart:**
     *   **Vehicle Status:**
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/65640053-78bb-4559-a7d1-0b487a09042b" width="100">
-  <img src="https://github.com/user-attachments/assets/c7a58fa3-8fee-4900-9339-a43fc21da118" width="100">
-  <img src="https://github.com/user-attachments/assets/7318369f-6de5-4d30-90e1-97b03d72da23" width="100">
-</p>
-
-
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more. Improved fuel gauge monitoring using filtered ECU data (DID 0x000D).
 *   **High-Performance Multi-DID Stream:** The app uses a hightly optimized UDS data stream to fetch multiple data points (RPM, Gear, Voltage, etc.) in a single notification. This reduces Bluetooth overhead and ensures smooth real-time dashboard updates.
 *   **Configurable Refresh Rate:** Fine-tune the UDS stream frequency in the **Performance** settings. Choose a custom interval between **100ms** and **2000ms** (Default: 300ms) to balance UI smoothness and device performance.
@@ -321,7 +315,7 @@ This project is conducted in accordance with European and German legislation reg
 
 *   **Tested Environment:** Developed and tested on **Android 15/16** using a **Pixel 9 series device**.
 *   **Target Vehicle:** Primarily tuned for and tested on the **2024 Fantic Caballero Deluxe**.
-*   **Hardware Platform:** The module is based on an **Espressif ESP32** (Single-core) running **ESP-IDF v5.1**.
+*   **Hardware Platform:** The module is based on an **Espressif ESP32-C3-MINI-1** (Single-core) running **ESP-IDF v5.1**.
 *   **Experimental Security:** While the ECU Seed/Key (Security Access) algorithm is implemented, it remains in a testing phase.
 *   **Data Accuracy:** Communication protocols are interpreted without official specifications; data values may be incorrect or misinterpreted.
 
@@ -429,7 +423,7 @@ The status byte (e.g., `0x8D` -> binary `10001101`) reveals the precise lifecycl
 
 To facilitate protocol analysis without constant vehicle access, a dedicated **ECU Emulator** was developed. This hardware simulates the motorcycle's electronic control unit and its interaction with the e-shock module via the CAN bus.
 
-*   **Hardware:** Espressif **ESP32-C3** connected via a **SN65HVD230** CAN transceiver.
+*   **Hardware:** Espressif **ESP32-C3-MINI-1** connected via a **SN65HVD230** CAN transceiver.
 *   **Protocol Support:** Implements **ISO-TP (ISO 15765-2)** for multi-frame UDS responses.
 *   **Simulated Traffic:**
     *   **Telemetry (ID 0x310):** Simulates engine RPM, kickstand status etc...
@@ -522,7 +516,7 @@ Internal logs via UART reveal the following system specifications:
 
 *   **Project Name:** `fantic`
 *   **App Name:** `e-Conn Micro Fantic` (V1.1)
-*   **SoC:** ESP32 (running at 160MHz)
+*   **SoC:** ESP32-C3-MINI-1 (running at 160MHz)
 *   **Partitioning:** Dual OTA partitions with NVM storage for EOL data, calibrations, and DTCs.
 *   **Hardware Identifier:** `CUM` (CU MICRO, Revision `RevC`)
 *   **Connection:**  URAQT 4-pin connector (Standard for many Euro 5 Fantic models).
@@ -570,13 +564,22 @@ The e-shock module identifies itself with the prefix `FanticCON-` followed by it
 
 ## Frame Format & CRC Mechanism
 
-Every packet sent or received follows a specific framing structure:
+The application automatically detects and supports two different framing structures depending on the module's firmware version:
 
-`[Length] [UDS Payload] [CRC8]`
+| **Module App Version** | **Header Size** | **Frame Format**                           | **Supported** |
+|:-----------------------|:----------------|:-------------------------------------------|:--------------|
+| v1.1                   | 8-bit           | `[Len 8] [Payload] [CRC8]`                 | ✅             |
+| v2.03                  | 16-bit          | `[Len 16 Hi] [Len 16 Lo] [Payload] [CRC8]` | ✅             |
 
-1.  **Length**: 1 byte. Represents `(Payload Size + 1)`.
+### Frame Components
+1.  **Length**: 1 or 2 bytes. Represents `(Payload Size + 1)`.
 2.  **UDS Payload**: The actual diagnostic data (Service ID + Parameters).
-3.  **CRC8**: 1 byte. Checksum calculated over the `Length` and `Payload`.
+3.  **CRC8**: 1 byte. Checksum calculated over the **entire header** and **payload**.
+
+### Protocol Auto-Detection
+The app performs an automatic handshake upon connection using an invalid SID (`0x00 00`) ping. By analyzing the first byte of the response, it determines the required header size:
+*   If the first byte is `0x00`, the **16-bit protocol** is active.
+*   Otherwise, the **8-bit protocol** is assumed.
 
 ### CRC8 Algorithm
 The module uses a specific **CRC-8 OpenSafety** (Polynomial: `0x2F`, Initial Value: `0x00`).
@@ -723,6 +726,15 @@ Routine `FD 11` is specifically designed for DTC and Alarm monitoring. Unlike C3
     * `[0x2E, 0xE5, 0x03, 0x01]` *(Dummy initialization)*
 3. **Start Routine** (FD 11)
     * `[0x31, 0x01, 0xFD, 0x11]`
+
+## Thanks
+
+Thanks to the following contributors for their support:
+*   **ariciluca85**
+*   **FlaFlaMobile**
+*   **DavidePepo**
+*   **lukasmuller90**
+*   **DommenicoRenna**
 
 ## Known Issues
 
