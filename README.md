@@ -15,6 +15,8 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 - [QuickStart & One-Touch Recording](#quickstart--one-touch-recording)
 - [How-To](#-how-to)
     - [Using QuickStart (Widget)](#using-quickstart-widget)
+    - [Managing Documents (Document Safe)](#managing-documents-document-safe)
+    - [Backup & Data Portability](#backup--data-portability-fsafe)
     - [Generating a Diagnostic Log (SCAN)](#generating-a-diagnostic-log-scan)
     - [Continuous Monitoring (LOOPSCAN)](#continuous-monitoring-loopscan)
     - [Managing your Garage (Offline Mode)](#managing-your-garage-offline-mode)
@@ -70,6 +72,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Advanced 2D Lean & Pitch Tracking:** High-precision calculation of both **Lean Angle (Roll)** and **Grade (Pitch)** using gravity vector projection. Completely orientation-independent—works perfectly whether the phone is mounted in **Portrait** or **Landscape**.
     *   **Smart Calibration:** Features a configurable **5-second auto-start timer** or an **Instant Skip** option for immediate zeroing while holding the bike upright.
     *   **Interactive 2D Spirit Level:** Visual feedback during calibration and riding that tracks both lateral and longitudinal movement.
+    *   **Visual Shift Light (Schaltblitz):** A multi-stage visual warning system on the screen edges for optimal shift points. Configurable RPM threshold with **Yellow glow** (-500 rpm), **Red glow** (-200 rpm), and **Pulsating Red Flash** (Shift point reached). Only visible in Fullscreen mode.
 
     <p align="center">
       <img src="https://github.com/user-attachments/assets/565bdee6-cc11-44d4-beb6-ec4ba8bd570d" width="100">
@@ -82,7 +85,9 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Widget Integration:**
     *   **Quickstart:**
     *   **Vehicle Status:**
-*   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more. Improved fuel gauge monitoring using filtered ECU data (DID 0x000D).
+*   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more.
+    *   **Improved Fuel Monitoring:** Real-time fuel gauge tracking (DID 0x000D) and high-resolution injection monitoring (DID 0x000F).
+    *   **Standby Consumption:** Fuel tracking starts immediately upon connection. The "Injection" card on the dashboard shows continuous session-wide consumption even when not recording.
 *   **High-Performance Multi-DID Stream:** The app uses a hightly optimized UDS data stream to fetch multiple data points (RPM, Gear, Voltage, etc.) in a single notification. This reduces Bluetooth overhead and ensures smooth real-time dashboard updates.
 *   **Configurable Refresh Rate:** Fine-tune the UDS stream frequency in the **Performance** settings. Choose a custom interval between **100ms** and **2000ms** (Default: 300ms) to balance UI smoothness and device performance.
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
@@ -135,6 +140,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Telemetry Replay:** Professional play/pause function with a smooth dot-style progress slider, synchronized with the map position. Includes **dynamic speed selection** (0.2x to 1.5x) and **Dynamic Camera Follow Mode**.
     *   **Personalized RiderCard Export:** Share your achievements with a high-quality generated image.
         *   **Dynamic Theme Support:** The exported image automatically adapts its background (Light/Dark) to match your current app theme.
+        *   **Session Highlights:** Automatically tracks **Total Distance**, **Total Time**, and **Total Fuel Consumption** across all recorded trips for each motorcycle.
         *   **Extended RiderCard:** Include detailed technical vehicle data (Displacement, Power, Torque, etc.) directly on the card.
         *   **Customizable Content:** Toggle technical specs on or off via the **Vehicle Info** settings.
 
@@ -144,7 +150,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
     *   **12 Aesthetic Analytics Charts:** High-quality, cubic-smoothed charts for **Speed**, **RPM**, **Temp**, **Throttle**, **Load**, **Gear**, **Voltage**, **Consumption**, **Acceleration**, **Deceleration**, **Altitude**, and **Roll (Lean Angle)**.
     *   **Synchronized Chart Analysis:** Toggle-able **Lock Mode** to synchronize scrolling and zooming across all charts simultaneously. Features an **absolute time-of-day x-axis** (HH:mm:ss) and **intelligent auto-zoom** for long trips.
-    *   **In-Depth Statistics:** Dedicated page showing **Moving Avg Speed**, **Trip Distance**, **Most Used Gear**, **Max/Avg TPS**, **Max/Avg Load**, **Max/Avg Voltage**, **Max/Avg Consumption**, and **Simplified Altitude Profile** (Max/Min/Avg).
+    *   **In-Depth Statistics:** Dedicated page showing **Moving Avg Speed**, **Trip Distance**, **Fuel Consumption**, **Most Used Gear**, **Max/Avg TPS**, **Max/Avg Load**, **Max/Avg Voltage**, **Max/Avg Consumption**, and **Simplified Altitude Profile** (Max/Min/Avg).
     *   **Riding Style Rating:** Intelligent classification of cornering behavior (e.g., "Curve Chaser") with a Material 3 **5-star rating system**. Features a **dynamic lean angle icon** that mirrors based on real-world cornering direction.
 
 <p align="center">
@@ -198,6 +204,10 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 </p>
 
 *   **Multi-Motorcycle Support:** Service records, wheel/tire specs, technical data, and **recorded trips** are stored independently for every motorcycle based on its unique VIN.
+*   **Secure Document Safe:** A built-in encrypted vault for vehicle documents (Registration, ABE, Invoices).
+    *   **Storage:** Supports **PDF** and **Images** (JPG/PNG).
+    *   **Security:** Uses **AES-256 encryption** (Jetpack Security Crypto) to store sensitive documents in the app\'s private storage.
+    *   **View & Share:** Built-in multi-page viewer with secure sharing functionality.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6498d630-a277-4c60-af3f-33c8eae1b531" width="100">
@@ -212,6 +222,20 @@ Fantic Analyzer provides powerful tools to capture raw data for diagnostic resea
 ### Using QuickStart (Widget)
 1. Add the **QuickStart Widget** to your Android home screen.
 2. Tap the widget to launch the app: it will automatically connect, unlock the ECU, perform a background calibration, and start the recording.
+
+### Managing Documents (Document Safe)
+1. Go to the **VEHICLE** tab.
+2. Tap the **Folder icon** in the action bar to open the **Document Safe**.
+3. Use the **+** button to add PDF files or photos from your gallery.
+4. Documents are automatically encrypted and categorized (e.g., Registration, ABE, Service).
+5. Swipe left on any document to delete it from the secure storage.
+
+### Backup & Data Portability (.fsafe)
+To ensure your vehicle data and documents are never lost, the app features a proprietary backup format.
+1. Open **Settings** -> **Data Management**.
+2. Tap **Vehicle Export** and choose a password.
+3. The app generates a password-protected, encrypted `.fsafe` file containing your entire vehicle profile, all documents, service history, and notes.
+4. To restore, use **Vehicle Import** and select your `.fsafe` file. You can even import data from one VIN to another if needed.
 
 ### Generating a Diagnostic Log (SCAN)
 1.  Connect to your motorcycle using the **Green LED** icon.
@@ -252,7 +276,7 @@ The application provides three distinct ways to capture and export vehicle data:
 ### 1. Trip Recording (GPX & CSV)
 When **LIVE** polling is active on the Dashboard, the app automatically generates two files in the background:
 *   **GPX File:** An industry-standard trip log following the **Garmin Schema**. It includes coordinates, altitude, **RPM** (as cadence), **Speed**, and **Engine Temperature** (as ambient temp). Compatible with BaseCamp, Strava, etc.
-*   **CSV File:** A detailed snapshot of all converted metrics, including engine load and throttle position, every ~2 seconds.
+*   **CSV File:** A detailed snapshot of all converted metrics, including engine load, throttle position, and **precise trip fuel consumption (L)**, every ~2 seconds.
 *   **Export:** A single red share button appears on the DASH tab once polling is stopped, bundling both files into a single export.
 *   **Persistence:** Trip files are saved in a dedicated `/trips/` folder to prevent accidental deletion during log cleanup.
 
@@ -571,6 +595,9 @@ The application automatically detects and supports two different framing structu
 | v1.1                   | 8-bit           | `[Len 8] [Payload] [CRC8]`                 | ✅             |
 | v2.03                  | 16-bit          | `[Len 16 Hi] [Len 16 Lo] [Payload] [CRC8]` | ✅             |
 
+> [!NOTE]
+> Besides the framing difference, newer 16-bit modules often use different data scaling factors for certain DIDs (e.g., Odometer).
+
 ### Frame Components
 1.  **Length**: 1 or 2 bytes. Represents `(Payload Size + 1)`.
 2.  **UDS Payload**: The actual diagnostic data (Service ID + Parameters).
@@ -629,9 +656,9 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `000A`    |                             | 1-byte                                                                                |          | ❌                |                    |
 | `000B`    | **Instant Consumption**     | 2-byte Integer (`Value / 100.0f` = L/100km)                                           | ✅        | ❌                | 0x356 payload[0-1] |
 | `000C`    | **Engine RPM**              | 2-byte Integer                                                                        | ✅        | ❌                | 0x310 payload[2-3] |
-| `000D`    | **Fuel Gauge** (filtered)   | 1-byte Integer (%)                                                                    | ✅        | ❌                |                    |
+| `000D`    | **Fuel Gauge**              | 1-byte Integer (%)                                                                    | ✅        | ❌                |                    |
 | `000E`    | **Engine Load**             | 1-byte Integer (%)                                                                    | ✅        | ❌                |                    |
-| `000F`    | **Fuel Gauge** (raw)        | 1-byte                                                                                | ✅        | ❌                |                    |
+| `000F`    | **Micro Bucket**            | 1-byte Linear (0xFF de-increments per cycle. Full cycle = 1L consumption)             | ✅        | ❌                |                    |
 | `0010`    |                             | 1-byte                                                                                |          | ❌                |                    |
 | `0011`    | **Engine Temp**             | 1-byte Integer (°C)                                                                   | ✅        | ❌                | 0x310 payload[0]   |
 | `0012`    |                             | 2-byte                                                                                |          | ❌                |                    |
@@ -655,7 +682,7 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `0024`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                    |
 | `0025`    |                             | 1-byte                                                                                |          | ❌                |                    |
 | `0026`    |                             | 2-byte                                                                                |          | ❌                |                    |
-| `0027`    | **Odometer**                | 4-byte Integer (`Value / 8.0f` = km)                                                  | ✅        | ❌                |                    |
+| `0027`    | **Odometer**                | 4-byte Integer (8-bit: `Value / 8.0f`, 16-bit: `Value / 1.0f` = km)                   | ✅        | ❌                |                    |
 | `0028`    |                             | 1-byte                                                                                |          | ❌                |                    |
 | `0029`    |                             | 1-byte                                                                                |          | ✅                |                    |
 | `002A`    |                             | 1-byte                                                                                |          | ❌                |                    |
@@ -713,7 +740,7 @@ The ESP32 gateway streams live CAN-bus telemetry via BLE notifications using UDS
 1. **Configure Timer** (E504)
     * `[0x2E, 0xE5, 0x04, 0x02]` *(Sets 200ms interval)*
 2. **Define Stream Dictionary** (E503)
-    * `[0x2E, 0xE5, 0x03, 0x00, 0x03, 0x00, 0x0C, 0x00, 0x11]` *(Requests Voltage, RPM, and Temp)*
+    * `[0x2E, 0xE5, 0x03, 0x00, 0x03, 0x00, 0x0C, 0x00, 0x11, 0x00, 0x0F]` *(Requests Voltage, RPM, Temp, and Injection)*
 3. **Start Routine** (FD 10)
     * `[0x31, 0x01, 0xFD, 0x10]`
 
