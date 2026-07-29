@@ -5,14 +5,13 @@ Fantic Analyzer is a tool developed out of necessity to provide access to the **
 The application utilizes Bluetooth Low Energy (BLE) to establish a data link between the vehicle and an Android device, implementing the Unified Diagnostic Services (UDS) protocol to interpret the module's communication.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1364d435-be7c-4850-a79c-fb5ad6935460" width="150">
-  <img src="https://github.com/user-attachments/assets/9c2e9e12-8319-4319-9dbe-892cb0445c77" width="150">
-  <img src="https://github.com/user-attachments/assets/661de310-0505-445b-a335-8e244de53451" width="150">
+  <img src="https://github.com/user-attachments/assets/ab291b80-1c39-4004-949c-0c1492b16649" width="150">
+  <img src="https://github.com/user-attachments/assets/55b11472-105d-4e54-8c95-e676af4c66b4" width="150">
+  <img src="https://github.com/user-attachments/assets/4a049075-1b15-4b60-90ff-dbe7834f90e5" width="150">
 </p>
 
 ## Table of Contents
 - [Key Features](#key-features)
-- [QuickStart & One-Touch Recording](#quickstart--one-touch-recording)
 - [How-To](#-how-to)
     - [Using QuickStart (Widget)](#using-quickstart-widget)
     - [Managing Documents (Document Safe)](#managing-documents-document-safe)
@@ -85,6 +84,11 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Widget Integration:**
     *   **Quickstart:**
     *   **Vehicle Status:**
+
+    <p align="center">
+      <img src="https://github.com/user-attachments/assets/a662c191-8b9b-436e-8cdf-4b4ec3af5e63" width="100">
+    </p>
+
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more.
     *   **Improved Fuel Monitoring:** Real-time fuel gauge tracking (DID 0x000D) and high-resolution injection monitoring (DID 0x000F).
     *   **Standby Consumption:** Fuel tracking starts immediately upon connection. The "Injection" card on the dashboard shows continuous session-wide consumption even when not recording.
@@ -93,7 +97,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1364d435-be7c-4850-a79c-fb5ad6935460" width="100">
+  <img src="https://github.com/user-attachments/assets/ab291b80-1c39-4004-949c-0c1492b16649" width="100">
 </p>
 
 *   **Advanced Terminal & Streams:**
@@ -185,6 +189,11 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Advanced Entry Workflow:** Adding a new service automatically expands history, focuses the mileage field, and enables the keyboard.
     *   **DatePicker & Validation:** Edit service dates via a calendar dialog. Integrated logic (mileage > 0, ascending values) prevents inconsistent data.
     *   **Per-Entry Edit Mode:** Individual "lockable" cards with a dedicated edit button to prevent accidental modifications to past records.
+    
+    <p align="center">
+      <img src="https://github.com/user-attachments/assets/2bbe9390-d1f8-4999-b854-1a1eb23698b0" width="100">
+    </p>
+    
 *   **Integrated Garage (Offline Mode):**
     *   **Vehicle Selection:** A dedicated motorcycle icon appears in the Vehicle tab when disconnected, allowing you to browse your "Garage".
     *   **Stored Profiles:** Access all vehicle data (VIN, specs, history) without an active connection.
@@ -210,7 +219,8 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **View & Share:** Built-in multi-page viewer with secure sharing functionality.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6498d630-a277-4c60-af3f-33c8eae1b531" width="100">
+  <img src="https://github.com/user-attachments/assets/8e9c62ba-a26a-48a2-b279-cc2df0c65ac2" width="100">
+  <img src="https://github.com/user-attachments/assets/341fcfbc-5abe-45d9-b139-c9e3071db0d0" width="100">
 </p>
 
 *   **Intelligent UI Layouts:** Adaptive dashboard layout that scales based on device orientation and screen size.
@@ -658,7 +668,7 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `000C`    | **Engine RPM**              | 2-byte Integer                                                                        | ✅        | ❌                | 0x310 payload[2-3] |
 | `000D`    | **Fuel Gauge**              | 1-byte Integer (%)                                                                    | ✅        | ❌                |                    |
 | `000E`    | **Engine Load**             | 1-byte Integer (%)                                                                    | ✅        | ❌                |                    |
-| `000F`    | **Micro Bucket**            | 1-byte Linear (0xFF de-increments per cycle. Full cycle = 1L consumption)             | ✅        | ❌                |                    |
+| `000F`    | **Micro Bucket**            | 1-byte Linear (0xFF de-increments per cycle. Full cycle = 1L consumption)             |          | ❌                |                    |
 | `0010`    |                             | 1-byte                                                                                |          | ❌                |                    |
 | `0011`    | **Engine Temp**             | 1-byte Integer (°C)                                                                   | ✅        | ❌                | 0x310 payload[0]   |
 | `0012`    |                             | 2-byte                                                                                |          | ❌                |                    |
@@ -762,6 +772,8 @@ Thanks to the following contributors for their support:
 *   **DavidePepo**
 *   **lukasmuller90**
 *   **DommenicoRenna**
+*   **giovesoft**
+
 
 ## Known Issues
 
