@@ -189,11 +189,11 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Advanced Entry Workflow:** Adding a new service automatically expands history, focuses the mileage field, and enables the keyboard.
     *   **DatePicker & Validation:** Edit service dates via a calendar dialog. Integrated logic (mileage > 0, ascending values) prevents inconsistent data.
     *   **Per-Entry Edit Mode:** Individual "lockable" cards with a dedicated edit button to prevent accidental modifications to past records.
-    
+
     <p align="center">
       <img src="https://github.com/user-attachments/assets/2bbe9390-d1f8-4999-b854-1a1eb23698b0" width="100">
     </p>
-    
+
 *   **Integrated Garage (Offline Mode):**
     *   **Vehicle Selection:** A dedicated motorcycle icon appears in the Vehicle tab when disconnected, allowing you to browse your "Garage".
     *   **Stored Profiles:** Access all vehicle data (VIN, specs, history) without an active connection.
@@ -666,9 +666,9 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `000A`    |                             | 1-byte                                                                                |          | ❌                |                    |
 | `000B`    | **Instant Consumption**     | 2-byte Integer (`Value / 100.0f` = L/100km)                                           | ✅        | ❌                | 0x356 payload[0-1] |
 | `000C`    | **Engine RPM**              | 2-byte Integer                                                                        | ✅        | ❌                | 0x310 payload[2-3] |
-| `000D`    | **Fuel Gauge**              | 1-byte Integer (%)                                                                    | ✅        | ❌                |                    |
+| `000D`    | **?**                       | 1-byte Linear (0xFF de-increments)                                                    |          | ❌                |                    |
 | `000E`    | **Engine Load**             | 1-byte Integer (%)                                                                    | ✅        | ❌                |                    |
-| `000F`    | **Micro Bucket**            | 1-byte Linear (0xFF de-increments per cycle. Full cycle = 1L consumption)             |          | ❌                |                    |
+| `000F`    | **?**                       | 1-byte Linear (0xFF de-increments)                                                    |          | ❌                |                    |
 | `0010`    |                             | 1-byte                                                                                |          | ❌                |                    |
 | `0011`    | **Engine Temp**             | 1-byte Integer (°C)                                                                   | ✅        | ❌                | 0x310 payload[0]   |
 | `0012`    |                             | 2-byte                                                                                |          | ❌                |                    |
