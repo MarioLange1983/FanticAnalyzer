@@ -90,8 +90,10 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     </p>
 
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more.
-    *   **Improved Fuel Monitoring:** Real-time fuel gauge tracking (DID 0x000D) and high-resolution injection monitoring (DID 0x000F).
-    *   **Standby Consumption:** Fuel tracking starts immediately upon connection. The "Injection" card on the dashboard shows continuous session-wide consumption even when not recording.
+    *   **Improved Fuel Monitoring:** High-precision fuel tracking using a dual-method approach:
+        *   **Standard Fuel Metric (DID 0x000D):** Tracks cumulative fuel consumption in 10ml increments. Ideal for trip-wide and session-wide statistics.
+        *   **High-Resolution Injection (DID 0x000F):** Monitors real-time injector pulses. Uses a configurable "Bucket Divisor" to convert raw ticks into precise liters, providing instantaneous feedback on engine efficiency.
+    *   **Standby Consumption:** Fuel tracking starts automatically upon connection. The "Injection" card on the dashboard displays session-wide consumption even when active recording is not enabled.
 *   **High-Performance Multi-DID Stream:** The app uses a hightly optimized UDS data stream to fetch multiple data points (RPM, Gear, Voltage, etc.) in a single notification. This reduces Bluetooth overhead and ensures smooth real-time dashboard updates.
 *   **Configurable Refresh Rate:** Fine-tune the UDS stream frequency in the **Performance** settings. Choose a custom interval between **100ms** and **2000ms** (Default: 300ms) to balance UI smoothness and device performance.
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
@@ -270,14 +272,18 @@ To ensure your vehicle data and documents are never lost, the app features a pro
 
 ## ⛓️ Service Interval Logic
 
-The application includes a `ServiceManager` that calculates when the next maintenance is due. This calculation is based on the `ServiceInterval` data defined for each supported model.
+Fantic Analyzer includes an intelligent `ServiceManager` designed to keep your motorcycle's maintenance on track. The logic is specifically tailored to the service requirements of Fantic engines.
 
-*   **Initial Service:** Typically required at **1,000 km**.
-*   **Regular Intervals:** Subsequent services occur at fixed intervals (e.g., every **3,000 km** or **5,000 km** depending on the engine).
-*   **Calculation:**
-    *   If the vehicle has less than 1,000 km and no service has been logged, it tracks towards the 1,000 km mark.
-    *   Once the first service is passed/completed, the logic calculates the next multiple of the regular interval.
-    *   **Manual Override:** Users can enter the exact mileage of their last service in the "Service" section of the **VEHICLE** tab. This allows the app to precisely calculate the *remaining* kilometers until the next scheduled visit.
+*   **Milestone Tracking:** The system distinguishes between the **Initial Service** (typically at 1,000 km) and **Regular Intervals** (e.g., every 3,000 km for 125cc or 5,000 km for 500cc models).
+*   **Intelligent Baseline:** The "Service in XXX km" calculation is based strictly on your service history. Crucially, the counter only resets when a logged entry is marked as **"Maintenance"** or **"Major Maintenance"**. This ensures that minor tasks (like just a chain adjustment or tire pressure check) don't accidentally postpone your scheduled full inspection.
+*   **Automatic Calculation:** 
+    *   If no service is logged, it tracks toward the first 1,000 km milestone.
+    *   Once a full maintenance entry is added, the next due date is calculated by adding the model's specific regular interval to the mileage of that last inspection.
+*   **Manual Transparency:** You can view and edit your entire service history in the **VEHICLE** tab. Integrated validation ensures that mileages remain logical (ascending) and dates are accurate.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/2bbe9390-d1f8-4999-b854-1a1eb23698b0" width="200">
+</p>
 
 ## 🖊️ Data Logging & Recording
 
