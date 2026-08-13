@@ -90,13 +90,15 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     </p>
 
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more.
-    *   **Improved Fuel Monitoring:** High-precision fuel tracking using a dual-method approach:
+    *   **Improved Fuel Monitoring (🚧 Work in Progress - Data may be inaccurate!):** 
         *   **Standard Fuel Metric (DID 0x000D):** Tracks cumulative fuel consumption in 10ml increments. Ideal for trip-wide and session-wide statistics.
-        *   **High-Resolution Injection (DID 0x000F):** Monitors real-time injector pulses. Uses a configurable "Bucket Divisor" to convert raw ticks into precise liters, providing instantaneous feedback on engine efficiency.
-    *   **Standby Consumption:** Fuel tracking starts automatically upon connection. The "Injection" card on the dashboard displays session-wide consumption even when active recording is not enabled.
+            *   **Adaptive Modulo:** The app automatically learns the counter\'s rollover value (e.g., 100 or 101) during each session for improved accuracy.
+        *   **High-Resolution Consumption (DID 0x000F):** Monitors real-time injector pulses. Uses a configurable "Bucket Divisor" to convert raw ticks into precise liters, providing instantaneous feedback on engine efficiency.
+        *   **⚠️ Euro 5 EVAP Note:** On Euro 5 models, the **EVAP (Evaporative Emission Control)** system may delay fuel metering for up to **40 km** after starting a ride. During this purge cycle, the consumption display might remain at zero or start delayed.
+    *   **Standby Consumption:** Fuel tracking starts automatically upon connection. The "Consumption" card on the dashboard displays session-wide consumption even when active recording is not enabled.
 *   **High-Performance Multi-DID Stream:** The app uses a hightly optimized UDS data stream to fetch multiple data points (RPM, Gear, Voltage, etc.) in a single notification. This reduces Bluetooth overhead and ensures smooth real-time dashboard updates.
 *   **Configurable Refresh Rate:** Fine-tune the UDS stream frequency in the **Performance** settings. Choose a custom interval between **100ms** and **2000ms** (Default: 300ms) to balance UI smoothness and device performance.
-*   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications, and comprehensive information about the e-shock module.
+*   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications (including editable **Oil & Tire** specs), and comprehensive information about the e-shock module.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ab291b80-1c39-4004-949c-0c1492b16649" width="100">
@@ -214,7 +216,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
   <img src="https://github.com/user-attachments/assets/aea6baa5-b9d9-4bab-aaf1-9ad51602d4d3" width="100">
 </p>
 
-*   **Multi-Motorcycle Support:** Service records, wheel/tire specs, technical data, and **recorded trips** are stored independently for every motorcycle based on its unique VIN.
+*   **Multi-Motorcycle Support:** Service records, wheel/tire/oil specs, technical data, and **recorded trips** are stored independently for every motorcycle based on its unique VIN.
 *   **Secure Document Safe:** A built-in encrypted vault for vehicle documents (Registration, ABE, Invoices).
     *   **Storage:** Supports **PDF** and **Images** (JPG/PNG).
     *   **Security:** Uses **AES-256 encryption** (Jetpack Security Crypto) to store sensitive documents in the app\'s private storage.
@@ -280,6 +282,7 @@ Fantic Analyzer includes an intelligent `ServiceManager` designed to keep your m
     *   If no service is logged, it tracks toward the first 1,000 km milestone.
     *   Once a full maintenance entry is added, the next due date is calculated by adding the model's specific regular interval to the mileage of that last inspection.
 *   **Manual Transparency:** You can view and edit your entire service history in the **VEHICLE** tab. Integrated validation ensures that mileages remain logical (ascending) and dates are accurate.
+*   **Oil Maintenance Tracking:** A dedicated, editable section for **Engine Oil** specifications. The app automatically calculates and displays the **oil mileage** (kilometers driven since the last logged service entry where an oil change was performed).
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/2bbe9390-d1f8-4999-b854-1a1eb23698b0" width="200">
