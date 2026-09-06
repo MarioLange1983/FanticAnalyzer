@@ -78,12 +78,15 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     </p>
 
     *   **Live Speed Limit Warning:** Real-time speed limit detection via Overpass API. Visual warning system (pulsing icon) when exceeding the limit by a configurable margin (Default: +5 km/h).
+    *   **Acoustic Speed Limit Warning:** Configurable gong signal tone via `STREAM_MUSIC` (compatible with phone speakers and Bluetooth helmet intercoms like Sena/Cardo) triggered when exceeding speed limit + tolerance, featuring a 30-second cooldown and a built-in "Test Sound" button in settings.
     *   **Orientation Lock:** Manually lock the app to **Portrait**, **Landscape**, or use **Auto (Sensor)** to prevent unwanted rotations due to vibrations.
     *   **Smart Temperature Visualization:** The engine temperature icon changes color based on state: **Blue** (Cold/Warm-up), **Red** (Normal Operation), and **Blinking Red** (Overheating warning).
 
-*   **Widget Integration:**
-    *   **Quickstart:**
-    *   **Vehicle Status:**
+*   **Modern Glance Home-Screen Widgets:**
+    *   **Material Dynamic Themes:** Widgets support Android 12+ Material 3 Dynamic Colors (`Material` style) that auto-adapt to day/night mode and system wallpapers.
+    *   **Configurable Background Transparency:** Fine-tune widget background opacity from 0% (Transparent) to 100% (Solid) using a smooth M3 slider in the widget configuration.
+    *   **Vehicle Status Widget:** Displays circular profile photo, maintenance checkmark/wrench status, odometer, season fuel consumption, model name, and license plate.
+    *   **QuickStart Widget:** Transparent 1-tap launcher widget for instant recording.
 
     <p align="center">
       <img src="https://github.com/user-attachments/assets/a662c191-8b9b-436e-8cdf-4b4ec3af5e63" width="100">
@@ -110,6 +113,11 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Process Watchdog:** Integrated cleanup service that ensures Bluetooth streams are safely stopped even if the app is force-closed via the Android Task Manager.
     *   **Intelligent MIL & Error Tracking:**
         *   **Real-Time DTC Monitoring:** Constant background scanning for Diagnostic Trouble Codes via the C4 stream.
+        *   **DTC Severity Levels & Rider Recommendations:** Fault codes are categorized into 3 severity tiers:
+            *   🛑 **CRITICAL:** High damage risk (e.g., coolant overheating, ignition coil, ECM fault). Action: *Stop engine immediately!*
+            *   ⚠️ **WARNING:** Performance reduction (e.g., TPS sensor, fuel pump, system voltage). Action: *Continued riding at reduced RPM/speed to workshop possible.*
+            *   ℹ️ **NOTICE:** Minor sensor deviation (e.g., speed sensor, air temp). Action: *Check at next opportunity.*
+        *   **Expandable In-App DTC Cards:** Tapping a DTC error card in the Vehicle Status sheet smoothly expands a callout box showing the rider action recommendation.
         *   **Visual MIL Status:** The engine icon on the dashboard changes state based on error severity: **Solid Orange** (Confirmed/Pending Error) and **Pulsing Orange** (Active Critical MIL).
         *   **Vehicle Status (Health Check):** A dedicated "Vehicle Status" sheet providing detailed descriptions of active codes, categorized by state (Active, Confirmed, MIL).
 
@@ -141,7 +149,11 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Refined Log Cleanup:** Safety-first deletion logic that only targets system logs and temporary archives, protecting your valuable trip data in the `/trips/` folder. The deletion button is only enabled when log files are actually present.
     *   **LoopScan ZIP Bundling:** Automatically group and compress all diagnostic logs from a LoopScan session into a single ZIP file.
     *   **Customizable Scan Intervals:** Set precise delays (30s to 5m) for automated diagnostic loops using a modern slider interface.
-    *   **Data Export:** Share combined CSV/GPX trip files, ZIP bundles, and vehicle technical reports via the Android share sheet.
+    *   **1-Click PDF Diagnostic Report & Digital Service Booklet:** Generate a professional, multi-page A4 PDF report (`PdfReportGenerator`) with high-res branding (`ic.png`) and circular profile photo:
+        *   **Page 1 (Health & Specs):** Vehicle profile, decoded VIN, license plate, odometer, e-shock ECU hardware & firmware specs, active/confirmed UDS DTCs with full un-truncated descriptions, internal database specs (Displacement ccm, Power kW/PS, Euro Norm, Weight, Tank Capacity), vehicle highlights (Max Lean Angles L/R, Top Speed, Max RPM, Total Fuel), and tire pressure / oil specs.
+        *   **Page 2 (Digital Service Booklet & Workshop Stamp):** Complete chronological service & inspection history (`vehicle.serviceHistory`) with dates, mileage, and checked maintenance tasks (Oil, Filter, Spark Plug, Chain, Tire Pressure, Inspection), complete with a pre-printed **Workshop Stamp & Signature Box** for resale and warranty records.
+        *   **Export:** Accessible via 1-Click PDF export button in `VehicleHealthSheet` and `VehicleView` directly to the Android Share-Sheet (WhatsApp, E-Mail, Print, Save).
+    *   **Data Export:** Share combined CSV/GPX trip files, ZIP bundles, PDF reports, and vehicle technical reports via the Android share sheet.
 *   **Detailed Trip Analysis:**
     *   **Interactive Route Visualization:** View recorded trips on an integrated MapLibre map with Start/End markers and fluid motorcycle marker replay.
     *   **Grouped Trip Overview:** The trip list is automatically **grouped by VIN**. If a motorcycle has a assigned nickname, it is used as a header for even better organization.
@@ -310,13 +322,9 @@ The **LOOPSCAN** feature in the Terminal tab allows for long-term monitoring.
 *   **Bundling:** Every individual scan result is saved as a separate log file. When the loop is stopped, all session logs are compressed into a single ZIP archive.
 *   **Export:** Accessible via the "SHARE LOG" button in the Terminal tab after the loop finishes.
 
-### 3. Vehicle Status Report
-A comprehensive report of the vehicle's health, including all active Diagnostic Trouble Codes (DTCs), can be shared from the **Vehicle Status** sheet.
-* **How to share:** Tap the engine icon on the Dashboard to open the Vehicle Status, then click the **Share** icon in the top right corner.
-
-### 4. Technical Report
-A comprehensive decoded report of the vehicle's VIN, module specifications, and service status can be shared directly from the **VEHICLE** tab.
-* **How to share:** Perform a **long-tap** anywhere on the Vehicle tab to open the Android share sheet for the full technical report.
+### 4. Professional PDF Diagnostic Report & Digital Service Booklet
+A 2-page A4 PDF report (`PdfReportGenerator`) containing complete vehicle profiles, e-shock ECU diagnostic trouble codes, internal database technical specs, vehicle highlights (max lean angles, max speed/RPM, season fuel), and a full digital service history complete with a pre-printed **Workshop Stamp & Signature Box**.
+* **How to export:** Tap the **PDF icon** in the **VEHICLE** tab header or in the **Vehicle Status** sheet to generate and export the PDF report via the Android share sheet.
 
 ## 🖌️ Debug Mode & Advanced Terminal
 
