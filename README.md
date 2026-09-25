@@ -229,15 +229,19 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 </p>
 
 *   **Multi-Motorcycle Support:** Service records, wheel/tire/oil specs, technical data, and **recorded trips** are stored independently for every motorcycle based on its unique VIN.
-*   **Secure Document Safe:** A built-in encrypted vault for vehicle documents (Registration, ABE, Invoices).
-    *   **Storage:** Supports **PDF** and **Images** (JPG/PNG).
-    *   **Security:** Uses **AES-256 encryption** (Jetpack Security Crypto) to store sensitive documents in the app\'s private storage.
-    *   **View & Share:** Built-in multi-page viewer with secure sharing functionality.
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/8e9c62ba-a26a-48a2-b279-cc2df0c65ac2" width="100">
-  <img src="https://github.com/user-attachments/assets/341fcfbc-5abe-45d9-b139-c9e3071db0d0" width="100">
-</p>
+*   **Secure Document Safe & ML Kit Scanner:** A built-in encrypted vault for vehicle documents (Registration, ABE, Invoices, Fuel Receipts, Gear).
+    *   **Google ML Kit Document Scanner:** Scan multi-page receipts and documents with camera auto-edge detection and automatic PDF compilation.
+    *   **On-Device ML Kit OCR Text Recognition:** Automatically extracts dates, total amounts (€), mileage (km), workshop names, and invoice numbers from invoices and receipts.
+    *   **Security:** Uses **AES-256 encryption** (Jetpack Security Crypto) to store sensitive documents in the app's private storage.
+    *   **PDFrei Navigation:** Multi-page PDF viewer with zoom gestures and a bottom page navigation slider.
+*   **Graphical Cost Analytics & Dashboard:**
+    *   **Key Performance Indicators (KPIs):** Instant view of Total Vehicle Costs (€), Cost per Kilometer (€/km = `Total Costs / Odometer`), and Average Yearly Expenses.
+    *   **Yearly Bar Chart:** Animated Canvas bar chart comparing annual vehicle costs across years.
+    *   **Category Distribution Breakdown:** Color-coded segment bar and legend categorizing expenses into **Inspection & Service**, **Repair**, **Custom & Parts**, **TÜV / Inspection**, **Fuel**, **Gear & Clothing**, and **Other**.
+*   **First Registration Date & Vehicle Data Sync:**
+    *   **Erstzulassung Field:** Dedicated DatePicker in Vehicle Settings and prominent display in Vehicle View right under Model Year.
+    *   **Smart Conflict Detection:** Side-by-side comparison warning if a scanned receipt contains a different license plate or registration date than your garage profile.
+    *   **Automated TÜV Date Calculation:** Adding a TÜV/HU document automatically offers to update your next vehicle inspection date (+ 2 years / 24 months) in the Service Menu.
 
 *   **Intelligent UI Layouts:** Adaptive dashboard layout that scales based on device orientation and screen size.
 
