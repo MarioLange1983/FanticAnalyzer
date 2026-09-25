@@ -243,6 +243,11 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     *   **Smart Conflict Detection:** Side-by-side comparison warning if a scanned receipt contains a different license plate or registration date than your garage profile.
     *   **Automated TÜV Date Calculation:** Adding a TÜV/HU document automatically offers to update your next vehicle inspection date (+ 2 years / 24 months) in the Service Menu.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7d041f90-0444-44aa-91f4-62f71080b514" width="150">
+  <img src="https://github.com/user-attachments/assets/a60f4c2e-d0ce-495c-b883-b8d25eccb495" width="150">
+</p>
+
 *   **Intelligent UI Layouts:** Adaptive dashboard layout that scales based on device orientation and screen size.
 
 ## 🛠 How-To:
