@@ -93,7 +93,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     </p>
 
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more.
-    *   **Improved Fuel Monitoring (🚧 Work in Progress - Data may be inaccurate!):** 
+    *   **Improved Fuel Monitoring (🚧 Work in Progress - Data may be inaccurate!):**
         *   **Standard Fuel Metric (DID 0x000D):** Tracks cumulative fuel consumption in 10ml increments. Ideal for trip-wide and session-wide statistics.
             *   **Adaptive Modulo:** The app automatically learns the counter\'s rollover value (e.g., 100 or 101) during each session for improved accuracy.
         *   **High-Resolution Consumption (DID 0x000F):** Monitors real-time injector pulses. Uses a configurable "Bucket Divisor" to convert raw ticks into precise liters, providing instantaneous feedback on engine efficiency.
@@ -188,20 +188,30 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 </p>
 
 *   **Navigation & Routing:**
+    *   **Background Navigation & Seamless Resuming:** Turn-by-turn navigation continues running smoothly in the background when closing Fullscreen Dashboard or minimizing the app, featuring an interactive active navigation banner on the main dashboard to quickly resume.
+    *   **Standalone "GPX & Tours" Section:** Dedicated section in the navigation sheet allowing you to pick external `.gpx` files or select recorded trips to re-navigate ("Nachfahren").
+    *   **Interactive GPX Route Dialog & Map Preview:** Opening GPX files inside or outside the app ("Open with Fantic Analyzer") displays an interactive MapLibre map preview with track polylines, start/finish markers, and 3 clear routing options (*To Start*, *To Destination*, *Next Point/Smart Entry*).
+    *   **Smart Round-Trip & Loop Reordering:** Intelligently handles circular loop GPX routes by reordering trackpoints to start from the nearest entry point without cutting off loop segments or throwing 400 errors.
+    *   **Round-Trip Generation:** Generate exciting loops with customizable distance (20-250km, with magnetic snapping every 25km and haptic feedback) and interactive map previews.
+    *   **Dynamic Map Zoom:** Automatic Mercator scale calculation adjusting map camera bounds smoothly between 20 km and 250+ km.
     *   **Enhanced UI:** Modern destination details including **Distance** and **Estimated Travel Time** with clear icons.
     *   **Destination Search:** Built-in search powered by Photon API with debounced queries, map previews, and an auto-collapsing result list once a destination is selected.
     *   **Advanced Routing Options:** Centralized settings to avoid highways, tolls, ferries, or unpaved roads. Customize motorcycle-specific costing factors like hilliness and road class preference.
     *   **Motorcycle-Optimized Routing:** Valhalla-powered routing engine with support for **Custom Server URLs**.
-    *   **Round-Trip Generation:** Generate exciting loops with customizable distance (20-100km) and interactive map previews.
     *   **Interactive Turn-by-Turn:** Dynamic maneuver instructions and directional icons embedded directly into the Fullscreen Dashboard (Portrait & Landscape).
+    *   **Exit Navigation Safety Warning:** Confirmation dialog when pressing back while navigation is active to prevent accidental route cancellations.
+    *   **Search Protection:** Search destination button automatically disables while navigation is active.
     *   **Real-Time Weather Warnings:** Automatic background monitoring for imminent rain via **Open-Meteo API**. Includes Voice (TTS) and visual alerts on the dashboard.
     *   **Recalculating Feedback:** Clear visual feedback (recalculating banner) when deviating from the route.
     *   **Adjustable Rerouting:** Configure off-route sensitivity (50m to 500m) to match your riding style.
     *   **Customizable TTS:** Adjust voice-guided navigation with **Pitch** and **Speed** settings. Native voice instructions from Valhalla maneuvers.
 
-*   **Service History Management:**
+*   **Service History & Maintenance Management:**
     *   **Chronological Tracking:** Persistent list of service entries, automatically sorted from oldest to newest.
     *   **Service in XXX km:** Smart calculation of remaining distance based on vehicle-specific intervals and the latest logged service.
+    *   **Virtual Wear Manager:** Predictive tracking and progress bars for wear items (Tires, Chain, Brake Pads, Engine Oil, Spark Plugs) based on vehicle odometer mileage.
+    *   **Service Push Reminders:** Automated background reminders for upcoming service intervals based on odometer readings.
+    *   **Configurable Maintenance Warnings:** Customize distance and time warning thresholds for maintenance items.
     *   **Advanced Entry Workflow:** Adding a new service automatically expands history, focuses the mileage field, and enables the keyboard.
     *   **DatePicker & Validation:** Edit service dates via a calendar dialog. Integrated logic (mileage > 0, ascending values) prevents inconsistent data.
     *   **Per-Entry Edit Mode:** Individual "lockable" cards with a dedicated edit button to prevent accidental modifications to past records.
@@ -299,14 +309,14 @@ Fantic Analyzer includes an intelligent `ServiceManager` designed to keep your m
 
 *   **Milestone Tracking:** The system distinguishes between the **Initial Service** (typically at 1,000 km) and **Regular Intervals** (e.g., every 3,000 km for 125cc or 5,000 km for 500cc models).
 *   **Intelligent Baseline:** The "Service in XXX km" calculation is based strictly on your service history. Crucially, the counter only resets when a logged entry is marked as **"Maintenance"** or **"Major Maintenance"**. This ensures that minor tasks (like just a chain adjustment or tire pressure check) don't accidentally postpone your scheduled full inspection.
-*   **Automatic Calculation:** 
+*   **Automatic Calculation:**
     *   If no service is logged, it tracks toward the first 1,000 km milestone.
     *   Once a full maintenance entry is added, the next due date is calculated by adding the model's specific regular interval to the mileage of that last inspection.
 *   **Manual Transparency:** You can view and edit your entire service history in the **VEHICLE** tab. Integrated validation ensures that mileages remain logical (ascending) and dates are accurate.
 *   **Oil Maintenance Tracking:** A dedicated, editable section for **Engine Oil** specifications. The app automatically calculates and displays the **oil mileage** (kilometers driven since the last logged service entry where an oil change was performed).
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2bbe9390-d1f8-4999-b854-1a1eb23698b0" width="200">
+  <img src="https://github.com/user-attachments/assets/2bbe9390-d1f8-4999-b854-1a1eb23698b0" width="100">
 </p>
 
 ## 🖊️ Data Logging & Recording
@@ -799,6 +809,8 @@ Thanks to the following contributors for their support:
 *   **lukasmuller90**
 *   **DommenicoRenna**
 *   **giovesoft**
+*   **Lionel Thiery**
+
 
 
 ## Known Issues
