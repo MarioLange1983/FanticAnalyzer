@@ -585,12 +585,18 @@ sendFrame(0x356, 8, data356);
 Internal logs via UART reveal the following system specifications:
 
 *   **Project Name:** `fantic`
-*   **App Name:** `e-Conn Micro Fantic` (V1.1)
-*   **SoC:** ESP32-C3-MINI-1 (running at 160MHz)
+*   **App Name:** `e-Conn Micro Fantic` (V1.1, Build: Oct 31 2023)
+*   **SoC:** ESP32-C3-MINI-1 (Single-Core 32-Bit RISC-V RV32IMC at 160MHz, ESP-IDF v5.1)
 *   **Partitioning:** Dual OTA partitions with NVM storage for EOL data, calibrations, and DTCs.
 *   **Hardware Identifier:** `CUM` (CU MICRO, Revision `RevC`)
-*   **Connection:**  URAQT 4-pin connector (Standard for many Euro 5 Fantic models).
-*   **CAN Bus Integration:** The module monitors the vehicle CAN bus. A **Wakeup CAN ID of `0x310`** is used to trigger the shutdown/startup process.
+*   **Connection:** URAQT 4-pin connector (Standard for Euro 5 Fantic models).
+*   **CAN Bus Subsystem (TWAI):** ESP32-C3 TWAI Controller (CAN 2.0B) running at **500 kbit/s** (CAN TX = **GPIO 15**, CAN RX = **GPIO 10**).
+    *   **CAN IDs:**
+        *   `0x310`: ECU Wakeup / Status CAN ID
+        *   `0x780` / `0x785`: Physical UDS Request / Response IDs
+        *   `0x7DF`: Functional / Broadcast Request ID (OBD-II)
+        *   `0x6F0` / `0x6F1`: Periodic Telemetry & Suspension Broadcasts (Cycle: 20ms)
+        *   `0x100`: Bootup / Sync Burst
 
 ### Module Specifications & Identification
 
@@ -607,7 +613,11 @@ Internal logs via UART reveal the following system specifications:
 
 ## Bluetooth Low Energy (BLE) Characteristics
 
-The e-shock module identifies itself with the prefix `FanticCON-` followed by its serial number (e.g., `FanticCON-154204`).
+The e-shock module advertises with the prefix `FanticCON-` followed by its 6-digit serial number (e.g., `FanticCON-154204`, fallback `FanticCON-000000`).
+
+### BLE Security & Static Passkey
+* **Pairing Method:** Secure Connections / Static Passkey
+* **Static PIN / Passkey:** **`123456`**
 
 ### Proprietary Service (E-SHOCK)
 **Service UUID**: `0000e550-0000-1000-8000-00805f9b34fb`
@@ -741,6 +751,10 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `E505`    | **Diag Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Sets frequency for C4 (Routine `FD 11`).         | ✅        | ✅                |                    |
 | `E506`    | **HW Version**              | Hardware name and revision (ASCII)                                                    | ✅        | ✅                |                    |
 | `E507`    | **Unknown Config**          | variable-byte switch (Behavior still unclear)                                         | ❌        | ✅️               |                    |
+| `FD00`    | **EOL Identification Block**| 159-byte End-Of-Life identification block (RAM `0x3FC97068`, Magic `'MPCA'`: Serial/Date) | ✅        | ✅ (`0xA3 2E...`) |                    |
+| `FD02`    | **Calibration Block**       | 80-byte calibration block (RAM `0x3FC97018`, Write-Only via `0x2E`)                    | ✅        | ✅                |                    |
+| `FD03`    | **Vehicle Model ID**        | 2-byte ID at offset 19 in Calibration Blob (`0x0001` Caballero, `0x000B` ZFMEM01)     | ✅        | ✅ (`06 2E...`)   |                    |
+| `FD04`    | **Feature Flag B**          | 1-byte flag at offset 21 in Calibration Blob (`0x01` enables BLE Gateway)             | ✅        | ✅ (`05 2E...`)   |                    |
 
 ## Supported Service IDs (SIDs)
 
@@ -752,6 +766,7 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 | `31`      | Request  | Routine Control                                  |
 | `62`      | Response | Positive Response for `0x22`                     |
 | `67`      | Response | Positive Response for `0x27`                     |
+| `76`      | Response | Positive Response for `0x36`                     |
 | `7F`      | Response | **Negative Response (NRC)** - Error code follows |
 
 ### Common Negative Response Codes (NRCs)
@@ -815,8 +830,11 @@ Thanks to the following contributors for their support:
 
 ## Known Issues
 
-* If not bonded correctly to the mobile device, the e-shock module will automatically disconnect after ~20 seconds. Ensure the initial Bluetooth pairing process is fully completed via mobile bluetooth settings.
 * **Persistent Data Stream:** If the application is "force-killed" (swiped away from the task switcher) while connected, it cannot send the stop command to the ECU. This may cause the e-shock module to continue streaming data internally until the motorcycle is turned off, potentially delaying the module's sleep mode. **Always use the Back button or the disconnect icon to close the app properly.**
+
+## Solved Issues
+
+* **Automatic Background Pairing:** Initial BLE pairing for unbonded modules is handled automatically in the background using the static passkey (`123456`). If first-time pairing is blocked by custom OS security policies, pair the `FanticCON-` device once via standard Android Bluetooth settings.
 
 ## ❓ FAQ
 
