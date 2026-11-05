@@ -34,6 +34,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     - [Diagnostic Trouble Codes (DTC) Payload Format](#diagnostic-trouble-codes-dtc-payload-format)
     - [ECU Emulator (Research Environment)](#ecu-emulator-research-environment)
     - [Hardware & Internals (UART Analysis)](#hardware--internals-uart-analysis)
+    - [Architectural Verdict](#architectural-verdict)
     - [Bluetooth Low Energy (BLE) Characteristics](#bluetooth-low-energy-ble-characteristics)
     - [Frame Format & CRC Mechanism](#frame-format--crc-mechanism)
     - [Security Access (Unlock)](#security-access-unlock)
@@ -610,6 +611,43 @@ Internal logs via UART reveal the following system specifications:
 <p align="center">
   <img src="https://github.com/user-attachments/assets/fdf3caad-4b51-444d-89e7-6af2c527954d" width="400" alt="Module Video 01">
 </p>
+
+## Architectural Verdict
+
+The stock firmware represents a textbook example of a Minimum Viable Product (MVP) aimed at fulfilling a single marketing checkbox: **"Vehicle features Bluetooth app connectivity"** (*Reine Erfüllung der Marketing-Checkbox: „Fahrzeug hat Bluetooth-App-Konnektivität“*). Beyond basic data streaming, the software delivers only the most rudimentary functionality.
+
+### The ESP32-C3 Paradox: Dormant Hardware
+The chosen SoC—the **Espressif ESP32-C3** (32-bit RISC-V at 160 MHz, 400 KB SRAM)—features hardware that is largely neglected by the stock software:
+* **Wi-Fi Subsystem (802.11 b/g/n):** Completely dormant and uninitialized in firmware. Neither a local AP diagnostic hotspot nor background cloud sync is supported.
+* **Bluetooth Low Energy:** Utilizes a standard Bluedroid GATT stack (`0xE550`) restricted to basic sequential telemetry streaming.
+* **Power Management:** No dynamic deep-sleep or low-power state transitions when the ignition is switched off, operating on active polling and relying on external relay cut-off.
+
+### Architectural Flaws
+
+#### 1. The Complete Absence of OTA (Over-The-Air Updates)
+The flash partition layout reveals a single, non-redundant factory application slot with **zero Over-The-Air update routines** (neither via BLE characteristic `E5C2` nor Wi-Fi).
+
+#### 2. Fragile UDS Client Stack
+The gateway operates as an aggressive UDS client (`0x7A0`), polling 5 identification DIDs (`0xF190`, `0xF0FD`, `0xF180`, `0xF181`, `0xF193`). If any response frame deviates from strict Classic-CAN ISO 15765-2 framing (such as an unpadded Single Frame with DLC < 8), the ISO-TP reception layer drops the message.
+
+#### 3. Severely Restricted Diagnostic Scope (No DTC Reset)
+The diagnostic functionality exposed by the gateway is cut down to the absolute bare minimum:
+* **No DTC Reset (Clear Diagnostic Information / Service 0x14):** While the module polls and displays active error codes via the C4 stream, it provides **no capability to reset or clear fault codes**. Even after resolving a physical issue, extinguishing the Check Engine light (MIL) still requires a trip to the dealer or external workshop diagnostic tools.
+* **Passive Read-Only Telematics:** There are no bidirectional diagnostic routines, component actuations, or maintenance resets implemented in the gateway.
+
+### Commercial Context (BOM vs. Retail Price)
+The disparity between component cost and consumer pricing highlights the unit's nature as an outsourced Minimum Viable Product (MVP):
+* **Estimated Hardware BOM:** **~$7.55 USD** (ESP32-C3 SoC ~$1.40, TJA1051 transceiver ~$0.45, buck converter ~$0.60, 2-layer PCB & potted enclosure ~$2.90, harness ~$2.20).
+* **OEM Retail Price:** **~80.00EUR**.
+
+### Engineering Scorecard
+
+| Category | Rating | Observation |
+| :--- | :---: | :--- |
+| **Hardware Reference Design** | **B** | Robust, cost-effective ESP32-C3 implementation with standard automotive protection. |
+| **Firmware Completeness** | **D-** | Asymmetric vehicle support; critical factory bugs left unpatched in production Caballero code. |
+| **Maintainability** | **F** | Zero OTA capabilities; field patching is impossible without destructive hardware disassembly. |
+| **Protocol Robustness** | **D** | Fragile UDS error handling; framing anomalies trigger bus-off states and telematics failure. |
 
 ## Bluetooth Low Energy (BLE) Characteristics
 
