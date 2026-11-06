@@ -14,6 +14,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 - [Key Features](#key-features)
 - [How-To](#-how-to)
     - [Using QuickStart (Widget)](#using-quickstart-widget)
+    - [Using Helmet Companion](#using-helmet-companion)
     - [Managing Documents (Document Safe)](#managing-documents-document-safe)
     - [Backup & Data Portability](#backup--data-portability-fsafe)
     - [Generating a Diagnostic Log (SCAN)](#generating-a-diagnostic-log-scan)
@@ -92,6 +93,17 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
     <p align="center">
       <img src="https://github.com/user-attachments/assets/a662c191-8b9b-436e-8cdf-4b4ec3af5e63" width="100">
     </p>
+
+*   **Bluetooth Helmet Companion (Automations on Helmet Connect):**
+    *   **Automated Intercom Integration:** Detects when your paired Bluetooth helmet or headset (e.g., Sena, Cardo) powers on and connects to your Android device.
+    *   **Auto ECU Connection:** Automatically initiates the BLE connection to your motorcycle's e-shock module as soon as the helmet is detected.
+    *   **Auto App Launch:** Automatically launches FanticAnalyzer upon turning on your helmet intercom.
+    *   **Silent Sound (Audio Standby Protection):** Plays background silent audio (`SilentService`) to keep the Bluetooth headset link active and prevent intercom standby timeouts during quiet rides.
+    *   **Automated Audio & Screen Controls:**
+        *   **Volume 100%:** Automatically boosts media volume (`STREAM_MUSIC`) to maximum on helmet connect with delayed retries for Bluetooth stream initialization, and restores initial volume on disconnect.
+        *   **Target Screen Brightness:** Sets display brightness to a pre-configured target percentage during ride sessions and restores initial brightness on disconnect.
+        *   **Auto-Rotation Toggle:** Enables screen auto-rotation on connect and restores original system setting on disconnect.
+    *   **System Restoration Helper:** Captures initial volume, brightness, and screen rotation states upon helmet connection and seamlessly restores them when the helmet disconnects.
 
 *   **Live Data Monitoring:** View real-time data including RPM, engine temperature, speed, gear position, and more.
     *   **Improved Fuel Monitoring (🚧 Work in Progress - Data may be inaccurate!):**
@@ -269,6 +281,12 @@ Fantic Analyzer provides powerful tools to capture raw data for diagnostic resea
 1. Add the **QuickStart Widget** to your Android home screen.
 2. Tap the widget to launch the app: it will automatically connect, unlock the ECU, perform a background calibration, and start the recording.
 
+### Using Helmet Companion
+1. Open **Settings** -> **Helmet Companion**.
+2. Tap **Select Helmet** to pick your paired Bluetooth headset or intercom (e.g., Sena, Cardo).
+3. Enable **Autostart** and configure desired automations (**Connect Fantic**, **Start FanticAnalyzer**, **Silent Sound**, **Volume 100%**, **Target Brightness**).
+4. When turning on your helmet, FanticAnalyzer automatically handles app startup, ECU connection, and system adjustments, and restores initial volume/brightness/rotation settings upon disconnection.
+
 ### Managing Documents (Document Safe)
 1. Go to the **VEHICLE** tab.
 2. Tap the **Folder icon** in the action bar to open the **Document Safe**.
@@ -384,7 +402,7 @@ This project is conducted in accordance with European and German legislation reg
 
 ## 🛠️ Technical Scope & Compliance
 
-*   **Tested Environment:** Developed and tested on **Android 15/16** using a **Pixel 9 series device**.
+*   **Tested Environment:** Developed and tested on **Android 15/16/17** using a **Pixel 9 series device**.
 *   **Target Vehicle:** Primarily tuned for and tested on the **2024 Fantic Caballero Deluxe**.
 *   **Hardware Platform:** The module is based on an **Espressif ESP32-C3-MINI-1** (Single-core) running **ESP-IDF v5.1**.
 *   **Experimental Security:** While the ECU Seed/Key (Security Access) algorithm is implemented, it remains in a testing phase.
