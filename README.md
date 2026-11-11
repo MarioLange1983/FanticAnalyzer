@@ -433,23 +433,26 @@ This project is conducted in accordance with European and German legislation reg
 
 ## ⚙️ Vehicle Sub-Model Identification (VDS)
 
-The application identifies the specific technical data for your motorcycle by analyzing the **Vehicle Descriptor Section (VDS)** of the VIN (characters 4 through 9). The following sub-model codes have been identified through research and analysis of Fantic technical documentation:
+The application identifies the specific technical data for your motorcycle by analyzing the **Vehicle Descriptor Section (VDS)** of the VIN (characters 4 through 9). The full 17-character VIN structure is:
+$$\underbrace{\texttt{ZFM}}_{\text{Pos 1–3 (WMI)}} \;\Vert\; \underbrace{\texttt{Model}}_{\text{Pos 4–7}} \;\Vert\; \underbrace{\texttt{Submodel}}_{\text{Pos 8–9}} \;\Vert\; \underbrace{\texttt{Year}}_{\text{Pos 10 ('R'=2024, 'S'=2025)}} \;\Vert\; \underbrace{\texttt{M}}_{\text{Pos 11}} \;\Vert\; \underbrace{\texttt{NNNNNN}}_{\text{Pos 12–17 (Serial)}}$$
 
-| **Model** | **Submodel** | **Year** | **Displacement Class** | **Model Variant**    | **Typical Example**        |
-|:----------|:-------------|----------|:-----------------------|:---------------------|:---------------------------|
-| CA14      | 0S           | 2025     | 125cc                  | Scrambler            | Caballero 125 Scrambler    |
-| CA13      | 1S           | 2024     | 125cc                  | Scrambler            | Caballero 125 Scrambler    |
-| CA50      | 1S           | 2024     | 500cc                  | Scrambler            | Caballero 500 Scrambler    |
-| CA13      | 5S           | 2024     | 125cc                  | Deluxe               | Caballero 125 Deluxe       |
-| CA50      | 5S           | 2024     | 500cc                  | Deluxe               | Caballero 500 Deluxe       |
-| CA13      | 1F           | 2024     | 125cc                  | Flat Track           | Caballero 125 Flat Track   |
-| CA50      | 1F           | 2024     | 500cc                  | Flat Track           | Caballero 500 Flat Track   |
-| CA13      | 1R           | 2024     | 125cc                  | Rally                | Caballero 125 Rally        |
-| CA50      | 1R           | 2024     | 500cc                  | Rally                | Caballero 500 Rally        |
-| FA13      | MP           | 2024     | 125cc                  | Performance (Motard) | Fantic XMF 125 Performance |
-| FA13      | MC           | 2024     | 125cc                  | Competition (Motard) | Fantic XMF 125 Competition |
-| FA13      | EP           | 2024     | 125cc                  | Performance (Enduro) | Fantic XEF 125 Performance |
-| FA13      | EC           | 2024     | 125cc                  | Competition (Enduro) | Fantic XEF 125 Competition |
+The following model and sub-model codes have been identified through firmware reverse engineering and verified against real motorcycle logs:
+
+| **Model** | **Submodel** | **Year** | **Displacement Class** | **Model Variant**    | **Typical Example**        | **Sample VIN Prefix** | **Gateway Profile** |
+|:----------|:-------------|----------|:-----------------------|:---------------------|:---------------------------|:----------------------|:-----------------------------------------|
+| CA14      | 0S           | 2025     | 125cc                  | Scrambler            | Caballero 125 Scrambler    | `ZFMCA140SS...`       | **Model 5** (`0x0005`, Full Telemetry) |
+| CA13      | 1S           | 2024     | 125cc                  | Scrambler            | Caballero 125 Scrambler    | `ZFMCA131SR...`       | **Model 5** (`0x0005`, Full Telemetry)   |
+| CA50      | 1S           | 2024     | 500cc                  | Scrambler            | Caballero 500 Scrambler    | `ZFMCA501SR...`       | **Model 4** (`0x0004`, Full Telemetry)   |
+| CA13      | 5S           | 2024     | 125cc                  | Deluxe               | Caballero 125 Deluxe       | `ZFMCA135SR...`       | **Model 5** (`0x0005`, Full Telemetry)   |
+| CA50      | 5S           | 2024     | 500cc                  | Deluxe               | Caballero 500 Deluxe       | `ZFMCA505SR...`       | **Model 4** (`0x0004`, Full Telemetry)   |
+| CA13      | 1F           | 2024     | 125cc                  | Flat Track           | Caballero 125 Flat Track   | `ZFMCA131FR...`       | **Model 5** (`0x0005`, Full Telemetry)   |
+| CA50      | 1F           | 2024     | 500cc                  | Flat Track           | Caballero 500 Flat Track   | `ZFMCA501FR...`       | **Model 4** (`0x0004`, Full Telemetry)   |
+| CA13      | 1R           | 2024     | 125cc                  | Rally                | Caballero 125 Rally        | `ZFMCA131RR...`       | **Model 5** (`0x0005`, Full Telemetry)   |
+| CA50      | 1R           | 2024     | 500cc                  | Rally                | Caballero 500 Rally        | `ZFMCA501RR...`       | **Model 4** (`0x0004`, Full Telemetry)   |
+| FA13      | MP           | 2024     | 125cc                  | Performance (Motard) | Fantic XMF 125 Performance | `ZFMFA13MPR...`       | **Model 1** (`0x0001`, Limited Telemetry) |
+| FA13      | MC           | 2024     | 125cc                  | Competition (Motard) | Fantic XMF 125 Competition | `ZFMFA13MCR...`       | **Model 1** (`0x0001`, Limited Telemetry) |
+| FA13      | EP           | 2024     | 125cc                  | Performance (Enduro) | Fantic XEF 125 Performance | `ZFMFA13EPR...`       | **Model 1** (`0x0001`, Limited Telemetry) |
+| FA13      | EC           | 2024     | 125cc                  | Competition (Enduro) | Fantic XEF 125 Competition | `ZFMFA13ECR...`       | **Model 1** (`0x0001`, Limited Telemetry) |
 
 ## Supported Models (Untested / Likely Compatible)
 
@@ -508,73 +511,56 @@ The status byte (e.g., `0x8D` -> binary `10001101`) reveals the precise lifecycl
 | **6** | `testNotCompletedThisOperationCycle` | 0     | Self-test has already completed in the current power cycle.       |
 | **7** | `warningIndicatorRequested`          | 1     | **MIL (Check Engine Light) is active!**                           |
 
-## ECU Emulator (Research Environment)
+## ECU Emulator & Gateway Provisioning Suite (Research Environment)
 
-To facilitate protocol analysis without constant vehicle access, a dedicated **ECU Emulator** was developed. This hardware simulates the motorcycle's electronic control unit and its interaction with the e-shock module via the CAN bus.
+To facilitate protocol analysis, full-telemetry testing, and gateway provisioning without constant vehicle access, a dedicated **Multi-ECU CAN Bus Emulator & UDS Provisioning Tool** was developed for the ESP32-C3.
 
-*   **Hardware:** Espressif **ESP32-C3-MINI-1** connected via a **SN65HVD230** CAN transceiver.
-*   **Protocol Support:** Implements **ISO-TP (ISO 15765-2)** for multi-frame UDS responses.
-*   **Simulated Traffic:**
-    *   **Telemetry (ID 0x310):** Simulates engine RPM, kickstand status etc...
-    *   **Telemetry (ID 0x356):** Simulates fuel consumption
-    * **UDS Responses (ID 0x7A8):** Provides mock data for VIN (`0xF190`), Model ID (`0xF0FD`), and SW/HW versions.
+👉 **Full Arduino Sketch & Wiring Guide:**
+
+*   **Hardware:** Espressif **ESP32-C3** connected via a **TI SN65HVD230** (3.3V) CAN transceiver at **500 kbit/s** (`CAN TX = GPIO 2`, `CAN RX = GPIO 3`, `120 Ω` termination).
+*   **Multi-ECU UDS Simulation (ISO-TP / ISO 15765-2):**
+    *   **Engine ECU (`0x7A0` $\rightarrow$ `0x7A8`):** Responds to `0x22` identification queries (`0xF190` VIN, `0xF0FD` Calibration/Model ID, `0xF180`/`0xF181` SW ID, `0xF193` HW ID) and `0x19` DTC scans.
+    *   **Dashboard / ABS ECU (`0x7D0` $\rightarrow$ `0x7D5`):** Required by Gateway Model 4 & 5 (`0x0106`, `0x0108`, `0x0109` & DTC status) to prevent UDS tester timeouts.
+*   **Active Gateway UDS Provisioning (`0x780` $\rightarrow$ `0x785`):**
+    *   Unlocks Gateway Security Access Level 1 (`0x27 0x35/0x36`, Poly `0x35564443`) and Level 2 (`0x27 0x69/0x6A`, Poly `0xE5ACAAE5`).
+    *   Programs Vehicle Model ID (`DID 0xFD03`), BLE Activation (`DID 0xFD04`), Gateway Serial Number (`DID 0xFD00` / `0xF18C`), and executes Factory Reset routines (`0x31 0x01 0xFDA1` / `0xFDA2`).
+*   **Simulated Broadcast Telemetry (100 ms Cycle):**
+    *   **`0x130`:** Engine Load (`0..100 %` $\rightarrow$ `DID 0x000E`)
+    *   **`0x260`:** Instantaneous Fuel Consumption for Model 4/5 (`DID 0x000B`)
+    *   **`0x310`:** Coolant Temp (`DID 0x0011`), Intake Air Temp, RPM (`DID 0x000C`), Side Stand (`DID 0x0009`), Gear (`DID 0x0024`), TPS (`DID 0x0008`), Battery Voltage (`DID 0x0003`)
+    *   **`0x500`:** Primary Gear (`DID 0x0007`), Fuel Counters (`DID 0x000D` & `0x000F`), ECU Status (`DID 0x0028`), and 20-bit Odometer in `0.125 km` ticks (`DID 0x0027`)
 
 ```cpp
-// Simulated Telemetry Frame (ID 0x310)
-uint8_t data310[8];
+// Excerpt from can-emulator/fantic_emulator/fantic_emulator.ino (100 ms Telemetry Cycle)
 
-//Engine Temp DID=0x0011 (64-40 = 24°C)
-data310[0] = 0x40;
+// 1. CAN ID 0x130: Engine Load (DID 0x000E, 0..100%)
+uint8_t data130[8] = { g_vehicle.engineLoadPct, 0, 0, 0, 0, 0, 0, 0 };
+sendCanFrame(0x130, 8, data130);
 
-// Unknown
-data310[1] = rand() % 255;
+// 2. CAN ID 0x310: Engine, Temperatures, TPS & Battery Voltage
+uint8_t data310[8] = {0};
+data310[0] = (uint8_t)(g_vehicle.coolantTemp + 40);    // DID 0x0011: Coolant Temp (°C + 40)
+data310[1] = (uint8_t)(g_vehicle.intakeAirTemp + 40);  // Intake Air Temp (°C + 40)
+data310[2] = (uint8_t)(g_vehicle.rpm & 0xFF);          // DID 0x000C: RPM LSB (Little-Endian)
+data310[3] = (uint8_t)((g_vehicle.rpm >> 8) & 0xFF);   // DID 0x000C: RPM MSB
+data310[4] = ((!g_vehicle.kickstandDown) ? 0x80 : 0x00)// Bit 7: Side Stand (1=Up -> DID 0x0009)
+           | ((g_vehicle.gear & 0x07) << 4)            // Bits 4..6: Gear (0..6 -> DID 0x0024)
+           | ((g_vehicle.gear & 0x03) << 2) | 0x01;    // Bits 2..3: Mode (DID 0x0010), Bit 0: Ign
+data310[5] = (uint8_t)((g_vehicle.throttlePct * 5 + 1) / 2); // DID 0x0008: TPS (0..250 -> 0.5% steps)
+data310[6] = (uint8_t)roundf(g_vehicle.batteryMillivolts / 70.5f); // DID 0x0003: 70.5 mV/bit
+sendCanFrame(0x310, 8, data310);
 
-// Engine RPM (DID=0x000C)
-uint16_t rpm = (uint16_t)((rand() % 6201) + 800);
-data310[2] = (uint8_t)(rpm & 0xFF);
-data310[3] = (uint8_t)((rpm >> 8) & 0xFF);
-
-// Kickstand (DID=0x0009)
-data310[4] = 0;
-if (!KickStandDown) {
-    data310[4] |= (1 << 7);
-}
-data310[4] |= (2 << 2);
-data310[4] |= (3 << 4);
-
-// Throttle Position (TPS) DID=0x0008 (0-255 scaled to 0-100%)
-data310[5] = rand() % 255;
-
-// System Voltage DID=0x0003 (13,25V)
-data310[6] = 0xBC;
-data310[7] = 0x34;
-
-sendFrame(0x310, 8, data310);
-
-
-// Simulated Telemetry Frame (ID 0x356)
-uint8_t data356[8];
-
-// Fuel Consumption DID=0x000B (4.5L / 0.00105 = 4285)
-uint16_t targetConsumptionRaw;
-float desiredConsumption = 4.5f;
-targetConsumptionRaw = (uint16_t)(desiredConsumption / 0.00105f);
-data356[0] = (uint8_t)(targetConsumptionRaw >> 8);   // High-Byte (MSB)
-data356[1] = (uint8_t)(targetConsumptionRaw & 0xFF);  // Low-Byte (LSB)
-
-// Unknown
-data356[2] = rand() % 255;
-// Unknown
-data356[3] = rand() % 255;
-// Unknown
-data356[4] = rand() % 255;
-// Unknown
-data356[5] = rand() % 255;
-// Unknown
-data356[6] = rand() % 255;
-// Unknown
-data356[7] = rand() % 255;
-sendFrame(0x356, 8, data356);
+// 3. CAN ID 0x500: Primary Gear, Fuel Counters & 20-Bit Odometer (Model 4 & 5)
+uint32_t odoTicks = g_vehicle.odometerKm * 8;          // 0.125 km (1/8 km) resolution
+uint8_t data500[8] = {0};
+data500[0] = g_vehicle.gear;                           // DID 0x0007: Gear (0=N, 1..6)
+data500[2] = g_vehicle.fuelCoarseCount;                // DID 0x000F: Coarse Fuel Counter (0..255)
+data500[3] = 0x02;                                     // Bit 1: Engine/ECU Active (DID 0x0028 = 1)
+data500[4] = (uint8_t)((g_vehicle.fuelFinePct * 5 + 1) / 2); // DID 0x000D: Fine Counter (0..100%)
+data500[5] = (uint8_t)(odoTicks & 0xFF);               // DID 0x0027: Odometer LSB
+data500[6] = (uint8_t)((odoTicks >> 8) & 0xFF);
+data500[7] = (uint8_t)((odoTicks >> 16) & 0x0F);       // DID 0x0027: Odometer MSB (20-bit)
+sendCanFrame(0x500, 8, data500);
 ```
 
 ## Hardware & Internals (UART Analysis)
@@ -601,21 +587,30 @@ sendFrame(0x356, 8, data356);
   </div>
 </div>
 <br>
-Internal logs via UART reveal the following system specifications:
+Internal logs via UART and static binary disassembly (Ghidra REA) reveal the following system specifications:
 
 *   **Project Name:** `fantic`
-*   **App Name:** `e-Conn Micro Fantic` (V1.1, Build: Oct 31 2023)
+*   **App Name:** `e-Conn Micro Fantic` (Firmware `V1.1` Build: Oct 31 2023, and newer `V2.03`; Bootloader: `LSD_V0.5`)
 *   **SoC:** ESP32-C3-MINI-1 (Single-Core 32-Bit RISC-V RV32IMC at 160MHz, ESP-IDF v5.1)
-*   **Partitioning:** Dual OTA partitions with NVM storage for EOL data, calibrations, and DTCs.
+*   **Partitioning:** Dual OTA partitions (`factory`, `ota_0`, `ota_1`) with NVM storage in partition `"nvs_es"` for EOL data (`0xFD00`), calibrations (`0xFD02`), and internal DTCs.
 *   **Hardware Identifier:** `CUM` (CU MICRO, Revision `RevC`)
 *   **Connection:** URAQT 4-pin connector (Standard for Euro 5 Fantic models).
-*   **CAN Bus Subsystem (TWAI):** ESP32-C3 TWAI Controller (CAN 2.0B) running at **500 kbit/s** (CAN TX = **GPIO 15**, CAN RX = **GPIO 10**).
+*   **CAN Bus Subsystem (TWAI) & Transceiver:** ESP32-C3 TWAI Controller (CAN 2.0B) running at **500 kbit/s** paired with a **Texas Instruments TCAN1145 System Basis Chip (SBC)** connected via SPI2 (`MOSI = GPIO 7`, `MISO = GPIO 6`, `SCLK = GPIO 1`, `CS = GPIO 5`) and status heartbeat LED on `GPIO 8`.
     *   **CAN IDs:**
-        *   `0x310`: ECU Wakeup / Status CAN ID
-        *   `0x780` / `0x785`: Physical UDS Request / Response IDs
+        *   `0x260` (Caballero 125/500) / `0x310` (XMF/XEF 125) / `0x2F2` (Electric/Issimo): Vehicle Wakeup & Selective-Wake Filter IDs
+        *   `0x780` / `0x785`: Physical UDS Request / Response IDs of the Gateway Server
         *   `0x7DF`: Functional / Broadcast Request ID (OBD-II)
-        *   `0x6F0` / `0x6F1`: Periodic Telemetry & Suspension Broadcasts (Cycle: 20ms)
+        *   `0x7A0` / `0x7A8`: Primary Engine ECU Request / Response (UDS Client)
+        *   `0x7D0` / `0x7D5`: Secondary ECU (Dashboard / ABS) Request / Response (UDS Client)
+        *   `0x6F0` / `0x6F1`: Gateway Heartbeat & Diagnostics Broadcasts (Cycle: 200ms; contains CRC-8, 4-bit alive counter, active model ID, BLE connection state, internal temp, Ubatt voltage, and error flags)
         *   `0x100`: Bootup / Sync Burst
+    *   **Internal Gateway Fault Codes (24-bit DTCs in NVS):**
+        *   `0x07FEE1`: ESP32-C3 Over-Temperature ($\ge 70.0^\circ\text{C}$)
+        *   `0x07FEE2`: BLE Stack Initialization Failure
+        *   `0x07FEE3`: SBC (TCAN1145) SPI Communication / Mode Failure
+        *   `0x07FEE4`: Vehicle Model / VIN Configuration Mismatch (set after 60s timeout)
+        *   `0x07FEE5`: NVS Calibration Data CRC-16 Checksum Error
+        *   `0x07FEE6`: CAN Bus Reception Timeout ($> 1\,000\text{ ms}$ silence)
 
 ### Module Specifications & Identification
 
@@ -638,20 +633,21 @@ The stock firmware represents a textbook example of a Minimum Viable Product (MV
 The chosen SoC—the **Espressif ESP32-C3** (32-bit RISC-V at 160 MHz, 400 KB SRAM)—features hardware that is largely neglected by the stock software:
 * **Wi-Fi Subsystem (802.11 b/g/n):** Completely dormant and uninitialized in firmware. Neither a local AP diagnostic hotspot nor background cloud sync is supported.
 * **Bluetooth Low Energy:** Utilizes a standard Bluedroid GATT stack (`0xE550`) restricted to basic sequential telemetry streaming.
-* **Power Management:** No dynamic deep-sleep or low-power state transitions when the ignition is switched off, operating on active polling and relying on external relay cut-off.
-
+* **Power Management:** Controlled by the external **TI TCAN1145 SBC**. After 10 seconds of CAN inactivity, the firmware arms the SPI Selective-Wake filter register (`0x260` or `0x310`) and places the transceiver into Sleep Mode, cutting power until the next CAN activity.
+ 
 ### Architectural Flaws
 
-#### 1. The Complete Absence of OTA (Over-The-Air Updates)
-The flash partition layout reveals a single, non-redundant factory application slot with **zero Over-The-Air update routines** (neither via BLE characteristic `E5C2` nor Wi-Fi).
+#### 1. Zero End-User OTA (Over-The-Air Updates via BLE/App)
+While the flash partition table contains dual OTA slots (`ota_0`, `ota_1`) and a CAN-UDS flash loader on `0x780` (`0x34`/`0x36`/`0x37`), the smartphone BLE interface (`0xE550`) provides **zero Over-The-Air update routines**. Firmware updates cannot be deployed via the official consumer app.
 
 #### 2. Fragile UDS Client Stack
-The gateway operates as an aggressive UDS client (`0x7A0`), polling 5 identification DIDs (`0xF190`, `0xF0FD`, `0xF180`, `0xF181`, `0xF193`). If any response frame deviates from strict Classic-CAN ISO 15765-2 framing (such as an unpadded Single Frame with DLC < 8), the ISO-TP reception layer drops the message.
+The gateway operates as an aggressive UDS client (`0x7A0` and `0x7D0`), polling identification DIDs. If any response frame deviates from strict Classic-CAN ISO 15765-2 framing (such as an unpadded Single Frame with DLC < 8), the ISO-TP reception layer drops the message.
 
-#### 3. Severely Restricted Diagnostic Scope (No DTC Reset)
-The diagnostic functionality exposed by the gateway is cut down to the absolute bare minimum:
-* **No DTC Reset (Clear Diagnostic Information / Service 0x14):** While the module polls and displays active error codes via the C4 stream, it provides **no capability to reset or clear fault codes**. Even after resolving a physical issue, extinguishing the Check Engine light (MIL) still requires a trip to the dealer or external workshop diagnostic tools.
-* **Passive Read-Only Telematics:** There are no bidirectional diagnostic routines, component actuations, or maintenance resets implemented in the gateway.
+#### 3. Severely Restricted Diagnostic Scope (No DTC Reset via BLE)
+The diagnostic functionality exposed by the gateway over BLE is cut down to the absolute bare minimum:
+* **No DTC Reset over BLE (Clear Diagnostic Information / Service 0x14):** While the module polls and displays active error codes via the C4 stream, it provides **no capability to reset or clear fault codes over Bluetooth** (UDS Service `0x14` is only implemented on the physical CAN bus `0x780`). Extinguishing the Check Engine light (MIL) via phone remains blocked by the stock BLE protocol.
+* **Passive Read-Only Telematics:** There are no bidirectional diagnostic routines or maintenance resets exposed over BLE.
+* **Asymmetric Vehicle Support Bug in V1.1:** In firmware V1.1, the BLE telemetry packer for **Model 1** (`FA13` XMF/XEF 125) omits the gear position, ignores engine load (`0x130`), and leaves the odometer DID `0x0027` unwritten (`0xFFFFFFFF` -> displayed as `-0.13 km`), while **Model 4** (`CA50`) and **Model 5** (`CA13`/`CA14`) populate all telemetry fields correctly.
 
 ### Commercial Context (BOM vs. Retail Price)
 The disparity between component cost and consumer pricing highlights the unit's nature as an outsourced Minimum Viable Product (MVP):
@@ -669,7 +665,7 @@ The disparity between component cost and consumer pricing highlights the unit's 
 
 ## Bluetooth Low Energy (BLE) Characteristics
 
-The e-shock module advertises with the prefix `FanticCON-` followed by its 6-digit serial number (e.g., `FanticCON-154204`, fallback `FanticCON-000000`).
+The e-shock module advertises with either the production pattern `FAC_<last 4 serial digits>` (e.g. `FAC_6626`, `FAC_1026`, `FAC_4204`) or the factory fallback `FanticCON-<6-digit serial>` (e.g. `FanticCON-123456`, default `FanticCON-000000`).
 
 ### BLE Security & Static Passkey
 * **Pairing Method:** Secure Connections / Static Passkey
@@ -680,11 +676,11 @@ The e-shock module advertises with the prefix `FanticCON-` followed by its 6-dig
 
 | Characteristic UUID                    | Handle | Properties | Description                                 |
 |:---------------------------------------|:-------|:-----------|:--------------------------------------------|
-| `0000e5c0-0000-1000-8000-00805f9b34fb` | 41     | `WRITE`    | **Primary Command Channel** (UDS Request)   |
-| `0000e5c1-0000-1000-8000-00805f9b34fb` | 43     | `INDICATE` | **Primary Response Channel** (UDS Response) |
-| `0000e5c2-0000-1000-8000-00805f9b34fb` | 46     | `WRITE`    | Firmware Upload Channel                     |
-| `0000e5c3-0000-1000-8000-00805f9b34fb` | 48     | `INDICATE` | Data Stream Channel                         |
-| `0000e5c4-0000-1000-8000-00805f9b34fb` | 51     | `INDICATE` | Diagnostic Stream Channel                   |
+| `0000e5c0-0000-1000-8000-00805f9b34fb` | 41     | `WRITE`    | **Primary Command Channel** (LSD Request)   |
+| `0000e5c1-0000-1000-8000-00805f9b34fb` | 43     | `INDICATE` | **Primary Response Channel** (LSD Response) |
+| `0000e5c2-0000-1000-8000-00805f9b34fb` | 46     | `WRITE`    | **LSD Stream Flow-Control Channel** (ACK `0x76` / NACK `0x7F 0x36`) |
+| `0000e5c3-0000-1000-8000-00805f9b34fb` | 48     | `INDICATE` | Live Telemetry Data Stream Channel          |
+| `0000e5c4-0000-1000-8000-00805f9b34fb` | 51     | `INDICATE` | Diagnostic / DTC Stream Channel             |
 
 ### Standard Services
 *   **Generic Access (`00001800-0000-1000-8000-00805f9b34fb`):**
@@ -696,19 +692,24 @@ The e-shock module advertises with the prefix `FanticCON-` followed by its 6-dig
     *   Database Hash: `00002b2a-0000-1000-8000-00805f9b34fb` (Handle 7)
     *   Client Supported Features: `00002b29-0000-1000-8000-00805f9b34fb` (Handle 5)
 
-**MTU Configuration**: The module supports and requires an MTU of **512 bytes** for reliable data transfer of larger payloads (like VIN or module info).
+**MTU Configuration**: The module supports and requires an MTU of **500 bytes** (`esp_ble_gatt_set_local_mtu(500)`) for reliable multi-DID transfers.
 
 ## Frame Format & CRC Mechanism
 
 The application automatically detects and supports two different framing structures depending on the module's firmware version:
 
-| **Module App Version** | **Header Size** | **Frame Format**                           | **Supported** |
-|:-----------------------|:----------------|:-------------------------------------------|:--------------|
-| v1.1                   | 8-bit           | `[Len 8] [Payload] [CRC8]`                 | ✅             |
-| v2.03                  | 16-bit          | `[Len 16 Hi] [Len 16 Lo] [Payload] [CRC8]` | ✅             |
+| **Module App Version** | **Header Size** | **Frame Format**                           | **DID 0x0001 Endianness** | **Supported** |
+|:-----------------------|:----------------|:-------------------------------------------|:--------------------------|:--------------|
+| v1.1                   | 8-bit           | `[Len 8] [Payload] [CRC8]`                 | Little-Endian (`04 00` / `05 00`) | ✅    |
+| v2.03                  | 16-bit          | `[Len 16 Hi] [Len 16 Lo] [Payload] [CRC8]` | Big-Endian (`00 04`)      | ✅             |
 
 > [!NOTE]
-> Besides the framing difference, newer 16-bit modules often use different data scaling factors for certain DIDs (e.g., Odometer).
+> **Key Differences in Firmware V2.03:**
+> 1. Uses a 16-bit Big-Endian length header on all BLE responses.
+> 2. `DID 0x0001` (Vehicle Model) is transmitted in standard **Big-Endian** (`00 04` for Model 4) rather than Little-Endian (`04 00`).
+> 3. `DID 0xE502` directory was cleaned up from 44 to 30 DIDs (removing obsolete electric IDs `0x0012`..`0x0024`).
+> 4. `DID 0xE504` and `0xE505` return 3 bytes (`03 00 01` / `32 00 01`) instead of 1 byte.
+> 5. Total Odometer resolution (`DID 0x0027`) remains unchanged at `0.125 km` ticks (`Value / 8.0f` km).
 
 ### Frame Components
 1.  **Length**: 1 or 2 bytes. Represents `(Payload Size + 1)`.
@@ -721,12 +722,12 @@ The app performs an automatic handshake upon connection using an invalid SID (`0
 *   Otherwise, the **8-bit protocol** is assumed.
 
 ### CRC8 Algorithm
-The module uses a specific **CRC-8 OpenSafety** (Polynomial: `0x2F`, Initial Value: `0x00`).
+The gateway firmware utilizes a custom 8-bit polynomial **`0x97`** with initial value `0x00` (e.g., `03 27 01 E6` -> CRC `0xE6`, `06 62 00 01 04 00 F1` -> CRC `0xF1`):
 
 ```kotlin
 fun crc8Opensafety(data: ByteArray): Byte {
     var crc = 0x00
-    val poly = 0x2F
+    val poly = 0x97
     for (b in data) {
         crc = crc xor (b.toInt() and 0xFF)
         repeat(8) {
@@ -742,75 +743,81 @@ fun crc8Opensafety(data: ByteArray): Byte {
 
 Many DIDs are protected and require a **Security Access (Service 0x27)** sequence to be unlocked.
 
-1.  **Request Seed**: Send `27 01`.
-2.  **Receive Seed**: Module responds with `67 01 [High Byte] [Low Byte]`.
-3.  **Calculate Key**: The key is 2-byte. Note: There are only 65536 different keys based on a 2-byte seed.
-4.  **Send Key**: Send `27 03 [High Byte] [Low Byte]`.
-5.  **Access Granted**: Module responds with `67 03` (Success).
+### 1. Bluetooth Low Energy (BLE LSD Protocol)
+1.  **Request Seed**: Send `03 27 01 E6` (Len 3, SID 0x27, Sub 0x01, CRC8 0xE6).
+2.  **Receive Seed**: Module responds with `05 67 02 [High Byte] [Low Byte] [CRC8]` on `0xE5C1`.
+3.  **Calculate Key**: 16-bit CRC/ARC-based LFSR algorithm (`param_3 = 1`).
+4.  **Send Key**: Send `05 27 03 [High Byte] [Low Byte] [CRC8]`.
+5.  **Access Granted**: Module responds with `03 67 04 37` (Success).
 
-### Example Seed / Key pairs
+### 2. Physical CAN-Bus UDS Server (CAN ID 0x780 -> 0x785)
+For ECU programming, flashing, and provisioning on the CAN bus, the gateway implements a 32-bit LFSR algorithm over 35 rounds:
+* **Level 1 (`0x27 0x35` / `0x27 0x36`):** Polynomial **`0x35564443`** (ASCII `"5VDC"`) for Vehicle Model (`0xFD03`) and BLE Enable (`0xFD04`).
+* **Level 2 (`0x27 0x69` / `0x27 0x6A`):** Polynomial **`0xE5ACAAE5`** for EOL Data & Serial Number (`0xFD00`), Calibrations (`0xFD02`), and Factory Reset routines (`0xFDA1`, `0xFDA2`).
+
+### Example Seed / Key pairs (BLE)
 * `0000` -> `9040`
 * `ABCD` -> `757D`
 
 ## Known Diagnostic Identifiers (DIDs)
 
-| DID (Hex) | Description                 | Data Format / Interpretation                                                          | Verified | Writeable (0x2E) | CAN-ID (from ECU)  |
-|:----------|:----------------------------|:--------------------------------------------------------------------------------------|:---------|:-----------------|:-------------------|
-| `0001`    | **ID?**                     | 2-byte                                                                                |          | ❌                |                    |
-| `0002`    | **VIN**                     | 17-byte ASCII String                                                                  | ✅        | ❌                |                    |
-| `0003`    | **System Voltage**          | 2-byte Integer (mV) (`Value / 1000.0f` = Volts)                                       | ✅        | ✅                | 0x310 payload[6-7] |
-| `0004`    |                             | 2-byte                                                                                |          | ❌                |                    |
-| `0005`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `0006`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `0007`    | **Gear Position**           | 1-byte (`0x00` = N, `0x01` = 1...)                                                    | ✅        | ❌                |                    |
-| `0008`    | **Throttle Position (TPS)** | 1-byte Integer (`Value / 255 * 100` = %)                                              | ✅        | ❌                | 0x310 payload[5]   |
-| `0009`    | **Kickstand**               | 1-byte (`0x01` = Up, `0x00` = Down)                                                   | ✅        | ❌                | 0x310 payload[4]   |
-| `000A`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `000B`    | **Instant Consumption**     | 2-byte Integer (`Value / 100.0f` = L/100km)                                           | ✅        | ❌                | 0x356 payload[0-1] |
-| `000C`    | **Engine RPM**              | 2-byte Integer                                                                        | ✅        | ❌                | 0x310 payload[2-3] |
-| `000D`    | **?**                       | 1-byte Linear (0xFF de-increments)                                                    |          | ❌                |                    |
-| `000E`    | **Engine Load**             | 1-byte Integer (%)                                                                    | ✅        | ❌                |                    |
-| `000F`    | **?**                       | 1-byte Linear (0xFF de-increments)                                                    |          | ❌                |                    |
-| `0010`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `0011`    | **Engine Temp**             | 1-byte Integer (°C)                                                                   | ✅        | ❌                | 0x310 payload[0]   |
-| `0012`    |                             | 2-byte                                                                                |          | ❌                |                    |
-| `0013`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `0014`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `0015`    |                             | 2-byte                                                                                |          | ❌                |                    |
-| `0016`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `0017`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `0018`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `0019`    |                             | 2-byte                                                                                |          | ❌                |                    |
-| `001A`    |                             | 2-byte                                                                                |          | ❌                |                    |
-| `001B`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                    |
-| `001C`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                    |
-| `001D`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                    |
-| `001E`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                    |
-| `001F`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                    |
-| `0020`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                    |
-| `0021`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                    |
-| `0022`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                    |
-| `0023`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                    |
-| `0024`    |                             | from DID-List = 0x7F                                                                  |          | ❌                |                    |
-| `0025`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `0026`    |                             | 2-byte                                                                                |          | ❌                |                    |
-| `0027`    | **Odometer**                | 4-byte Integer (8-bit: `Value / 8.0f`, 16-bit: `Value / 1.0f` = km)                   | ✅        | ❌                |                    |
-| `0028`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `0029`    |                             | 1-byte                                                                                |          | ✅                |                    |
-| `002A`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `002B`    |                             | 1-byte                                                                                |          | ❌                |                    |
-| `002C`    |                             | 1-byte                                                                                |          | ✅                |                    |
-| `E501`    | **Module Info**             | Composite ASCII fields (Name, Version)                                                | ✅        | ✅                |                    |
-| `E502`    | **DID Directory**           | Complete array of all registered DIDs                                                 | ✅        | ✅                |                    |
-| `E503`    | **Stream Dictionary**       | Configuration array (List of 2-byte DIDs) that defines the payload for the C3 stream. | ✅        | ✅                |                    |
-| `E504`    | **Data Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Sets frequency for C3 (Routine `FD 10`).         | ✅        | ✅                |                    |
-| `E505`    | **Diag Stream Timer**       | 1-byte Multiplier (`Value * 100ms`). Sets frequency for C4 (Routine `FD 11`).         | ✅        | ✅                |                    |
-| `E506`    | **HW Version**              | Hardware name and revision (ASCII)                                                    | ✅        | ✅                |                    |
-| `E507`    | **Unknown Config**          | variable-byte switch (Behavior still unclear)                                         | ❌        | ✅️               |                    |
-| `FD00`    | **EOL Identification Block**| 159-byte End-Of-Life identification block (RAM `0x3FC97068`, Magic `'MPCA'`: Serial/Date) | ✅        | ✅ (`0xA3 2E...`) |                    |
-| `FD02`    | **Calibration Block**       | 80-byte calibration block (RAM `0x3FC97018`, Write-Only via `0x2E`)                    | ✅        | ✅                |                    |
-| `FD03`    | **Vehicle Model ID**        | 2-byte ID at offset 19 in Calibration Blob (`0x0001` Caballero, `0x000B` ZFMEM01)     | ✅        | ✅ (`06 2E...`)   |                    |
-| `FD04`    | **Feature Flag B**          | 1-byte flag at offset 21 in Calibration Blob (`0x01` enables BLE Gateway)             | ✅        | ✅ (`05 2E...`)   |                    |
+### 1. Bluetooth Low Energy Service 0xE550 (LSD DIDs)
+
+| DID (Hex) | Description                 | Data Format / Interpretation                                                          | Verified | BLE Writeable (0x2E) | CAN-ID Source (ECU) |
+|:----------|:----------------------------|:--------------------------------------------------------------------------------------|:---------|:---------------------|:--------------------|
+| `0001`    | **Vehicle Model ID**        | 2-byte Integer (Gateway Model ID: `1` = FA13 XMF/XEF 125, `4` = CA50 Caballero 500, `5` = CA13/14 Caballero 125; V1.1 Little-Endian `04 00`/`05 00`, V2.03 Big-Endian `00 04`) | ✅ | ❌ | UDS 0x7A0 DID 0xF0FD |
+| `0002`    | **VIN**                     | 17-byte ASCII String (e.g., `ZFMCA135SRM123456`)                                      | ✅        | ❌                   | UDS 0x7A0 DID 0xF190 |
+| `0003`    | **System Voltage**          | 2-byte Integer in mV (`Value * 0.0705f` in firmware rodata, scaled to mV, ~70.5 mV/bit) | ✅      | ❌                   | 0x310 byte 6        |
+| `0004`    | **BMS Battery Voltage**     | 2-byte (Electric Model 11/12 only, `0xFFFF` on combustion models)                     | ✅        | ❌                   | CAN 0x2F2 (BMS)     |
+| `0005`    | **BMS State of Charge (SoC)** | 1-byte (Electric Model 11/12 only, `0xFF` on combustion models)                      | ✅        | ❌                   | CAN 0x2F2 (BMS)     |
+| `0006`    | **BMS State of Health (SoH)** | 1-byte (Electric Model 11/12 only, `0xFF` on combustion models)                      | ✅        | ❌                   | CAN 0x2F2 (BMS)     |
+| `0007`    | **Gear Position (Primary)** | 1-byte (`0x00` = Neutral, `0x01`..`0x06` = 1st..6th Gear)                             | ✅        | ❌                   | 0x500 byte 0        |
+| `0008`    | **Throttle Position (TPS)** | 1-byte in 0.5% steps (`Value / 2.0f` = %, `0..200` $\widehat{=}$ 0.0..100.0%)        | ✅        | ❌                   | 0x310 byte 5        |
+| `0009`    | **Kickstand Status**        | 1-byte (`0x01` = Retracted/Up/Ready, `0x00` = Deployed/Down)                         | ✅        | ❌                   | 0x310 byte 4 bit 7  |
+| `000A`    | **Killswitch / Status Bits**| 1-byte status bits (`0x00` in normal operation)                                       | ✅        | ❌                   | 0x310 / 0x500       |
+| `000B`    | **Instant Consumption**     | 2-byte Integer (`uint16_be * 0.01 * 1.08` L/100km, `0x0000` at standstill)           | ✅        | ❌                   | 0x260 bytes 2-3 (Model 4/5) / 0x356 (Model 1) |
+| `000C`    | **Engine RPM**              | 2-byte Integer (RPM in U/min)                                                         | ✅        | ❌                   | 0x310 bytes 2-3 (LE)|
+| `000D`    | **Fuel Countdown (Fine)**   | 1-byte Linear (`0..100 %`, 10ml resolution countdown from 100 to 0)                  | ✅        | ❌                   | 0x500 byte 4        |
+| `000E`    | **Engine Load**             | 1-byte Integer (`0..100 %`)                                                           | ✅        | ❌                   | 0x130 byte 0        |
+| `000F`    | **Fuel Countdown (Coarse)** | 1-byte Integer (`0..255`, decrements when 0x000D underflows from 0 to 100)            | ✅        | ❌                   | 0x500 byte 2        |
+| `0010`    | **Ride Mode / Switch State**| 1-byte (`0..3`)                                                                       | ✅        | ❌                   | 0x310 byte 4 bits 2-3 |
+| `0011`    | **Engine Coolant Temp**     | 1-byte signed integer in °C (`Byte 0 - 40`)                                           | ✅        | ❌                   | 0x310 byte 0        |
+| `0012`..`001A` | **Electric Drive Metrics** | 1..2-byte Inverter/Motor metrics (Model 11/12 only; cleaned up in V2.03 -> `0x7F 0x13`) | ✅   | ❌                   | CAN 0x1A4 / 0x2F2   |
+| `001B`..`0023` | *Reserved*                  | Unused in firmware table -> returns NRC `0x13`                                        | ❌        | ❌                   |                     |
+| `0024`    | **Gear Position (Secondary)** | 1-byte (`0..6`, in V1.1 for Model 4/5; removed in V2.03 -> `0x7F 0x13`)               | ✅        | ❌                   | 0x310 byte 4 bits 4-6 |
+| `0025`    | **Status Channel 1**        | 1-byte (`0x00`)                                                                       | ✅        | ❌                   | 0x310 byte 4        |
+| `0026`    | **Status Channel 2**        | 2-byte (`0x0000`)                                                                     | ✅        | ❌                   | 0x260 bytes 0-1     |
+| `0027`    | **Total Odometer**          | 4-byte Big-Endian in `0.125 km` (1/8 km) ticks (`Ticks / 8.0f` = km)                  | ✅        | ❌                   | 0x500 bytes 5-7 (20-bit LE) |
+| `0028`    | **ECU Active Status**       | 1-byte (`0x01` = Engine/ECU active, `0x00` = Ignition on without engine start)        | ✅        | ❌                   | 0x500 byte 3 bit 1  |
+| `0029`..`002B` | **Electric Status**         | 1-byte (Model 11/12 only; `0xFF` on combustion models)                                | ✅        | ❌                   |                     |
+| `002C`    | **Gateway Error Status**    | 1-byte Gateway internal status flag                                                   | ✅        | ❌                   | Gateway internal    |
+| `E501`    | **Module Identification**   | 72-byte composite block (20B Serial + 20B Name + 20B SW + 10B Bootloader + 2B Model)   | ✅        | ❌                   | Gateway internal    |
+| `E502`    | **DID Directory**           | Array of supported 16-bit DIDs (44 DIDs in V1.1, 30 DIDs in V2.03)                    | ✅        | ❌                   | Gateway flash       |
+| `E503`    | **Stream Dictionary**       | Array of 16-bit DIDs defining the C3 stream payload (Writing sets `CONFIG COMPLETED`)  | ✅        | ✅ (`0x2E`)          | Gateway RAM         |
+| `E504`    | **Data Stream Timer**       | 1-byte in units of **10 ms** (Default `0x0A` = 100ms; V2.03 returns 3 bytes `03 00 01`) | ✅      | ✅ (`0x2E`)          | Gateway RAM         |
+| `E505`    | **Diag Stream Timer**       | 1-byte in units of **10 ms** (Default `0x46` = 700ms; V2.03 returns 3 bytes `32 00 01`) | ✅      | ✅ (`0x2E`)          | Gateway RAM         |
+| `E506`    | **Hardware Version**        | 40-byte ASCII (`"CUM"` Supplier + `"RevC"` HW Revision)                              | ✅        | ❌                   | Gateway NVS         |
+| `E507`    | **ECU DTC Mirror Buffer**   | 1530-byte raw mirror buffer of all active DTCs across vehicle ECUs                    | ✅        | ❌                   | Gateway RAM         |
+
+### 2. Physical CAN-Bus Gateway Configuration DIDs (UDS 0x780 -> 0x785)
+
+> [!NOTE]
+> The following configuration DIDs are part of the internal Gateway UDS Server on the physical CAN bus (`0x780` $\rightarrow$ `0x785`) and are **not** accessible via the BLE GATT table:
+
+| DID (Hex) | Description                 | Size   | R/W | Security Level | Description / Provisioning Use |
+|:----------|:----------------------------|:-------|:---:|:--------------:|:-------------------------------|
+| `F18C`    | **Gateway Serial Number**   | 20 B   | R   | –              | ASCII Serial Number (points directly to Offset `+14` of `0xFD00`) |
+| `F193`    | **Gateway HW Identifier**   | 20 B   | R   | –              | Hardware version string (`NVM EOL` Offset `+0x36`) |
+| `F195`    | **Gateway SW Version**      | 20 B   | R   | –              | Application version string (`"APPe-Conn Micro Fantic"`) |
+| `FD00`    | **End-Of-Life (EOL) Block** | 159 B  | R/W | Level 2 (`0x69`)| Full EOL manufacturing block (`"MPCA"` header + CRC-16). Offset `+14..+33` holds the **Gateway Serial Number** (recalculated and saved automatically). |
+| `FD02`    | **Calibration Block**       | 80 B   | R/W | Level 2 (`0x69`)| Full NVM calibration block (`"MPCA"` header + CRC-16). |
+| `FD03`    | **Vehicle Model ID**        | 2 B    | R/W | Level 1 (`0x35`)| Configured Gateway Model ID (`0x0001`, `0x0004`, `0x0005`, `0x000B`, `0x000C`). |
+| `FD04`    | **BLE Activation Flag**     | 1 B    | R/W | Level 1 (`0x35`)| `0x01` = Bluetooth enabled, `0x00` = Bluetooth disabled. |
+| `FD05`    | **CAN TX Gateway Config**   | 18 B   | R/W | Level 1 (`0x35`)| Periodic status frames `0x6F0` / `0x6F1` cycle time and enable flags. |
+| `FD06`    | **BLE MAC Address**         | 6 B    | R   | –              | Factory MAC address read via `esp_read_mac`. |
+| `FD07`    | **Auto-Shutdown Enable**    | 1 B    | R/W | Level 1 (`0x35`)| Selective-Wake sleep after 10 seconds of CAN bus inactivity. |
+| `FD08`..`FD0A` | **Partition Hashes**   | 32 B   | R   | –              | SHA-256 hashes of `factory`, `ota_0`, and `ota_1` partitions. |
+| `FD0B`    | **Active Boot Partition**   | 1 B    | R   | –              | `1 = factory`, `2 = ota_0`, `3 = ota_1`. |
 
 ## Supported Service IDs (SIDs)
 
@@ -831,23 +838,22 @@ Many DIDs are protected and require a **Security Access (Service 0x27)** sequenc
 *   `0x33`: Security Access Denied (Locked)
 *   `0x35`: Invalid Key
 
-### Unsupported Service Frames (Bruteforced)
-The following frame patterns were tested but consistently returned a Negative Response (NRC):
+### Unsupported Service Frames over BLE (Bruteforced)
+The following frame patterns were tested over the BLE interface (`0xE5C0`) and consistently returned a Negative Response (NRC). **Note:** While unsupported over Bluetooth, standard UDS services like `0x10`, `0x11`, `0x14`, `0x19`, and `0x3E` are fully supported on the physical CAN bus (`0x780` $\rightarrow$ `0x785`):
 
-| UDS Payload (Excl. Length & CRC) | UDS Service / Description  |
-|:---------------------------------|:---------------------------|
-| `10 xx`                          | Diagnostic Session Control |
-| `11 xx xx`                       | ECU Reset                  |
-| `19 xx xx`                       | Read DTC Information       |
-| `28 xx xx`                       | Communication Control      |
-| `29 xx xx`                       | Authentication             |
-| `3E xx xx`                       | Tester Present             |
-| `14 01 xx xx`                    | Clear Diagnostic Info      |
-| `14 FF xx xx`                    | Clear Diagnostic Info      |
+| UDS Payload (Excl. Length & CRC) | UDS Service / Description  | BLE Response | Physical CAN (0x780) Support |
+|:---------------------------------|:---------------------------|:------------:|:----------------------------:|
+| `10 xx`                          | Diagnostic Session Control | NRC `0x11`   | ✅ Supported (`0x10 0x01/0x02/0x03`) |
+| `11 xx xx`                       | ECU Reset                  | NRC `0x11`   | ✅ Supported (`0x11 0x01` HardReset) |
+| `14 01 / 14 FF xx xx`            | Clear Diagnostic Info      | NRC `0x11`   | ✅ Supported (`0x14 FF FF FF`)       |
+| `19 xx xx`                       | Read DTC Information       | NRC `0x11`   | ✅ Supported (`0x19 0x01/0x02`)      |
+| `28 xx xx`                       | Communication Control      | NRC `0x11`   | ✅ Supported (`0x28 0x00/0x03`)      |
+| `29 xx xx`                       | Authentication             | NRC `0x11`   | ❌ Not implemented                   |
+| `3E xx xx`                       | Tester Present             | NRC `0x11`   | ✅ Supported (`0x3E 0x00`)           |
 
 ## Enabling Live Telemetry Streams
 
-The ESP32 gateway streams live CAN-bus telemetry via BLE notifications using UDS routines. The internal Finite State Machine (FSM) acts as a gatekeeper: `E503` must be successfully initialized with a DID array (FSM reports `CONFIG COMPLETED`) before any stream routine can be enabled.
+The ESP32 gateway streams live CAN-bus telemetry via BLE notifications using UDS routines. The internal Finite State Machine (FSM) acts as a gatekeeper: `E503` must be successfully initialized with a DID array (FSM reports `CONFIG COMPLETED`) before any stream routine can be enabled. Crucially, **any write to `E504` or `E505` resets the FSM state (`CONFIG NOT COMPLETED`)**, meaning `E503` must always be written **after** setting the timers.
 
 ### Prerequisites
 1. Active BLE connection.
@@ -855,19 +861,19 @@ The ESP32 gateway streams live CAN-bus telemetry via BLE notifications using UDS
 
 ### Verified Start Sequence (Live Data C3)
 1. **Configure Timer** (E504)
-    * `[0x2E, 0xE5, 0x04, 0x02]` *(Sets 200ms interval)*
-2. **Define Stream Dictionary** (E503)
-    * `[0x2E, 0xE5, 0x03, 0x00, 0x03, 0x00, 0x0C, 0x00, 0x11, 0x00, 0x0F]` *(Requests Voltage, RPM, Temp, and Injection)*
+    * `[0x2E, 0xE5, 0x04, 0x0A]` *(Sets 100ms interval: `10 * 10ms`)*
+2. **Define Stream Dictionary** (E503) – *Sets `CONFIG COMPLETED = 1`*
+    * `[0x2E, 0xE5, 0x03, 0x00, 0x0C, 0x00, 0x09, 0x00, 0x07, 0x00, 0x0B, 0x00, 0x03, 0x00, 0x0D, 0x00, 0x0F, 0x00, 0x08, 0x00, 0x11, 0x00, 0x0E, 0x00, 0x27]` *(Requests standard 11-DID dashboard stream)*
 3. **Start Routine** (FD 10)
     * `[0x31, 0x01, 0xFD, 0x10]`
 
 ### Diagnostic Stream Activation (C4)
-Routine `FD 11` is specifically designed for DTC and Alarm monitoring. Unlike C3, it ignores the content of `E503` as a data source but still requires it to be initialized to release the FSM lock.
+Routine `FD 11` is specifically designed for DTC and Alarm monitoring. Unlike C3, it ignores the content of `E503` as a data source but still requires `E503` to be initialized to release the FSM lock.
 
 1. **Configure Timer** (E505)
-    * `[0x2E, 0xE5, 0x05, 0x1E]` *(Sets 3s interval)*
+    * `[0x2E, 0xE5, 0x05, 0x46]` *(Sets 700ms interval: `70 * 10ms`)*
 2. **Release FSM Lock** (E503)
-    * `[0x2E, 0xE5, 0x03, 0x01]` *(Dummy initialization)*
+    * `[0x2E, 0xE5, 0x03, 0x00, 0x01]` *(Dummy initialization to set `CONFIG COMPLETED`)*
 3. **Start Routine** (FD 11)
     * `[0x31, 0x01, 0xFD, 0x11]`
 
