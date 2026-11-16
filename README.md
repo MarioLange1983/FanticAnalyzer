@@ -519,13 +519,13 @@ To facilitate protocol analysis, full-telemetry testing, and gateway provisionin
 
 *   **Hardware:** Espressif **ESP32-C3** connected via a **TI SN65HVD230** (3.3V) CAN transceiver at **500 kbit/s** (`CAN TX = GPIO 2`, `CAN RX = GPIO 3`, `120 Ω` termination).
 *   **Multi-ECU UDS Simulation (ISO-TP / ISO 15765-2):**
-    *   **Engine ECU (`0x7A0` $\rightarrow$ `0x7A8`):** Responds to `0x22` identification queries (`0xF190` VIN, `0xF0FD` Calibration/Model ID, `0xF180`/`0xF181` SW ID, `0xF193` HW ID) and `0x19` DTC scans.
-    *   **Dashboard / ABS ECU (`0x7D0` $\rightarrow$ `0x7D5`):** Required by Gateway Model 4 & 5 (`0x0106`, `0x0108`, `0x0109` & DTC status) to prevent UDS tester timeouts.
-*   **Active Gateway UDS Provisioning (`0x780` $\rightarrow$ `0x785`):**
+    *   **Engine ECU (`0x7A0` → `0x7A8`):** Responds to `0x22` identification queries (`0xF190` VIN, `0xF0FD` Calibration/Model ID, `0xF180`/`0xF181` SW ID, `0xF193` HW ID) and `0x19` DTC scans.
+    *   **Dashboard / ABS ECU (`0x7D0` → `0x7D5`):** Required by Gateway Model 4 & 5 (`0x0106`, `0x0108`, `0x0109` & DTC status) to prevent UDS tester timeouts.
+*   **Active Gateway UDS Provisioning (`0x780` → `0x785`):**
     *   Unlocks Gateway Security Access Level 1 (`0x27 0x35/0x36`, Poly `0x35564443`) and Level 2 (`0x27 0x69/0x6A`, Poly `0xE5ACAAE5`).
     *   Programs Vehicle Model ID (`DID 0xFD03`), BLE Activation (`DID 0xFD04`), Gateway Serial Number (`DID 0xFD00` / `0xF18C`), and executes Factory Reset routines (`0x31 0x01 0xFDA1` / `0xFDA2`).
 *   **Simulated Broadcast Telemetry (100 ms Cycle):**
-    *   **`0x130`:** Engine Load (`0..100 %` $\rightarrow$ `DID 0x000E`)
+    *   **`0x130`:** Engine Load (`0..100 %` → `DID 0x000E`)
     *   **`0x260`:** Instantaneous Fuel Consumption for Model 4/5 (`DID 0x000B`)
     *   **`0x310`:** Coolant Temp (`DID 0x0011`), Intake Air Temp, RPM (`DID 0x000C`), Side Stand (`DID 0x0009`), Gear (`DID 0x0024`), TPS (`DID 0x0008`), Battery Voltage (`DID 0x0003`)
     *   **`0x500`:** Primary Gear (`DID 0x0007`), Fuel Counters (`DID 0x000D` & `0x000F`), ECU Status (`DID 0x0028`), and 20-bit Odometer in `0.125 km` ticks (`DID 0x0027`)
@@ -594,7 +594,7 @@ Internal logs via UART and static binary disassembly (Ghidra REA) reveal the fol
 *   **SoC:** ESP32-C3-MINI-1 (Single-Core 32-Bit RISC-V RV32IMC at 160MHz, ESP-IDF v5.1)
 *   **Partitioning:** Dual OTA partitions (`factory`, `ota_0`, `ota_1`) with NVM storage in partition `"nvs_es"` for EOL data (`0xFD00`), calibrations (`0xFD02`), and internal DTCs.
 *   **Hardware Identifier:** `CUM` (CU MICRO, Revision `RevC`)
-*   **Connection:** URAQT 4-pin connector (Standard for Euro 5 Fantic models).
+*   **Connection:** 4-pin connector JST 04R-JWPF-VSLE
 *   **CAN Bus Subsystem (TWAI) & Transceiver:** ESP32-C3 TWAI Controller (CAN 2.0B) running at **500 kbit/s** paired with a **Texas Instruments TCAN1145 System Basis Chip (SBC)** connected via SPI2 (`MOSI = GPIO 7`, `MISO = GPIO 6`, `SCLK = GPIO 1`, `CS = GPIO 5`) and status heartbeat LED on `GPIO 8`.
     *   **CAN IDs:**
         *   `0x260` (Caballero 125/500) / `0x310` (XMF/XEF 125) / `0x2F2` (Electric/Issimo): Vehicle Wakeup & Selective-Wake Filter IDs
@@ -802,7 +802,7 @@ For ECU programming, flashing, and provisioning on the CAN bus, the gateway impl
 ### 2. Physical CAN-Bus Gateway Configuration DIDs (UDS 0x780 -> 0x785)
 
 > [!NOTE]
-> The following configuration DIDs are part of the internal Gateway UDS Server on the physical CAN bus (`0x780` $\rightarrow$ `0x785`) and are **not** accessible via the BLE GATT table:
+> The following configuration DIDs are part of the internal Gateway UDS Server on the physical CAN bus (`0x780` → `0x785`) and are **not** accessible via the BLE GATT table:
 
 | DID (Hex) | Description                 | Size   | R/W | Security Level | Description / Provisioning Use |
 |:----------|:----------------------------|:-------|:---:|:--------------:|:-------------------------------|
@@ -839,7 +839,7 @@ For ECU programming, flashing, and provisioning on the CAN bus, the gateway impl
 *   `0x35`: Invalid Key
 
 ### Unsupported Service Frames over BLE (Bruteforced)
-The following frame patterns were tested over the BLE interface (`0xE5C0`) and consistently returned a Negative Response (NRC). **Note:** While unsupported over Bluetooth, standard UDS services like `0x10`, `0x11`, `0x14`, `0x19`, and `0x3E` are fully supported on the physical CAN bus (`0x780` $\rightarrow$ `0x785`):
+The following frame patterns were tested over the BLE interface (`0xE5C0`) and consistently returned a Negative Response (NRC). **Note:** While unsupported over Bluetooth, standard UDS services like `0x10`, `0x11`, `0x14`, `0x19`, and `0x3E` are fully supported on the physical CAN bus (`0x780` → `0x785`):
 
 | UDS Payload (Excl. Length & CRC) | UDS Service / Description  | BLE Response | Physical CAN (0x780) Support |
 |:---------------------------------|:---------------------------|:------------:|:----------------------------:|
