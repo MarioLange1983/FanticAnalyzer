@@ -48,7 +48,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 ## Key Features
 
-*   **Dual-Language Support:** Fully localized in **English**, **German** and **Italian**. The app automatically adapts to your system settings.
+*   **Multi-Language Support:** Fully localized in **English**, **German**, **French**, and **Italian**. The app automatically adapts to your system settings.
 *   **Reactive Architecture:** Built on a modern **MainViewModel** structure ensuring a single source of truth for all vehicle and app states.
 *   **Modern Theme:** Modern Material 3 UI designed. Supports both **Light and Dark modes**.
 *   **Motorcycle-Optimized Dashboard:**
@@ -115,6 +115,7 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 *   **High-Performance Multi-DID Stream:** The app uses a hightly optimized UDS data stream to fetch multiple data points (RPM, Gear, Voltage, etc.) in a single notification. This reduces Bluetooth overhead and ensures smooth real-time dashboard updates.
 *   **Configurable Refresh Rate:** Fine-tune the UDS stream frequency in the **Performance** settings. Choose a custom interval between **100ms** and **2000ms** (Default: 300ms) to balance UI smoothness and device performance.
 *   **Detailed Vehicle Information:** Displays decoded VIN details, technical specifications (including editable **Oil & Tire** specs), and comprehensive information about the e-shock module.
+    *   **VIN & Gateway Profile Compatibility Check:** Automatically verifies that the ECU VIN matches the programmed Gateway module profile (`DID 0x0001`). Warns the rider with an alert if a mismatch is detected (e.g., Caballero 500 running on a 125cc profile or vice-versa), supporting all Fantic XMF/XEF 125 (`FA13`) and Caballero 125/500 models (`CA13`, `CA14`, `CA50`).
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ab291b80-1c39-4004-949c-0c1492b16649" width="100">
@@ -887,6 +888,7 @@ Thanks to the following contributors for their support:
 *   **DommenicoRenna**
 *   **giovesoft**
 *   **Lionel Thiery**
+*   **ambroiseloiselpro**
 
 
 
