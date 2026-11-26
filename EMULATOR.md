@@ -78,9 +78,9 @@ The emulator acts as an ISO-TP/UDS diagnostic tester toward the e-shock gateway 
 |:---:|:---:|:---|
 | **`0x130`** | `4, 5, 6` | Engine Load (`0..100 %` → `DID 0x000E`) |
 | **`0x260`** | `4, 5, 6` | ECU Speed / Tacho (`DID 0x000B`) & Wakeup ID |
-| **`0x310`** | `1, 4, 5, 6` | Coolant Temp (`DID 0x0011`), Intake Air Temp, RPM (`DID 0x000C`), Side Stand (`DID 0x0009`), Gear (`DID 0x0024`/`0x0025`), Ride Mode (`DID 0x0010`), TPS (`DID 0x0008`), Battery Voltage (`DID 0x0003`) |
+| **`0x310`** | `1, 4, 5, 6` | Coolant Temp (`DID 0x0011`), Intake Air Temp, RPM (`DID 0x000C`), Side Stand (`DID 0x0009`), Gear (`DID 0x0024`/`0x0025`), Unknown Status Bits (`DID 0x0010`), TPS (`DID 0x0008`), Battery Voltage (`DID 0x0003`) |
 | **`0x355` / `0x356`** | `1` | Odometer (`0x355`) and ECU Speed / Tacho (`0x356` → `DID 0x000B`) for XMF/XEF 125 |
-| **`0x500`** | `4, 5, 6` | Primary Gear (`DID 0x0007`), Fuel Counters (`DID 0x000D` & `0x000F`), ECU Active Status (`DID 0x0028`), 20-bit Odometer in `0.125 km` ticks (`DID 0x0027`) |
+| **`0x500`** | `4, 5, 6` | Primary Gear (`DID 0x0007`), Fuel Counters (`DID 0x000D` & `0x000F`), Unknown Status Bits (`DID 0x000A` & `0x0028`), 20-bit Odometer in `0.125 km` ticks (`DID 0x0027`) |
 
 ---
 
@@ -101,7 +101,7 @@ data310[2] = (uint8_t)(g_vehicle.rpm & 0xFF);          // DID 0x000C: RPM LSB (L
 data310[3] = (uint8_t)((g_vehicle.rpm >> 8) & 0xFF);   // DID 0x000C: RPM MSB
 data310[4] = ((!g_vehicle.kickstandDown) ? 0x80 : 0x00)// Bit 7: Side Stand (1=Up -> DID 0x0009)
            | ((g_vehicle.gear & 0x07) << 4)            // Bits 4..6: Gear (0..6 -> DID 0x0024/0x0025)
-           | ((g_vehicle.gear & 0x03) << 2) | 0x01;    // Bits 2..3: Mode (DID 0x0010), Bit 0: Ign
+           | ((g_vehicle.gear & 0x03) << 2) | 0x01;    // Bits 2..3: Unknown Status Bits (DID 0x0010), Bit 0: Ign
 data310[5] = (uint8_t)((g_vehicle.throttlePct * 5 + 1) / 2); // DID 0x0008: TPS (0..250 -> 0.5% steps)
 data310[6] = (uint8_t)roundf(g_vehicle.batteryMillivolts / 70.5f); // DID 0x0003: 70.5 mV/bit
 sendCanFrame(0x310, 8, data310);
@@ -111,7 +111,7 @@ uint32_t odoTicks = g_vehicle.odometerKm * 8;          // 0.125 km (1/8 km) reso
 uint8_t data500[8] = {0};
 data500[0] = g_vehicle.gear;                           // DID 0x0007: Gear (0=N, 1..6)
 data500[2] = g_vehicle.fuelCoarseCount;                // DID 0x000F: Coarse Fuel Counter (0..255)
-data500[3] = 0x02;                                     // Bit 1: Engine/ECU Active (DID 0x0028 = 1)
+data500[3] = 0x02;                                     // Bit 1: Unknown Status Bit (DID 0x0028)
 data500[4] = (uint8_t)((g_vehicle.fuelFinePct * 5 + 1) / 2); // DID 0x000D: Fine Counter (0..100%)
 data500[5] = (uint8_t)(odoTicks & 0xFF);               // DID 0x0027: Odometer LSB
 data500[6] = (uint8_t)((odoTicks >> 8) & 0xFF);
