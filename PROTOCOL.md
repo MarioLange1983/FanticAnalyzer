@@ -281,23 +281,23 @@ The status byte (e.g., `0x8D` -> binary `10001101`) reveals the precise lifecycl
 | `0007` | **Gear Position (Primary)** | 1-byte (`0x00` = Neutral, `0x01`..`0x06` = 1st..6th Gear; `0xFF` in stock V1.1 Profile 1) | **Combustion** (`4, 5, 6`)* | ✅ | ❌ | `0x500` byte 0 |
 | `0008` | **Throttle Position (TPS)** | 1-byte in 0.5% steps (`Value / 2.0f` = %, `0..200` $\widehat{=}$ 0.0..100.0%) | **All** (`1, 4, 5, 6, 11, 12`) | ✅ | ❌ | `0x310` byte 5 |
 | `0009` | **Kickstand Status** | 1-byte (`0x01` = Retracted/Up/Ready, `0x00` = Deployed/Down) | **All** (`1, 4, 5, 6, 11, 12`) | ✅ | ❌ | `0x310` byte 4 bit 7 |
-| `000A` | **Killswitch / Status Bits** | 1-byte status bits (`0x00` in normal operation) | **Combustion** (`1, 4, 5, 6`) | ✅ | ❌ | `0x310` / `0x500` byte 3 |
+| `000A` | **Unknown** | 1-byte status bits (`0x00` in normal operation, `0xFF` on timeout) | **Combustion** (`4, 5, 6`) | ✅ | ❌ | `0x500` byte 3 bits 5-6 |
 | `000B` | **ECU Vehicle Speed (Tacho)** | 2-byte Big-Endian Integer in **`0.1 km/h`** (`Value / 10.0` km/h, includes +8% speedometer lead on Profiles 4/5/6 and +6% on Profile 1; `0x0000` at standstill, `0xFFFF` on timeout) | **Combustion** (`1, 4, 5, 6`) | ✅ | ❌ | `0x260` bytes 2-3 (`4, 5, 6`) / `0x356` (`1`) |
 | `000C` | **Engine RPM** | 2-byte Big-Endian Integer (RPM in U/min) | **Combustion** (`1, 4, 5, 6`) | ✅ | ❌ | `0x310` bytes 2-3 (LE) |
 | `000D` | **Fuel Metric Counter** | 1-byte Counter (`0..102`, **modulo 103** via `round(Byte 4 * 0.4)`; `0xFF` on timeout / Profile 1) | **Combustion** (`4, 5, 6`) | ✅ | ❌ | `0x500` byte 4 |
 | `000E` | **Engine Load** | 1-byte Integer (`0..100 %`; `0xFF` in stock V1.1 Profile 1) | **Combustion** (`4, 5, 6`) | ✅ | ❌ | `0x130` byte 0 |
 | `000F` | **Counter 0x000F (Low 8-Bit)** | 1-byte Integer (`0..255`, **modulo 256**; lower 8 bits of 9-bit CAN field `0x500` bytes 2-3; `0xFF` in Profile 1) | **Combustion** (`4, 5, 6`) | ✅ | ❌ | `0x500` bytes 2-3 |
-| `0010` | **Ride Mode / Switch State** | 1-byte (`0..3`) | **All** (`1, 4, 5, 6, 11, 12`) | ✅ | ❌ | `0x310` byte 4 bits 2-3 |
+| `0010` | **Unknown** | 1-byte status/switch bits (`0..3`) | **All** (`1, 4, 5, 6, 11, 12`) | ✅ | ❌ | `0x310` byte 4 bits 2-3 |
 | `0011` | **Engine Coolant Temp** | 1-byte signed integer in °C (`Byte 0 - 40`) | **Combustion** (`1, 4, 5, 6`) | ✅ | ❌ | `0x310` byte 0 |
 | `0012`..`001A` | **Electric Drive Metrics** | 1..2-byte Inverter/Motor metrics (`0xFF`/`0xFFFF` on combustion; removed in V2.03 -> `7F 22 13`) | **Electric only** (`11, 12`) | ✅ | ❌ | CAN `0x1A4` / `0x2F2` |
 | `001B`..`0023` | *Reserved* | Unused in firmware table -> returns NRC `0x13` | **None** *(Reserved)* | ❌ | ❌ | – |
 | `0024` | **Gear Position (Secondary)** | 1-byte (`0..6`, V1.1 only; `0xFF` in Profile 1; removed in V2.03 -> `7F 22 13`) | **Combustion** (`4, 5, 6`) | ✅ | ❌ | `0x310` byte 4 bits 4-6 |
-| `0025` | **Status Channel 1 / Gear Aux** | 1-byte (Gear bits `0x310` B4 / UDS `0x7D0` DID `0x0109` status) | **Combustion** (`4, 5, 6`) | ✅ | ❌ | `0x310` B4 / `0x7D0` |
-| `0026` | **Status Channel 2** | 2-byte (`0x0000` in normal operation) | **Combustion** (`4, 5, 6`) | ✅ | ❌ | `0x260` B0-1 / `0x7D0` |
+| `0025` | **Unknown** | 1-byte status/gear auxiliary bits | **Combustion** (`4, 5, 6`) | ✅ | ❌ | `0x310` B4 / `0x7D0` |
+| `0026` | **Unknown** | 2-byte (`0x0000` in normal operation) | **Combustion** (`4, 5, 6`) | ✅ | ❌ | `0x260` B0-1 / `0x7D0` |
 | `0027` | **Total Odometer** | 4-byte Big-Endian in `0.125 km` (1/8 km) ticks (`Ticks / 8.0f` = km; `0xFFFFFFFF` in stock V1.1 Profile 1) | **Combustion** (`4, 5, 6`)* | ✅ | ❌ | `0x500` bytes 5-7 (`4, 5, 6`) / `0x355` (`1`*) |
-| `0028` | **ECU Active Status** | 1-byte (`0x01` = Engine/ECU active, `0x00` = Ignition on without engine start; `0xFF` in Profile 1) | **Combustion** (`4, 5, 6`) | ✅ | ❌ | `0x500` byte 3 bit 1 |
+| `0028` | **Unknown** | 1-byte status bit (`0x00`/`0x01`; `0xFF` in Profile 1) | **Combustion** (`4, 5, 6`) | ✅ | ❌ | `0x500` byte 3 bit 1 |
 | `0029`..`002B` | **Electric Status** | 1-byte (`0xFF` on combustion profiles) | **Electric only** (`11, 12`) | ✅ | ❌ | CAN `0x2F2` (VCU/BMS) |
-| `002C` | **Gateway Error Status** | 1-byte Gateway internal status flag (`0x00` = OK) | **All** (`1, 4, 5, 6, 11, 12`) | ✅ | ❌ | Gateway internal |
+| `002C` | **Vehicle DTC Active Flag** | 1-byte (`0x00` = no vehicle DTCs, `0x02` = vehicle DTCs present) | **All** (`1, 4, 5, 6, 11, 12`) | ✅ | ❌ | Gateway internal |
 | `E501` | **Module Identification** | 72-byte composite block (20B Serial + 20B Name + 20B SW + 10B Bootloader + 2B Model) | **All** (`0, 1, 4, 5, 6, 11, 12`) | ✅ | ❌ | Gateway internal |
 | `E502` | **DID Directory** | Array of supported 16-bit DIDs (**43 DIDs / 86 B** in V1.1, **30 DIDs / 60 B** in V2.03) | **All** (`0, 1, 4, 5, 6, 11, 12`) | ✅ | ❌ | Gateway flash |
 | `E503` | **Stream Dictionary** | Array of 16-bit DIDs defining the C3 stream payload (Writing sets `CONFIG COMPLETED`) | **All** (`0, 1, 4, 5, 6, 11, 12`) | ✅ | ✅ (`0x2E`) | Gateway RAM |
@@ -315,7 +315,7 @@ The e-shock gateway selects its CAN signal decoder, UDS tester target ECUs, and 
 | Gateway Profile (`DID 0x0001` / `0xFD03`) | VIN Prefix (`DID 0x0002`) | Assigned Motorcycle Models | Wakeup CAN ID | Telemetry Scope |
 |:---:|:---|:---|:---:|:---|
 | **Profile 0** (`0x0000`) | – | *Unconfigured / Factory Default (after `0xFDA1` reset)* | `0x100` | Gateway identification only (BLE disabled by default) |
-| **Profile 1** (`0x0001`) | `ZFMFA13...` | **Fantic XMF 125** (Performance `MP` / Competition `MC`)<br>**Fantic XEF 125** (Performance `EP` / Competition `EC`) | `0x310` | **Limited Combustion Telemetry** (RPM, Coolant, TPS, Sidestand, Ubatt, Consumption via `0x356`; stock V1.1 omits Gear, Load & Odometer) |
+| **Profile 1** (`0x0001`) | `ZFMFA13...` | **Fantic XMF 125** (Performance `MP` / Competition `MC`)<br>**Fantic XEF 125** (Performance `EP` / Competition `EC`) | `0x310` | **Limited Combustion Telemetry** (RPM, Coolant, TPS, Sidestand, Ubatt, ECU Speed via `0x356`; stock V1.1 omits Gear, Load & Odometer) |
 | **Profile 4** (`0x0004`) | `ZFMCA50...` | **Fantic Caballero 500** (Scrambler `1S`, Deluxe `5S`, Flat Track `1F`, Rally `1R`, Explorer, Six Days) | `0x260` | **Full Combustion Telemetry** (`0x130`, `0x260`, `0x310`, `0x500` + Engine `0x7A0` & Dash `0x7D0` UDS) |
 | **Profile 5** (`0x0005`) | `ZFMCA13...` / `ZFMCA14...` | **Fantic Caballero 125** (Scrambler `1S`/`0S`, Deluxe `5S`, Flat Track `1F`, Rally `1R` — MY24 & MY25) | `0x260` | **Full Combustion Telemetry** (identical CAN/UDS layout to Profile 4) |
 | **Profile 6** (`0x0006`) | *Unconfirmed* | *Reserved / Unconfirmed Combustion Profile* *(Note: Caballero 700 has Bluetooth integrated in its TFT dashboard and does **not** use this module)* | `0x260` | **Full Combustion Telemetry** (shares `0x260` wake & combustion decoder with Profile 4/5) |
