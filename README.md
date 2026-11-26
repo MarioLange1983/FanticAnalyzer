@@ -195,21 +195,21 @@ The application utilizes Bluetooth Low Energy (BLE) to establish a data link bet
 
 *   **Navigation & Routing:**
     *   **Background Navigation & Seamless Resuming:** Turn-by-turn navigation continues running smoothly in the background when closing Fullscreen Dashboard or minimizing the app, featuring an interactive active navigation banner on the main dashboard to quickly resume.
-    *   **Standalone "GPX & Tours" Section:** Dedicated section in the navigation sheet allowing you to pick external `.gpx` files or select recorded trips to re-navigate ("Nachfahren").
+    *   **Standalone "GPX & Tours" Section:** Dedicated section in the navigation sheet allowing you to pick external `.gpx` files (supporting tracks `<trkpt>`, routes `<rtept>` from Kurviger/Calimoto/Garmin, and `<wpt>` fallback) or select recorded trips to re-navigate ("Nachfahren").
     *   **Interactive GPX Route Dialog & Map Preview:** Opening GPX files inside or outside the app ("Open with Fantic Analyzer") displays an interactive MapLibre map preview with track polylines, start/finish markers, and 3 clear routing options (*To Start*, *To Destination*, *Next Point/Smart Entry*).
     *   **Smart Round-Trip & Loop Reordering:** Intelligently handles circular loop GPX routes by reordering trackpoints to start from the nearest entry point without cutting off loop segments or throwing 400 errors.
-    *   **Round-Trip Generation:** Generate exciting loops with customizable distance (20-250km, with magnetic snapping every 25km and haptic feedback) and interactive map previews.
+    *   **Round-Trip Generation:** Generate exciting loops with customizable distance (20–250 km, magnetic 25 km snapping, haptic feedback), interactive map previews, and 2-stage anti-spur road-class filtering to avoid dead-end side-street detours.
     *   **Dynamic Map Zoom:** Automatic Mercator scale calculation adjusting map camera bounds smoothly between 20 km and 250+ km.
     *   **Enhanced UI:** Modern destination details including **Distance** and **Estimated Travel Time** with clear icons.
-    *   **Destination Search:** Built-in search powered by Photon API with debounced queries, map previews, and an auto-collapsing result list once a destination is selected.
-    *   **Advanced Routing Options:** Centralized settings to avoid highways, tolls, ferries, or unpaved roads. Customize motorcycle-specific costing factors like hilliness and road class preference.
+    *   **Destination Search:** Built-in search powered by Photon API with debounced queries, map previews using your active routing profile, and an auto-collapsing result list once a destination is selected.
+    *   **Motorcycle Routing Options:** Centralized settings to avoid highways, tolls, ferries, or unpaved roads, plus a living-streets preference tailored to Valhalla's `motorcycle` costing model.
     *   **Motorcycle-Optimized Routing:** Valhalla-powered routing engine with support for **Custom Server URLs**.
-    *   **Interactive Turn-by-Turn:** Dynamic maneuver instructions and directional icons embedded directly into the Fullscreen Dashboard (Portrait & Landscape).
+    *   **Interactive Turn-by-Turn:** Clean maneuver instructions and directional icons embedded directly into the Fullscreen Dashboard (Portrait & Landscape).
     *   **Exit Navigation Safety Warning:** Confirmation dialog when pressing back while navigation is active to prevent accidental route cancellations.
     *   **Search Protection:** Search destination button automatically disables while navigation is active.
     *   **Real-Time Weather Warnings:** Automatic background monitoring for imminent rain via **Open-Meteo API**. Includes Voice (TTS) and visual alerts on the dashboard.
     *   **Recalculating Feedback:** Clear visual feedback (recalculating banner) when deviating from the route.
-    *   **Adjustable Rerouting:** Configure off-route sensitivity (50m to 500m) to match your riding style.
+    *   **Adjustable Polyline Rerouting:** Polyline-based off-route detection with configurable sensitivity (50 m to 500 m) across destinations, trips, GPX tours, and round trips.
     *   **Customizable TTS:** Adjust voice-guided navigation with **Pitch** and **Speed** settings. Native voice instructions from Valhalla maneuvers.
 
 *   **Service History & Maintenance Management:**
@@ -409,7 +409,6 @@ This project is conducted in accordance with European and German legislation reg
 *   **Vico Charts:** A powerful, light, and composable charting library for Android.
 *   **Google Play Services Location:** For precise GPS tracking, trip logging, and navigation routing.
 *   **OkHttp3:** Robust HTTP client used for network requests.
-*   **Ferrostar:** Core engine used for turn-by-turn navigation logic and maneuver processing.
 *   **Jetpack Security Crypto:** Ensures secure encryption for sensitive local data (e.g., VIN-specific records).
 *   **Jetpack DataStore:** Robust and modern data storage for user preferences and vehicle configurations.
 *   **Kotlinx Serialization:** For efficient JSON-based data management and motorcycle-specific storage.
